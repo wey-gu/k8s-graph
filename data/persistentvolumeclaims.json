@@ -1,0 +1,759 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "annotations": {
+                    "pv.kubernetes.io/bind-completed": "yes",
+                    "pv.kubernetes.io/bound-by-controller": "yes",
+                    "volume.beta.kubernetes.io/storage-provisioner": "k8s.io/minikube-hostpath",
+                    "volume.kubernetes.io/storage-provisioner": "k8s.io/minikube-hostpath"
+                },
+                "creationTimestamp": "2022-11-15T03:09:46Z",
+                "finalizers": [
+                    "kubernetes.io/pvc-protection"
+                ],
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/name": "etcd"
+                },
+                "name": "data-apisix-etcd-0",
+                "namespace": "default",
+                "resourceVersion": "216284",
+                "uid": "da9f514e-b362-4cd5-8d78-afc7fb39d460"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "8Gi"
+                    }
+                },
+                "storageClassName": "standard",
+                "volumeMode": "Filesystem",
+                "volumeName": "pvc-da9f514e-b362-4cd5-8d78-afc7fb39d460"
+            },
+            "status": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "8Gi"
+                },
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "annotations": {
+                    "pv.kubernetes.io/bind-completed": "yes",
+                    "pv.kubernetes.io/bound-by-controller": "yes",
+                    "volume.beta.kubernetes.io/storage-provisioner": "k8s.io/minikube-hostpath",
+                    "volume.kubernetes.io/storage-provisioner": "k8s.io/minikube-hostpath"
+                },
+                "creationTimestamp": "2022-11-15T03:09:46Z",
+                "finalizers": [
+                    "kubernetes.io/pvc-protection"
+                ],
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/name": "etcd"
+                },
+                "name": "data-apisix-etcd-1",
+                "namespace": "default",
+                "resourceVersion": "216293",
+                "uid": "d86f13ed-ed43-4828-bc7b-b271134ed25c"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "8Gi"
+                    }
+                },
+                "storageClassName": "standard",
+                "volumeMode": "Filesystem",
+                "volumeName": "pvc-d86f13ed-ed43-4828-bc7b-b271134ed25c"
+            },
+            "status": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "8Gi"
+                },
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "annotations": {
+                    "pv.kubernetes.io/bind-completed": "yes",
+                    "pv.kubernetes.io/bound-by-controller": "yes",
+                    "volume.beta.kubernetes.io/storage-provisioner": "k8s.io/minikube-hostpath",
+                    "volume.kubernetes.io/storage-provisioner": "k8s.io/minikube-hostpath"
+                },
+                "creationTimestamp": "2022-11-15T03:09:47Z",
+                "finalizers": [
+                    "kubernetes.io/pvc-protection"
+                ],
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/name": "etcd"
+                },
+                "name": "data-apisix-etcd-2",
+                "namespace": "default",
+                "resourceVersion": "216297",
+                "uid": "9373b5e8-721b-44e9-8ebf-0ad0951a7a94"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "8Gi"
+                    }
+                },
+                "storageClassName": "standard",
+                "volumeMode": "Filesystem",
+                "volumeName": "pvc-9373b5e8-721b-44e9-8ebf-0ad0951a7a94"
+            },
+            "status": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "8Gi"
+                },
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/enable-pv-reclaim": "false",
+                    "nebula-graph.io/pod-name": "nebula-graphd-0",
+                    "pv.kubernetes.io/bind-completed": "yes",
+                    "pv.kubernetes.io/bound-by-controller": "yes",
+                    "volume.beta.kubernetes.io/storage-provisioner": "hostpath",
+                    "volume.kubernetes.io/storage-provisioner": "hostpath"
+                },
+                "creationTimestamp": "2022-11-14T09:46:19Z",
+                "finalizers": [
+                    "kubernetes.io/pvc-protection"
+                ],
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "graphd",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "nebula-graph.io/pod-name": "nebula-graphd-0"
+                },
+                "name": "graphd-log-nebula-graphd-0",
+                "namespace": "default",
+                "resourceVersion": "16520",
+                "uid": "e89bd9c1-13be-4395-8c2d-4b08d872b824"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "2Gi"
+                    }
+                },
+                "storageClassName": "hostpath",
+                "volumeMode": "Filesystem",
+                "volumeName": "pvc-e89bd9c1-13be-4395-8c2d-4b08d872b824"
+            },
+            "status": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "2Gi"
+                },
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/enable-pv-reclaim": "false",
+                    "nebula-graph.io/pod-name": "nebula-graphd-1",
+                    "pv.kubernetes.io/bind-completed": "yes",
+                    "pv.kubernetes.io/bound-by-controller": "yes",
+                    "volume.beta.kubernetes.io/storage-provisioner": "hostpath",
+                    "volume.kubernetes.io/storage-provisioner": "hostpath"
+                },
+                "creationTimestamp": "2022-11-16T09:00:37Z",
+                "finalizers": [
+                    "kubernetes.io/pvc-protection"
+                ],
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "graphd",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "nebula-graph.io/pod-name": "nebula-graphd-1"
+                },
+                "name": "graphd-log-nebula-graphd-1",
+                "namespace": "default",
+                "resourceVersion": "505866",
+                "uid": "228cd80a-9aeb-49b2-a4ce-03ee95d75eac"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "2Gi"
+                    }
+                },
+                "storageClassName": "hostpath",
+                "volumeMode": "Filesystem",
+                "volumeName": "pvc-228cd80a-9aeb-49b2-a4ce-03ee95d75eac"
+            },
+            "status": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "2Gi"
+                },
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/enable-pv-reclaim": "false",
+                    "nebula-graph.io/pod-name": "nebula-metad-0",
+                    "pv.kubernetes.io/bind-completed": "yes",
+                    "pv.kubernetes.io/bound-by-controller": "yes",
+                    "volume.beta.kubernetes.io/storage-provisioner": "hostpath",
+                    "volume.kubernetes.io/storage-provisioner": "hostpath"
+                },
+                "creationTimestamp": "2022-11-14T09:45:17Z",
+                "finalizers": [
+                    "kubernetes.io/pvc-protection"
+                ],
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "metad",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "nebula-graph.io/pod-name": "nebula-metad-0"
+                },
+                "name": "metad-data-nebula-metad-0",
+                "namespace": "default",
+                "resourceVersion": "16524",
+                "uid": "13cab4b6-1662-498e-a018-b454142e4ad2"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "2Gi"
+                    }
+                },
+                "storageClassName": "hostpath",
+                "volumeMode": "Filesystem",
+                "volumeName": "pvc-13cab4b6-1662-498e-a018-b454142e4ad2"
+            },
+            "status": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "2Gi"
+                },
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/enable-pv-reclaim": "false",
+                    "nebula-graph.io/pod-name": "nebula-metad-0",
+                    "pv.kubernetes.io/bind-completed": "yes",
+                    "pv.kubernetes.io/bound-by-controller": "yes",
+                    "volume.beta.kubernetes.io/storage-provisioner": "hostpath",
+                    "volume.kubernetes.io/storage-provisioner": "hostpath"
+                },
+                "creationTimestamp": "2022-11-14T09:45:17Z",
+                "finalizers": [
+                    "kubernetes.io/pvc-protection"
+                ],
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "metad",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "nebula-graph.io/pod-name": "nebula-metad-0"
+                },
+                "name": "metad-log-nebula-metad-0",
+                "namespace": "default",
+                "resourceVersion": "16522",
+                "uid": "14d1f216-74f2-4593-9edc-9fe0174cbaf2"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "2Gi"
+                    }
+                },
+                "storageClassName": "hostpath",
+                "volumeMode": "Filesystem",
+                "volumeName": "pvc-14d1f216-74f2-4593-9edc-9fe0174cbaf2"
+            },
+            "status": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "2Gi"
+                },
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/enable-pv-reclaim": "false",
+                    "nebula-graph.io/pod-name": "nebula-storaged-0",
+                    "pv.kubernetes.io/bind-completed": "yes",
+                    "pv.kubernetes.io/bound-by-controller": "yes",
+                    "volume.beta.kubernetes.io/storage-provisioner": "hostpath",
+                    "volume.kubernetes.io/storage-provisioner": "hostpath"
+                },
+                "creationTimestamp": "2022-11-14T09:46:18Z",
+                "finalizers": [
+                    "kubernetes.io/pvc-protection"
+                ],
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "storaged",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "nebula-graph.io/pod-name": "nebula-storaged-0"
+                },
+                "name": "storaged-data-nebula-storaged-0",
+                "namespace": "default",
+                "resourceVersion": "16529",
+                "uid": "9676b735-085d-4ae2-b3b8-6ca4d331776e"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "2Gi"
+                    }
+                },
+                "storageClassName": "hostpath",
+                "volumeMode": "Filesystem",
+                "volumeName": "pvc-9676b735-085d-4ae2-b3b8-6ca4d331776e"
+            },
+            "status": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "2Gi"
+                },
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/enable-pv-reclaim": "false",
+                    "nebula-graph.io/pod-name": "nebula-storaged-1",
+                    "pv.kubernetes.io/bind-completed": "yes",
+                    "pv.kubernetes.io/bound-by-controller": "yes",
+                    "volume.beta.kubernetes.io/storage-provisioner": "hostpath",
+                    "volume.kubernetes.io/storage-provisioner": "hostpath"
+                },
+                "creationTimestamp": "2022-11-14T09:46:18Z",
+                "finalizers": [
+                    "kubernetes.io/pvc-protection"
+                ],
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "storaged",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "nebula-graph.io/pod-name": "nebula-storaged-1"
+                },
+                "name": "storaged-data-nebula-storaged-1",
+                "namespace": "default",
+                "resourceVersion": "16534",
+                "uid": "f68cadac-4bc9-4e4b-94c6-de34b0a741a3"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "2Gi"
+                    }
+                },
+                "storageClassName": "hostpath",
+                "volumeMode": "Filesystem",
+                "volumeName": "pvc-f68cadac-4bc9-4e4b-94c6-de34b0a741a3"
+            },
+            "status": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "2Gi"
+                },
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/enable-pv-reclaim": "false",
+                    "nebula-graph.io/pod-name": "nebula-storaged-2",
+                    "pv.kubernetes.io/bind-completed": "yes",
+                    "pv.kubernetes.io/bound-by-controller": "yes",
+                    "volume.beta.kubernetes.io/storage-provisioner": "hostpath",
+                    "volume.kubernetes.io/storage-provisioner": "hostpath"
+                },
+                "creationTimestamp": "2022-11-14T09:46:19Z",
+                "finalizers": [
+                    "kubernetes.io/pvc-protection"
+                ],
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "storaged",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "nebula-graph.io/pod-name": "nebula-storaged-2"
+                },
+                "name": "storaged-data-nebula-storaged-2",
+                "namespace": "default",
+                "resourceVersion": "16539",
+                "uid": "5a67a414-0b65-4edd-b5c8-7ea4f04c8c41"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "2Gi"
+                    }
+                },
+                "storageClassName": "hostpath",
+                "volumeMode": "Filesystem",
+                "volumeName": "pvc-5a67a414-0b65-4edd-b5c8-7ea4f04c8c41"
+            },
+            "status": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "2Gi"
+                },
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/enable-pv-reclaim": "false",
+                    "nebula-graph.io/pod-name": "nebula-storaged-3",
+                    "pv.kubernetes.io/bind-completed": "yes",
+                    "pv.kubernetes.io/bound-by-controller": "yes",
+                    "volume.beta.kubernetes.io/storage-provisioner": "hostpath",
+                    "volume.kubernetes.io/storage-provisioner": "hostpath"
+                },
+                "creationTimestamp": "2022-12-04T15:27:50Z",
+                "finalizers": [
+                    "kubernetes.io/pvc-protection"
+                ],
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "storaged",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "nebula-graph.io/pod-name": "nebula-storaged-3"
+                },
+                "name": "storaged-data-nebula-storaged-3",
+                "namespace": "default",
+                "resourceVersion": "4389403",
+                "uid": "c380abf8-3f99-45c1-bc1b-6b2973d2c81f"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "2Gi"
+                    }
+                },
+                "storageClassName": "hostpath",
+                "volumeMode": "Filesystem",
+                "volumeName": "pvc-c380abf8-3f99-45c1-bc1b-6b2973d2c81f"
+            },
+            "status": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "2Gi"
+                },
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/enable-pv-reclaim": "false",
+                    "nebula-graph.io/pod-name": "nebula-storaged-0",
+                    "pv.kubernetes.io/bind-completed": "yes",
+                    "pv.kubernetes.io/bound-by-controller": "yes",
+                    "volume.beta.kubernetes.io/storage-provisioner": "hostpath",
+                    "volume.kubernetes.io/storage-provisioner": "hostpath"
+                },
+                "creationTimestamp": "2022-11-14T09:46:18Z",
+                "finalizers": [
+                    "kubernetes.io/pvc-protection"
+                ],
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "storaged",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "nebula-graph.io/pod-name": "nebula-storaged-0"
+                },
+                "name": "storaged-log-nebula-storaged-0",
+                "namespace": "default",
+                "resourceVersion": "16527",
+                "uid": "657bfcf7-1bd8-4730-a342-6e4a0ccf649d"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "2Gi"
+                    }
+                },
+                "storageClassName": "hostpath",
+                "volumeMode": "Filesystem",
+                "volumeName": "pvc-657bfcf7-1bd8-4730-a342-6e4a0ccf649d"
+            },
+            "status": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "2Gi"
+                },
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/enable-pv-reclaim": "false",
+                    "nebula-graph.io/pod-name": "nebula-storaged-1",
+                    "pv.kubernetes.io/bind-completed": "yes",
+                    "pv.kubernetes.io/bound-by-controller": "yes",
+                    "volume.beta.kubernetes.io/storage-provisioner": "hostpath",
+                    "volume.kubernetes.io/storage-provisioner": "hostpath"
+                },
+                "creationTimestamp": "2022-11-14T09:46:18Z",
+                "finalizers": [
+                    "kubernetes.io/pvc-protection"
+                ],
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "storaged",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "nebula-graph.io/pod-name": "nebula-storaged-1"
+                },
+                "name": "storaged-log-nebula-storaged-1",
+                "namespace": "default",
+                "resourceVersion": "16531",
+                "uid": "867f20d6-bc1d-4d86-a1cd-4626d2f3f686"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "2Gi"
+                    }
+                },
+                "storageClassName": "hostpath",
+                "volumeMode": "Filesystem",
+                "volumeName": "pvc-867f20d6-bc1d-4d86-a1cd-4626d2f3f686"
+            },
+            "status": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "2Gi"
+                },
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/enable-pv-reclaim": "false",
+                    "nebula-graph.io/pod-name": "nebula-storaged-2",
+                    "pv.kubernetes.io/bind-completed": "yes",
+                    "pv.kubernetes.io/bound-by-controller": "yes",
+                    "volume.beta.kubernetes.io/storage-provisioner": "hostpath",
+                    "volume.kubernetes.io/storage-provisioner": "hostpath"
+                },
+                "creationTimestamp": "2022-11-14T09:46:19Z",
+                "finalizers": [
+                    "kubernetes.io/pvc-protection"
+                ],
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "storaged",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "nebula-graph.io/pod-name": "nebula-storaged-2"
+                },
+                "name": "storaged-log-nebula-storaged-2",
+                "namespace": "default",
+                "resourceVersion": "16537",
+                "uid": "a0f049ca-7856-4032-aa06-b340243c4a5e"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "2Gi"
+                    }
+                },
+                "storageClassName": "hostpath",
+                "volumeMode": "Filesystem",
+                "volumeName": "pvc-a0f049ca-7856-4032-aa06-b340243c4a5e"
+            },
+            "status": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "2Gi"
+                },
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/enable-pv-reclaim": "false",
+                    "nebula-graph.io/pod-name": "nebula-storaged-3",
+                    "pv.kubernetes.io/bind-completed": "yes",
+                    "pv.kubernetes.io/bound-by-controller": "yes",
+                    "volume.beta.kubernetes.io/storage-provisioner": "hostpath",
+                    "volume.kubernetes.io/storage-provisioner": "hostpath"
+                },
+                "creationTimestamp": "2022-12-04T15:27:50Z",
+                "finalizers": [
+                    "kubernetes.io/pvc-protection"
+                ],
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "storaged",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "nebula-graph.io/pod-name": "nebula-storaged-3"
+                },
+                "name": "storaged-log-nebula-storaged-3",
+                "namespace": "default",
+                "resourceVersion": "4389401",
+                "uid": "af6332b3-e876-40b0-b68d-f72ca0638254"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "2Gi"
+                    }
+                },
+                "storageClassName": "hostpath",
+                "volumeMode": "Filesystem",
+                "volumeName": "pvc-af6332b3-e876-40b0-b68d-f72ca0638254"
+            },
+            "status": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "2Gi"
+                },
+                "phase": "Bound"
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

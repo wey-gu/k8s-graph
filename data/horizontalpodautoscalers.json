@@ -1,0 +1,57 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "autoscaling/v2",
+            "kind": "HorizontalPodAutoscaler",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"autoscaling/v2\",\"kind\":\"HorizontalPodAutoscaler\",\"metadata\":{\"annotations\":{},\"name\":\"my-autoscaler\",\"namespace\":\"default\"},\"spec\":{\"maxReplicas\":10,\"metrics\":[{\"resource\":{\"name\":\"cpu\",\"target\":{\"averageUtilization\":50,\"type\":\"Utilization\"}},\"type\":\"Resource\"}],\"minReplicas\":1,\"scaleTargetRef\":{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"name\":\"my-deployment\"}}}\n"
+                },
+                "creationTimestamp": "2023-04-10T07:15:36Z",
+                "name": "my-autoscaler",
+                "namespace": "default",
+                "resourceVersion": "20990378",
+                "uid": "814a477a-abf3-402a-8b06-9cbf932e9ea6"
+            },
+            "spec": {
+                "maxReplicas": 10,
+                "metrics": [
+                    {
+                        "resource": {
+                            "name": "cpu",
+                            "target": {
+                                "averageUtilization": 50,
+                                "type": "Utilization"
+                            }
+                        },
+                        "type": "Resource"
+                    }
+                ],
+                "minReplicas": 1,
+                "scaleTargetRef": {
+                    "apiVersion": "apps/v1",
+                    "kind": "Deployment",
+                    "name": "my-deployment"
+                }
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastTransitionTime": "2023-04-10T07:15:52Z",
+                        "message": "the HPA controller was unable to get the target's current scale: deployments/scale.apps \"my-deployment\" not found",
+                        "reason": "FailedGetScale",
+                        "status": "False",
+                        "type": "AbleToScale"
+                    }
+                ],
+                "currentMetrics": null,
+                "desiredReplicas": 0
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

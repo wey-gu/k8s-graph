@@ -1,0 +1,753 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "apisix",
+                    "meta.helm.sh/release-namespace": "default"
+                },
+                "creationTimestamp": "2022-11-15T03:10:06Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "apisix",
+                    "app.kubernetes.io/service": "apisix-admin",
+                    "app.kubernetes.io/version": "2.15.0",
+                    "helm.sh/chart": "apisix-0.11.2"
+                },
+                "name": "apisix-admin",
+                "namespace": "default",
+                "resourceVersion": "216472",
+                "uid": "0088966b-d588-42f5-b77d-284511387d51"
+            },
+            "spec": {
+                "clusterIP": "10.103.217.149",
+                "clusterIPs": [
+                    "10.103.217.149"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "apisix-admin",
+                        "port": 9180,
+                        "protocol": "TCP",
+                        "targetPort": 9180
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/name": "apisix"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "apisix-dashboard",
+                    "meta.helm.sh/release-namespace": "default"
+                },
+                "creationTimestamp": "2022-11-15T03:31:48Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix-dashboard",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "apisix-dashboard",
+                    "app.kubernetes.io/version": "2.13.0",
+                    "helm.sh/chart": "apisix-dashboard-0.6.1"
+                },
+                "name": "apisix-dashboard",
+                "namespace": "default",
+                "resourceVersion": "220170",
+                "uid": "3e75bc03-6ae1-4885-92a6-375a0dff53e2"
+            },
+            "spec": {
+                "clusterIP": "10.104.185.230",
+                "clusterIPs": [
+                    "10.104.185.230"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 80,
+                        "protocol": "TCP",
+                        "targetPort": "http"
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "apisix-dashboard",
+                    "app.kubernetes.io/name": "apisix-dashboard"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "apisix",
+                    "meta.helm.sh/release-namespace": "default"
+                },
+                "creationTimestamp": "2022-11-15T03:10:06Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "etcd",
+                    "helm.sh/chart": "etcd-8.3.4"
+                },
+                "name": "apisix-etcd",
+                "namespace": "default",
+                "resourceVersion": "216466",
+                "uid": "ca51b6a2-af3d-4955-8e09-b83cdd7dc476"
+            },
+            "spec": {
+                "clusterIP": "10.110.83.149",
+                "clusterIPs": [
+                    "10.110.83.149"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "client",
+                        "port": 2379,
+                        "protocol": "TCP",
+                        "targetPort": "client"
+                    },
+                    {
+                        "name": "peer",
+                        "port": 2380,
+                        "protocol": "TCP",
+                        "targetPort": "peer"
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/name": "etcd"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "apisix",
+                    "meta.helm.sh/release-namespace": "default",
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
+                },
+                "creationTimestamp": "2022-11-15T03:10:06Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "etcd",
+                    "helm.sh/chart": "etcd-8.3.4"
+                },
+                "name": "apisix-etcd-headless",
+                "namespace": "default",
+                "resourceVersion": "216454",
+                "uid": "7835ac75-39c1-477d-b79e-6238e3f6303f"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "clusterIPs": [
+                    "None"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "client",
+                        "port": 2379,
+                        "protocol": "TCP",
+                        "targetPort": "client"
+                    },
+                    {
+                        "name": "peer",
+                        "port": 2380,
+                        "protocol": "TCP",
+                        "targetPort": "peer"
+                    }
+                ],
+                "publishNotReadyAddresses": true,
+                "selector": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/name": "etcd"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "apisix",
+                    "meta.helm.sh/release-namespace": "default"
+                },
+                "creationTimestamp": "2022-11-15T03:10:06Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "apisix",
+                    "app.kubernetes.io/service": "apisix-gateway",
+                    "app.kubernetes.io/version": "2.15.0",
+                    "helm.sh/chart": "apisix-0.11.2"
+                },
+                "name": "apisix-gateway",
+                "namespace": "default",
+                "resourceVersion": "216465",
+                "uid": "d0939c29-d2a3-4c29-bdfa-c162fe075fd2"
+            },
+            "spec": {
+                "clusterIP": "10.103.82.194",
+                "clusterIPs": [
+                    "10.103.82.194"
+                ],
+                "externalTrafficPolicy": "Cluster",
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "apisix-gateway",
+                        "nodePort": 31701,
+                        "port": 80,
+                        "protocol": "TCP",
+                        "targetPort": 9080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/name": "apisix"
+                },
+                "sessionAffinity": "None",
+                "type": "NodePort"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "apisix",
+                    "meta.helm.sh/release-namespace": "default"
+                },
+                "creationTimestamp": "2022-11-15T03:10:06Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "ingress-controller",
+                    "app.kubernetes.io/version": "1.5.0",
+                    "helm.sh/chart": "ingress-controller-0.10.1"
+                },
+                "name": "apisix-ingress-controller",
+                "namespace": "default",
+                "resourceVersion": "216459",
+                "uid": "4378eebf-a997-471e-9022-89f67b27300d"
+            },
+            "spec": {
+                "clusterIP": "10.98.157.29",
+                "clusterIPs": [
+                    "10.98.157.29"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 80,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/name": "ingress-controller"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"apisix\",\"app.kubernetes.io/name\":\"apisix\"},\"name\":\"apisix-svc\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"thrift\",\"nodePort\":9779,\"port\":9779,\"protocol\":\"TCP\",\"targetPort\":9779},{\"name\":\"http\",\"nodePort\":19779,\"port\":19779,\"protocol\":\"TCP\",\"targetPort\":19779}],\"selector\":{\"app.kubernetes.io/instance\":\"apisix\",\"app.kubernetes.io/name\":\"apisix\"},\"type\":\"NodePort\"}}\n"
+                },
+                "creationTimestamp": "2022-11-15T04:13:06Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/name": "apisix"
+                },
+                "name": "apisix-svc",
+                "namespace": "default",
+                "resourceVersion": "279507",
+                "uid": "c73cb9de-6e2b-4b5a-9e7e-abc9637ba277"
+            },
+            "spec": {
+                "clusterIP": "10.98.72.138",
+                "clusterIPs": [
+                    "10.98.72.138"
+                ],
+                "externalTrafficPolicy": "Cluster",
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "thrift",
+                        "nodePort": 9779,
+                        "port": 9779,
+                        "protocol": "TCP",
+                        "targetPort": 9779
+                    },
+                    {
+                        "name": "http",
+                        "nodePort": 19779,
+                        "port": 19779,
+                        "protocol": "TCP",
+                        "targetPort": 19779
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/name": "apisix"
+                },
+                "sessionAffinity": "None",
+                "type": "NodePort"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "creationTimestamp": "2022-11-14T08:15:39Z",
+                "labels": {
+                    "component": "apiserver",
+                    "provider": "kubernetes"
+                },
+                "name": "kubernetes",
+                "namespace": "default",
+                "resourceVersion": "194",
+                "uid": "62f66e90-f524-4cda-94d0-df96e2ff770e"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.1",
+                "clusterIPs": [
+                    "10.96.0.1"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "https",
+                        "port": 443,
+                        "protocol": "TCP",
+                        "targetPort": 8443
+                    }
+                ],
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"metad-0\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":19559,\"protocol\":\"TCP\",\"targetPort\":19559},{\"name\":\"thrift\",\"nodePort\":9559,\"port\":9559,\"protocol\":\"TCP\",\"targetPort\":9559}],\"selector\":{\"statefulset.kubernetes.io/pod-name\":\"nebula-metad-0\"},\"type\":\"NodePort\"}}\n"
+                },
+                "creationTimestamp": "2022-11-15T05:27:25Z",
+                "name": "metad-0",
+                "namespace": "default",
+                "resourceVersion": "239156",
+                "uid": "e358d659-205a-4828-b180-6ab3dd25b18b"
+            },
+            "spec": {
+                "clusterIP": "10.101.86.4",
+                "clusterIPs": [
+                    "10.101.86.4"
+                ],
+                "externalTrafficPolicy": "Cluster",
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "nodePort": 29119,
+                        "port": 19559,
+                        "protocol": "TCP",
+                        "targetPort": 19559
+                    },
+                    {
+                        "name": "thrift",
+                        "nodePort": 9559,
+                        "port": 9559,
+                        "protocol": "TCP",
+                        "targetPort": 9559
+                    }
+                ],
+                "selector": {
+                    "statefulset.kubernetes.io/pod-name": "nebula-metad-0"
+                },
+                "sessionAffinity": "None",
+                "type": "NodePort"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/last-applied-configuration": "{\"ports\":[{\"name\":\"thrift\",\"protocol\":\"TCP\",\"port\":9669,\"targetPort\":9669},{\"name\":\"http\",\"protocol\":\"TCP\",\"port\":19669,\"targetPort\":19669},{\"name\":\"http2\",\"protocol\":\"TCP\",\"port\":19670,\"targetPort\":19670}],\"selector\":{\"app.kubernetes.io/cluster\":\"nebula\",\"app.kubernetes.io/component\":\"graphd\",\"app.kubernetes.io/managed-by\":\"nebula-operator\",\"app.kubernetes.io/name\":\"nebula-graph\"},\"type\":\"NodePort\"}"
+                },
+                "creationTimestamp": "2022-11-14T09:46:19Z",
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "graphd",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph"
+                },
+                "name": "nebula-graphd-svc",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps.nebula-graph.io/v1alpha1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "NebulaCluster",
+                        "name": "nebula",
+                        "uid": "6ee6fc37-758c-428b-802c-13986968e5a1"
+                    }
+                ],
+                "resourceVersion": "506492",
+                "uid": "360402ea-8f9f-4495-981d-10d94b58f8cd"
+            },
+            "spec": {
+                "clusterIP": "10.107.113.121",
+                "clusterIPs": [
+                    "10.107.113.121"
+                ],
+                "externalTrafficPolicy": "Cluster",
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "thrift",
+                        "nodePort": 9669,
+                        "port": 9669,
+                        "protocol": "TCP",
+                        "targetPort": 9669
+                    },
+                    {
+                        "name": "http",
+                        "nodePort": 31981,
+                        "port": 19669,
+                        "protocol": "TCP",
+                        "targetPort": 19669
+                    },
+                    {
+                        "name": "http2",
+                        "nodePort": 30074,
+                        "port": 19670,
+                        "protocol": "TCP",
+                        "targetPort": 19670
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "graphd",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph"
+                },
+                "sessionAffinity": "None",
+                "type": "NodePort"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "creationTimestamp": "2022-11-14T09:46:22Z",
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "graphd",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph"
+                },
+                "name": "nebula-graphd-svc-nodeport",
+                "namespace": "default",
+                "resourceVersion": "16567",
+                "uid": "62de18ea-6ce9-4220-9134-0cb4bb587820"
+            },
+            "spec": {
+                "clusterIP": "10.105.66.74",
+                "clusterIPs": [
+                    "10.105.66.74"
+                ],
+                "externalTrafficPolicy": "Local",
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "thrift",
+                        "nodePort": 32669,
+                        "port": 9669,
+                        "protocol": "TCP",
+                        "targetPort": 9669
+                    },
+                    {
+                        "name": "http",
+                        "nodePort": 32001,
+                        "port": 19669,
+                        "protocol": "TCP",
+                        "targetPort": 19669
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "graphd",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph"
+                },
+                "sessionAffinity": "None",
+                "type": "NodePort"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/last-applied-configuration": "{\"ports\":[{\"name\":\"thrift\",\"protocol\":\"TCP\",\"port\":9559,\"targetPort\":9559},{\"name\":\"http\",\"protocol\":\"TCP\",\"port\":19559,\"targetPort\":19559},{\"name\":\"http2\",\"protocol\":\"TCP\",\"port\":19560,\"targetPort\":19560}],\"selector\":{\"app.kubernetes.io/cluster\":\"nebula\",\"app.kubernetes.io/component\":\"metad\",\"app.kubernetes.io/managed-by\":\"nebula-operator\",\"app.kubernetes.io/name\":\"nebula-graph\"},\"clusterIP\":\"None\",\"publishNotReadyAddresses\":true}"
+                },
+                "creationTimestamp": "2022-11-14T09:45:16Z",
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "metad",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph"
+                },
+                "name": "nebula-metad-headless",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps.nebula-graph.io/v1alpha1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "NebulaCluster",
+                        "name": "nebula",
+                        "uid": "6ee6fc37-758c-428b-802c-13986968e5a1"
+                    }
+                ],
+                "resourceVersion": "16167",
+                "uid": "6036267a-243b-4843-9a9f-f5a95294b03d"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "clusterIPs": [
+                    "None"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "thrift",
+                        "port": 9559,
+                        "protocol": "TCP",
+                        "targetPort": 9559
+                    },
+                    {
+                        "name": "http",
+                        "port": 19559,
+                        "protocol": "TCP",
+                        "targetPort": 19559
+                    },
+                    {
+                        "name": "http2",
+                        "port": 19560,
+                        "protocol": "TCP",
+                        "targetPort": 19560
+                    }
+                ],
+                "publishNotReadyAddresses": true,
+                "selector": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "metad",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/last-applied-configuration": "{\"ports\":[{\"name\":\"thrift\",\"protocol\":\"TCP\",\"port\":9779,\"targetPort\":9779},{\"name\":\"http\",\"protocol\":\"TCP\",\"port\":19779,\"targetPort\":19779},{\"name\":\"http2\",\"protocol\":\"TCP\",\"port\":19780,\"targetPort\":19780},{\"name\":\"admin\",\"protocol\":\"TCP\",\"port\":9778,\"targetPort\":9778}],\"selector\":{\"app.kubernetes.io/cluster\":\"nebula\",\"app.kubernetes.io/component\":\"storaged\",\"app.kubernetes.io/managed-by\":\"nebula-operator\",\"app.kubernetes.io/name\":\"nebula-graph\"},\"clusterIP\":\"None\",\"publishNotReadyAddresses\":true}"
+                },
+                "creationTimestamp": "2022-11-14T09:46:18Z",
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "storaged",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph"
+                },
+                "name": "nebula-storaged-headless",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps.nebula-graph.io/v1alpha1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "NebulaCluster",
+                        "name": "nebula",
+                        "uid": "6ee6fc37-758c-428b-802c-13986968e5a1"
+                    }
+                ],
+                "resourceVersion": "16409",
+                "uid": "14a14a80-1291-406d-aa0c-43a6967f7030"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "clusterIPs": [
+                    "None"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "thrift",
+                        "port": 9779,
+                        "protocol": "TCP",
+                        "targetPort": 9779
+                    },
+                    {
+                        "name": "http",
+                        "port": 19779,
+                        "protocol": "TCP",
+                        "targetPort": 19779
+                    },
+                    {
+                        "name": "http2",
+                        "port": 19780,
+                        "protocol": "TCP",
+                        "targetPort": 19780
+                    },
+                    {
+                        "name": "admin",
+                        "port": 9778,
+                        "protocol": "TCP",
+                        "targetPort": 9778
+                    }
+                ],
+                "publishNotReadyAddresses": true,
+                "selector": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "storaged",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

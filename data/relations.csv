@@ -1,0 +1,85 @@
+source,source_name,relationship,target,target_name
+Service,apisix-admin,selects,Pod,apisix-6d89854bc5-5m788
+Service,apisix-dashboard,selects,Pod,apisix-dashboard-b544bd766-nh79j
+Service,apisix-etcd,selects,Pod,apisix-etcd-0
+Service,apisix-etcd,selects,Pod,apisix-etcd-1
+Service,apisix-etcd,selects,Pod,apisix-etcd-2
+Service,apisix-etcd-headless,selects,Pod,apisix-etcd-0
+Service,apisix-etcd-headless,selects,Pod,apisix-etcd-1
+Service,apisix-etcd-headless,selects,Pod,apisix-etcd-2
+Service,apisix-gateway,selects,Pod,apisix-6d89854bc5-5m788
+Service,apisix-ingress-controller,selects,Pod,apisix-ingress-controller-6ccdb9c8fc-css8c
+Service,apisix-svc,selects,Pod,apisix-6d89854bc5-5m788
+Service,metad-0,selects,Pod,nebula-metad-0
+Service,nebula-graphd-svc,selects,Pod,nebula-graphd-0
+Service,nebula-graphd-svc,selects,Pod,nebula-graphd-1
+Service,nebula-graphd-svc-nodeport,selects,Pod,nebula-graphd-0
+Service,nebula-graphd-svc-nodeport,selects,Pod,nebula-graphd-1
+Service,nebula-metad-headless,selects,Pod,nebula-metad-0
+Service,nebula-storaged-headless,selects,Pod,nebula-storaged-0
+Service,nebula-storaged-headless,selects,Pod,nebula-storaged-1
+Service,nebula-storaged-headless,selects,Pod,nebula-storaged-2
+Service,nebula-storaged-headless,selects,Pod,nebula-storaged-3
+StatefulSet,apisix-etcd,controls,Pod,apisix-etcd-0
+StatefulSet,apisix-etcd,controls,Pod,apisix-etcd-1
+StatefulSet,apisix-etcd,controls,Pod,apisix-etcd-2
+StatefulSet,nebula-graphd,controls,Pod,nebula-graphd-0
+StatefulSet,nebula-graphd,controls,Pod,nebula-graphd-1
+StatefulSet,nebula-metad,controls,Pod,nebula-metad-0
+StatefulSet,nebula-storaged,controls,Pod,nebula-storaged-0
+StatefulSet,nebula-storaged,controls,Pod,nebula-storaged-1
+StatefulSet,nebula-storaged,controls,Pod,nebula-storaged-2
+StatefulSet,nebula-storaged,controls,Pod,nebula-storaged-3
+DaemonSet,my-daemonset,controls,Pod,my-daemonset-b8c79
+ReplicaSet,apisix-6d89854bc5,controls,Pod,apisix-6d89854bc5-5m788
+ReplicaSet,apisix-dashboard-b544bd766,controls,Pod,apisix-dashboard-b544bd766-nh79j
+ReplicaSet,apisix-ingress-controller-6ccdb9c8fc,controls,Pod,apisix-ingress-controller-6ccdb9c8fc-css8c
+Deployment,apisix,creates,ReplicaSet,apisix-6d89854bc5
+Deployment,apisix-dashboard,creates,ReplicaSet,apisix-dashboard-b544bd766
+Deployment,apisix-ingress-controller,creates,ReplicaSet,apisix-ingress-controller-6ccdb9c8fc
+Pod,apisix-etcd-0,uses,PersistentVolumeClaim,data-apisix-etcd-0
+Pod,apisix-etcd-1,uses,PersistentVolumeClaim,data-apisix-etcd-1
+Pod,apisix-etcd-2,uses,PersistentVolumeClaim,data-apisix-etcd-2
+Pod,nebula-graphd-0,uses,PersistentVolumeClaim,graphd-log-nebula-graphd-0
+Pod,nebula-graphd-1,uses,PersistentVolumeClaim,graphd-log-nebula-graphd-1
+Pod,nebula-metad-0,uses,PersistentVolumeClaim,metad-log-nebula-metad-0
+Pod,nebula-metad-0,uses,PersistentVolumeClaim,metad-data-nebula-metad-0
+Pod,nebula-storaged-0,uses,PersistentVolumeClaim,storaged-log-nebula-storaged-0
+Pod,nebula-storaged-0,uses,PersistentVolumeClaim,storaged-data-nebula-storaged-0
+Pod,nebula-storaged-1,uses,PersistentVolumeClaim,storaged-log-nebula-storaged-1
+Pod,nebula-storaged-1,uses,PersistentVolumeClaim,storaged-data-nebula-storaged-1
+Pod,nebula-storaged-2,uses,PersistentVolumeClaim,storaged-log-nebula-storaged-2
+Pod,nebula-storaged-2,uses,PersistentVolumeClaim,storaged-data-nebula-storaged-2
+Pod,nebula-storaged-3,uses,PersistentVolumeClaim,storaged-log-nebula-storaged-3
+Pod,nebula-storaged-3,uses,PersistentVolumeClaim,storaged-data-nebula-storaged-3
+PersistentVolumeClaim,data-apisix-etcd-0,binds to,PersistentVolume,pvc-da9f514e-b362-4cd5-8d78-afc7fb39d460
+PersistentVolumeClaim,data-apisix-etcd-1,binds to,PersistentVolume,pvc-d86f13ed-ed43-4828-bc7b-b271134ed25c
+PersistentVolumeClaim,data-apisix-etcd-2,binds to,PersistentVolume,pvc-9373b5e8-721b-44e9-8ebf-0ad0951a7a94
+PersistentVolumeClaim,graphd-log-nebula-graphd-0,binds to,PersistentVolume,pvc-e89bd9c1-13be-4395-8c2d-4b08d872b824
+PersistentVolumeClaim,graphd-log-nebula-graphd-1,binds to,PersistentVolume,pvc-228cd80a-9aeb-49b2-a4ce-03ee95d75eac
+PersistentVolumeClaim,metad-data-nebula-metad-0,binds to,PersistentVolume,pvc-13cab4b6-1662-498e-a018-b454142e4ad2
+PersistentVolumeClaim,metad-log-nebula-metad-0,binds to,PersistentVolume,pvc-14d1f216-74f2-4593-9edc-9fe0174cbaf2
+PersistentVolumeClaim,storaged-data-nebula-storaged-0,binds to,PersistentVolume,pvc-9676b735-085d-4ae2-b3b8-6ca4d331776e
+PersistentVolumeClaim,storaged-data-nebula-storaged-1,binds to,PersistentVolume,pvc-f68cadac-4bc9-4e4b-94c6-de34b0a741a3
+PersistentVolumeClaim,storaged-data-nebula-storaged-2,binds to,PersistentVolume,pvc-5a67a414-0b65-4edd-b5c8-7ea4f04c8c41
+PersistentVolumeClaim,storaged-data-nebula-storaged-3,binds to,PersistentVolume,pvc-c380abf8-3f99-45c1-bc1b-6b2973d2c81f
+PersistentVolumeClaim,storaged-log-nebula-storaged-0,binds to,PersistentVolume,pvc-657bfcf7-1bd8-4730-a342-6e4a0ccf649d
+PersistentVolumeClaim,storaged-log-nebula-storaged-1,binds to,PersistentVolume,pvc-867f20d6-bc1d-4d86-a1cd-4626d2f3f686
+PersistentVolumeClaim,storaged-log-nebula-storaged-2,binds to,PersistentVolume,pvc-a0f049ca-7856-4032-aa06-b340243c4a5e
+PersistentVolumeClaim,storaged-log-nebula-storaged-3,binds to,PersistentVolume,pvc-af6332b3-e876-40b0-b68d-f72ca0638254
+Ingress,my-ingress,routes to,Service,api-service
+Ingress,my-ingress,routes to,Service,dashboard-service
+Pod,apisix-6d89854bc5-5m788,uses,ConfigMap,apisix
+Pod,apisix-dashboard-b544bd766-nh79j,uses,ConfigMap,apisix-dashboard
+Pod,apisix-etcd-0,uses,Secret,apisix-etcd-jwt-token
+Pod,apisix-etcd-1,uses,Secret,apisix-etcd-jwt-token
+Pod,apisix-etcd-2,uses,Secret,apisix-etcd-jwt-token
+Pod,apisix-ingress-controller-6ccdb9c8fc-css8c,uses,ConfigMap,apisix-configmap
+Pod,nebula-graphd-0,uses,ConfigMap,nebula-graphd
+Pod,nebula-graphd-1,uses,ConfigMap,nebula-graphd
+Pod,nebula-metad-0,uses,ConfigMap,nebula-metad
+Pod,nebula-storaged-0,uses,ConfigMap,nebula-storaged
+Pod,nebula-storaged-1,uses,ConfigMap,nebula-storaged
+Pod,nebula-storaged-2,uses,ConfigMap,nebula-storaged
+Pod,nebula-storaged-3,uses,ConfigMap,nebula-storaged
+HorizontalPodAutoscaler,my-autoscaler,scales,Deployment,my-deployment

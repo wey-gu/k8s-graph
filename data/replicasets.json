@@ -1,0 +1,459 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1",
+                    "meta.helm.sh/release-name": "apisix",
+                    "meta.helm.sh/release-namespace": "default"
+                },
+                "creationTimestamp": "2022-11-15T03:10:06Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/name": "apisix",
+                    "pod-template-hash": "6d89854bc5"
+                },
+                "name": "apisix-6d89854bc5",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "apisix",
+                        "uid": "5784159f-dad1-4567-91dc-843c2ea9fc11"
+                    }
+                ],
+                "resourceVersion": "1176897",
+                "uid": "4965aed3-8ff0-4a38-b59b-8aace373a665"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app.kubernetes.io/instance": "apisix",
+                        "app.kubernetes.io/name": "apisix",
+                        "pod-template-hash": "6d89854bc5"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "annotations": {
+                            "checksum/config": "ab8715e56059adeef68812db1f038eb146bbf5fd865140bbaff68ef281cf1781"
+                        },
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/instance": "apisix",
+                            "app.kubernetes.io/name": "apisix",
+                            "pod-template-hash": "6d89854bc5"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "image": "apache/apisix:2.15.0-alpine",
+                                "imagePullPolicy": "IfNotPresent",
+                                "lifecycle": {
+                                    "preStop": {
+                                        "exec": {
+                                            "command": [
+                                                "/bin/sh",
+                                                "-c",
+                                                "sleep 30"
+                                            ]
+                                        }
+                                    }
+                                },
+                                "name": "apisix",
+                                "ports": [
+                                    {
+                                        "containerPort": 9080,
+                                        "name": "http",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 9443,
+                                        "name": "tls",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 9180,
+                                        "name": "admin",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 6,
+                                    "initialDelaySeconds": 10,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "tcpSocket": {
+                                        "port": 9080
+                                    },
+                                    "timeoutSeconds": 1
+                                },
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/usr/local/apisix/conf/config.yaml",
+                                        "name": "apisix-config",
+                                        "subPath": "config.yaml"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "initContainers": [
+                            {
+                                "command": [
+                                    "sh",
+                                    "-c",
+                                    "until nc -z apisix-etcd.default.svc.cluster.local 2379; do echo waiting for etcd `date`; sleep 2; done;"
+                                ],
+                                "image": "busybox:1.28",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "wait-etcd",
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "serviceAccount": "default",
+                        "serviceAccountName": "default",
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "name": "apisix"
+                                },
+                                "name": "apisix-config"
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "replicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1",
+                    "meta.helm.sh/release-name": "apisix-dashboard",
+                    "meta.helm.sh/release-namespace": "default"
+                },
+                "creationTimestamp": "2022-11-15T03:31:48Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix-dashboard",
+                    "app.kubernetes.io/name": "apisix-dashboard",
+                    "pod-template-hash": "b544bd766"
+                },
+                "name": "apisix-dashboard-b544bd766",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "apisix-dashboard",
+                        "uid": "5f638c3e-9c8f-420e-9e44-1bc8dfb3ac05"
+                    }
+                ],
+                "resourceVersion": "1176967",
+                "uid": "ee75da0a-56d2-497e-b5b1-ff549784175b"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app.kubernetes.io/instance": "apisix-dashboard",
+                        "app.kubernetes.io/name": "apisix-dashboard",
+                        "pod-template-hash": "b544bd766"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "annotations": {
+                            "checksum/config": "f926c6074ef80cbe3f738a0627267526e97547858cff5407323985c28fc47ddc"
+                        },
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/instance": "apisix-dashboard",
+                            "app.kubernetes.io/name": "apisix-dashboard",
+                            "pod-template-hash": "b544bd766"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "image": "apache/apisix-dashboard:2.13-alpine",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/ping",
+                                        "port": "http",
+                                        "scheme": "HTTP"
+                                    },
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "name": "apisix-dashboard",
+                                "ports": [
+                                    {
+                                        "containerPort": 9000,
+                                        "name": "http",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/ping",
+                                        "port": "http",
+                                        "scheme": "HTTP"
+                                    },
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "resources": {},
+                                "securityContext": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/usr/local/apisix-dashboard/conf/conf.yaml",
+                                        "name": "apisix-dashboard-config",
+                                        "subPath": "conf.yaml"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "serviceAccount": "apisix-dashboard",
+                        "serviceAccountName": "apisix-dashboard",
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "name": "apisix-dashboard"
+                                },
+                                "name": "apisix-dashboard-config"
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "replicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1",
+                    "meta.helm.sh/release-name": "apisix",
+                    "meta.helm.sh/release-namespace": "default"
+                },
+                "creationTimestamp": "2022-11-15T03:10:06Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/name": "ingress-controller",
+                    "pod-template-hash": "6ccdb9c8fc"
+                },
+                "name": "apisix-ingress-controller-6ccdb9c8fc",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "apisix-ingress-controller",
+                        "uid": "4fa580a5-4158-4f1c-aa33-84df639bc0c4"
+                    }
+                ],
+                "resourceVersion": "216495",
+                "uid": "791a4265-d2f4-479c-8bd2-20b091957578"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app.kubernetes.io/instance": "apisix",
+                        "app.kubernetes.io/name": "ingress-controller",
+                        "pod-template-hash": "6ccdb9c8fc"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "annotations": {
+                            "checksum/config": "6bac36582b56963dbc2cc7a9761ebe7a2f874ca65d07c45e9cc15a2c5d1e45d3"
+                        },
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/instance": "apisix",
+                            "app.kubernetes.io/name": "ingress-controller",
+                            "pod-template-hash": "6ccdb9c8fc"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "command": [
+                                    "/ingress-apisix/apisix-ingress-controller",
+                                    "ingress",
+                                    "--config-path",
+                                    "/ingress-apisix/conf/config.yaml"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "POD_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "POD_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "metadata.name"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "image": "apache/apisix-ingress-controller:1.5.0",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/healthz",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "name": "ingress-controller",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "name": "http",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/healthz",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/ingress-apisix/conf",
+                                        "name": "configuration"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "initContainers": [
+                            {
+                                "command": [
+                                    "sh",
+                                    "-c",
+                                    "until nc -z apisix-admin.ingress-apisix.svc.cluster.local 9180 ; do echo waiting for apisix-admin; sleep 2; done;"
+                                ],
+                                "image": "busybox:1.28",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "wait-apisix-admin",
+                                "resources": {},
+                                "securityContext": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "serviceAccount": "apisix-ingress-controller",
+                        "serviceAccountName": "apisix-ingress-controller",
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "items": [
+                                        {
+                                            "key": "config.yaml",
+                                            "path": "config.yaml"
+                                        }
+                                    ],
+                                    "name": "apisix-configmap"
+                                },
+                                "name": "configuration"
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "replicas": 1
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

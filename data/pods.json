@@ -1,0 +1,4252 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "checksum/config": "ab8715e56059adeef68812db1f038eb146bbf5fd865140bbaff68ef281cf1781"
+                },
+                "creationTimestamp": "2022-11-15T09:49:22Z",
+                "generateName": "apisix-6d89854bc5-",
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/name": "apisix",
+                    "pod-template-hash": "6d89854bc5"
+                },
+                "name": "apisix-6d89854bc5-5m788",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "apisix-6d89854bc5",
+                        "uid": "4965aed3-8ff0-4a38-b59b-8aace373a665"
+                    }
+                ],
+                "resourceVersion": "20956455",
+                "uid": "b6d09c26-0658-4268-9e0e-eb9b7c9fbc54"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "image": "apache/apisix:2.15.0-alpine",
+                        "imagePullPolicy": "IfNotPresent",
+                        "lifecycle": {
+                            "preStop": {
+                                "exec": {
+                                    "command": [
+                                        "/bin/sh",
+                                        "-c",
+                                        "sleep 30"
+                                    ]
+                                }
+                            }
+                        },
+                        "name": "apisix",
+                        "ports": [
+                            {
+                                "containerPort": 9080,
+                                "name": "http",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 9443,
+                                "name": "tls",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 9180,
+                                "name": "admin",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "failureThreshold": 6,
+                            "initialDelaySeconds": 10,
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "tcpSocket": {
+                                "port": 9080
+                            },
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/usr/local/apisix/conf/config.yaml",
+                                "name": "apisix-config",
+                                "subPath": "config.yaml"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-l7kq6",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "initContainers": [
+                    {
+                        "command": [
+                            "sh",
+                            "-c",
+                            "until nc -z apisix-etcd.default.svc.cluster.local 2379; do echo waiting for etcd `date`; sleep 2; done;"
+                        ],
+                        "image": "busybox:1.28",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "wait-etcd",
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-l7kq6",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "nodeName": "minikube",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "apisix"
+                        },
+                        "name": "apisix-config"
+                    },
+                    {
+                        "name": "kube-api-access-l7kq6",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-21T03:05:27Z",
+                        "message": "containers with incomplete status: [wait-etcd]",
+                        "reason": "ContainersNotInitialized",
+                        "status": "False",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-21T03:04:59Z",
+                        "message": "containers with unready status: [apisix]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-21T03:04:59Z",
+                        "message": "containers with unready status: [apisix]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-15T09:49:22Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "docker://22286c199bae7ddf91721b1892ba98ac6ad089a93369dda73d5d55a38fc5c313",
+                        "image": "apache/apisix:2.15.0-alpine",
+                        "imageID": "docker-pullable://apache/apisix@sha256:de49e358f7ac6c9214460890213e9ab358e87bff11c0d144cad2765b1189f4a8",
+                        "lastState": {},
+                        "name": "apisix",
+                        "ready": false,
+                        "restartCount": 1,
+                        "started": false,
+                        "state": {
+                            "terminated": {
+                                "containerID": "docker://22286c199bae7ddf91721b1892ba98ac6ad089a93369dda73d5d55a38fc5c313",
+                                "exitCode": 255,
+                                "finishedAt": "2022-11-21T03:04:29Z",
+                                "reason": "Error",
+                                "startedAt": "2022-11-16T07:02:08Z"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "192.168.49.2",
+                "initContainerStatuses": [
+                    {
+                        "containerID": "docker://495457cfe055f3b8a77c5b32a939be1ee03eda9362ebb2487129a02f42200ab8",
+                        "image": "busybox:1.28",
+                        "imageID": "docker-pullable://busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47",
+                        "lastState": {},
+                        "name": "wait-etcd",
+                        "ready": false,
+                        "restartCount": 4,
+                        "state": {
+                            "running": {
+                                "startedAt": "2023-04-10T03:52:41Z"
+                            }
+                        }
+                    }
+                ],
+                "phase": "Pending",
+                "podIP": "172.17.0.12",
+                "podIPs": [
+                    {
+                        "ip": "172.17.0.12"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2022-11-15T09:49:22Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "checksum/config": "f926c6074ef80cbe3f738a0627267526e97547858cff5407323985c28fc47ddc"
+                },
+                "creationTimestamp": "2022-11-15T03:31:48Z",
+                "generateName": "apisix-dashboard-b544bd766-",
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix-dashboard",
+                    "app.kubernetes.io/name": "apisix-dashboard",
+                    "pod-template-hash": "b544bd766"
+                },
+                "name": "apisix-dashboard-b544bd766-nh79j",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "apisix-dashboard-b544bd766",
+                        "uid": "ee75da0a-56d2-497e-b5b1-ff549784175b"
+                    }
+                ],
+                "resourceVersion": "20989842",
+                "uid": "fed4e0fb-30a3-4591-b385-10524f64b455"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "image": "apache/apisix-dashboard:2.13-alpine",
+                        "imagePullPolicy": "IfNotPresent",
+                        "livenessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/ping",
+                                "port": "http",
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "name": "apisix-dashboard",
+                        "ports": [
+                            {
+                                "containerPort": 9000,
+                                "name": "http",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/ping",
+                                "port": "http",
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {},
+                        "securityContext": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/usr/local/apisix-dashboard/conf/conf.yaml",
+                                "name": "apisix-dashboard-config",
+                                "subPath": "conf.yaml"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-rjczw",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "minikube",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "apisix-dashboard",
+                "serviceAccountName": "apisix-dashboard",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "apisix-dashboard"
+                        },
+                        "name": "apisix-dashboard-config"
+                    },
+                    {
+                        "name": "kube-api-access-rjczw",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-15T03:31:48Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-21T03:04:59Z",
+                        "message": "containers with unready status: [apisix-dashboard]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-21T03:04:59Z",
+                        "message": "containers with unready status: [apisix-dashboard]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-15T03:31:48Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "docker://843344f0a90a1c407188f94c8d6449b35086e786ea5f2981c16f8daa5462a6f7",
+                        "image": "apache/apisix-dashboard:2.13-alpine",
+                        "imageID": "docker-pullable://apache/apisix-dashboard@sha256:7ce2f9517a7472a17c32244b75effdbebb0f9296815b5a675f591fd220a868ec",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "docker://843344f0a90a1c407188f94c8d6449b35086e786ea5f2981c16f8daa5462a6f7",
+                                "exitCode": 0,
+                                "finishedAt": "2023-04-10T07:12:48Z",
+                                "reason": "Completed",
+                                "startedAt": "2023-04-10T07:12:43Z"
+                            }
+                        },
+                        "name": "apisix-dashboard",
+                        "ready": false,
+                        "restartCount": 27151,
+                        "started": false,
+                        "state": {
+                            "waiting": {
+                                "message": "back-off 5m0s restarting failed container=apisix-dashboard pod=apisix-dashboard-b544bd766-nh79j_default(fed4e0fb-30a3-4591-b385-10524f64b455)",
+                                "reason": "CrashLoopBackOff"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "192.168.49.2",
+                "phase": "Running",
+                "podIP": "172.17.0.18",
+                "podIPs": [
+                    {
+                        "ip": "172.17.0.18"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2022-11-15T03:31:48Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "checksum/token-secret": "1ad535461d73161af0c2758bcd5d123827b74f7c0020e76bc2d082f653651f81"
+                },
+                "creationTimestamp": "2023-04-10T04:08:44Z",
+                "generateName": "apisix-etcd-",
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "etcd",
+                    "controller-revision-hash": "apisix-etcd-c58467596",
+                    "helm.sh/chart": "etcd-8.3.4",
+                    "statefulset.kubernetes.io/pod-name": "apisix-etcd-0"
+                },
+                "name": "apisix-etcd-0",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "StatefulSet",
+                        "name": "apisix-etcd",
+                        "uid": "2fb4d7b1-6f76-42dc-8cd6-ba519b06a6b2"
+                    }
+                ],
+                "resourceVersion": "20989564",
+                "uid": "6d2e7d59-f1de-430d-88a0-78048b00ff55"
+            },
+            "spec": {
+                "affinity": {
+                    "podAntiAffinity": {
+                        "preferredDuringSchedulingIgnoredDuringExecution": [
+                            {
+                                "podAffinityTerm": {
+                                    "labelSelector": {
+                                        "matchLabels": {
+                                            "app.kubernetes.io/instance": "apisix",
+                                            "app.kubernetes.io/name": "etcd"
+                                        }
+                                    },
+                                    "namespaces": [
+                                        "default"
+                                    ],
+                                    "topologyKey": "kubernetes.io/hostname"
+                                },
+                                "weight": 1
+                            }
+                        ]
+                    }
+                },
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "BITNAMI_DEBUG",
+                                "value": "false"
+                            },
+                            {
+                                "name": "MY_POD_IP",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "status.podIP"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "MY_POD_NAME",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "metadata.name"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "MY_STS_NAME",
+                                "value": "apisix-etcd"
+                            },
+                            {
+                                "name": "ETCDCTL_API",
+                                "value": "3"
+                            },
+                            {
+                                "name": "ETCD_ON_K8S",
+                                "value": "yes"
+                            },
+                            {
+                                "name": "ETCD_START_FROM_SNAPSHOT",
+                                "value": "no"
+                            },
+                            {
+                                "name": "ETCD_DISASTER_RECOVERY",
+                                "value": "no"
+                            },
+                            {
+                                "name": "ETCD_NAME",
+                                "value": "$(MY_POD_NAME)"
+                            },
+                            {
+                                "name": "ETCD_DATA_DIR",
+                                "value": "/bitnami/etcd/data"
+                            },
+                            {
+                                "name": "ETCD_LOG_LEVEL",
+                                "value": "info"
+                            },
+                            {
+                                "name": "ALLOW_NONE_AUTHENTICATION",
+                                "value": "yes"
+                            },
+                            {
+                                "name": "ETCD_AUTH_TOKEN",
+                                "value": "jwt,priv-key=/opt/bitnami/etcd/certs/token/jwt-token.pem,sign-method=RS256,ttl=10m"
+                            },
+                            {
+                                "name": "ETCD_ADVERTISE_CLIENT_URLS",
+                                "value": "http://$(MY_POD_NAME).apisix-etcd-headless.default.svc.cluster.local:2379,http://apisix-etcd.default.svc.cluster.local:2379"
+                            },
+                            {
+                                "name": "ETCD_LISTEN_CLIENT_URLS",
+                                "value": "http://0.0.0.0:2379"
+                            },
+                            {
+                                "name": "ETCD_INITIAL_ADVERTISE_PEER_URLS",
+                                "value": "http://$(MY_POD_NAME).apisix-etcd-headless.default.svc.cluster.local:2380"
+                            },
+                            {
+                                "name": "ETCD_LISTEN_PEER_URLS",
+                                "value": "http://0.0.0.0:2380"
+                            },
+                            {
+                                "name": "ETCD_INITIAL_CLUSTER_TOKEN",
+                                "value": "etcd-cluster-k8s"
+                            },
+                            {
+                                "name": "ETCD_INITIAL_CLUSTER_STATE",
+                                "value": "new"
+                            },
+                            {
+                                "name": "ETCD_INITIAL_CLUSTER",
+                                "value": "apisix-etcd-0=http://apisix-etcd-0.apisix-etcd-headless.default.svc.cluster.local:2380,apisix-etcd-1=http://apisix-etcd-1.apisix-etcd-headless.default.svc.cluster.local:2380,apisix-etcd-2=http://apisix-etcd-2.apisix-etcd-headless.default.svc.cluster.local:2380"
+                            },
+                            {
+                                "name": "ETCD_CLUSTER_DOMAIN",
+                                "value": "apisix-etcd-headless.default.svc.cluster.local"
+                            }
+                        ],
+                        "image": "docker.io/bitnami/etcd:3.5.4-debian-11-r14",
+                        "imagePullPolicy": "IfNotPresent",
+                        "lifecycle": {
+                            "preStop": {
+                                "exec": {
+                                    "command": [
+                                        "/opt/bitnami/scripts/etcd/prestop.sh"
+                                    ]
+                                }
+                            }
+                        },
+                        "livenessProbe": {
+                            "exec": {
+                                "command": [
+                                    "/opt/bitnami/scripts/etcd/healthcheck.sh"
+                                ]
+                            },
+                            "failureThreshold": 5,
+                            "initialDelaySeconds": 60,
+                            "periodSeconds": 30,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 5
+                        },
+                        "name": "etcd",
+                        "ports": [
+                            {
+                                "containerPort": 2379,
+                                "name": "client",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 2380,
+                                "name": "peer",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "exec": {
+                                "command": [
+                                    "/opt/bitnami/scripts/etcd/healthcheck.sh"
+                                ]
+                            },
+                            "failureThreshold": 5,
+                            "initialDelaySeconds": 60,
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 5
+                        },
+                        "resources": {},
+                        "securityContext": {
+                            "runAsNonRoot": true,
+                            "runAsUser": 1001
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/bitnami/etcd",
+                                "name": "data"
+                            },
+                            {
+                                "mountPath": "/opt/bitnami/etcd/certs/token/",
+                                "name": "etcd-jwt-token",
+                                "readOnly": true
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-gsftd",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "hostname": "apisix-etcd-0",
+                "nodeName": "minikube",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {
+                    "fsGroup": 1001
+                },
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "subdomain": "apisix-etcd-headless",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "data",
+                        "persistentVolumeClaim": {
+                            "claimName": "data-apisix-etcd-0"
+                        }
+                    },
+                    {
+                        "name": "etcd-jwt-token",
+                        "secret": {
+                            "defaultMode": 256,
+                            "secretName": "apisix-etcd-jwt-token"
+                        }
+                    },
+                    {
+                        "name": "kube-api-access-gsftd",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T04:08:44Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T04:08:44Z",
+                        "message": "containers with unready status: [etcd]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T04:08:44Z",
+                        "message": "containers with unready status: [etcd]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T04:08:44Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "docker://e39aad6054ed810d900f7f23f801d767dcc7bf35b78b0dc82a3a76985fffc930",
+                        "image": "bitnami/etcd:3.5.4-debian-11-r14",
+                        "imageID": "docker-pullable://bitnami/etcd@sha256:e5ef30fa508e6f3a028a4e26acc7ec2803eea1370dc9c1da692ee0405cdaf50d",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "docker://e39aad6054ed810d900f7f23f801d767dcc7bf35b78b0dc82a3a76985fffc930",
+                                "exitCode": 2,
+                                "finishedAt": "2023-04-10T07:10:57Z",
+                                "reason": "Error",
+                                "startedAt": "2023-04-10T07:10:46Z"
+                            }
+                        },
+                        "name": "etcd",
+                        "ready": false,
+                        "restartCount": 39,
+                        "started": false,
+                        "state": {
+                            "waiting": {
+                                "message": "back-off 5m0s restarting failed container=etcd pod=apisix-etcd-0_default(6d2e7d59-f1de-430d-88a0-78048b00ff55)",
+                                "reason": "CrashLoopBackOff"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "192.168.49.2",
+                "phase": "Running",
+                "podIP": "172.17.0.19",
+                "podIPs": [
+                    {
+                        "ip": "172.17.0.19"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2023-04-10T04:08:44Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "checksum/token-secret": "1ad535461d73161af0c2758bcd5d123827b74f7c0020e76bc2d082f653651f81"
+                },
+                "creationTimestamp": "2023-04-10T04:08:50Z",
+                "generateName": "apisix-etcd-",
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "etcd",
+                    "controller-revision-hash": "apisix-etcd-c58467596",
+                    "helm.sh/chart": "etcd-8.3.4",
+                    "statefulset.kubernetes.io/pod-name": "apisix-etcd-1"
+                },
+                "name": "apisix-etcd-1",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "StatefulSet",
+                        "name": "apisix-etcd",
+                        "uid": "2fb4d7b1-6f76-42dc-8cd6-ba519b06a6b2"
+                    }
+                ],
+                "resourceVersion": "20990395",
+                "uid": "ebb551d1-c8fc-400c-aeda-314cfda1e1b1"
+            },
+            "spec": {
+                "affinity": {
+                    "podAntiAffinity": {
+                        "preferredDuringSchedulingIgnoredDuringExecution": [
+                            {
+                                "podAffinityTerm": {
+                                    "labelSelector": {
+                                        "matchLabels": {
+                                            "app.kubernetes.io/instance": "apisix",
+                                            "app.kubernetes.io/name": "etcd"
+                                        }
+                                    },
+                                    "namespaces": [
+                                        "default"
+                                    ],
+                                    "topologyKey": "kubernetes.io/hostname"
+                                },
+                                "weight": 1
+                            }
+                        ]
+                    }
+                },
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "BITNAMI_DEBUG",
+                                "value": "false"
+                            },
+                            {
+                                "name": "MY_POD_IP",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "status.podIP"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "MY_POD_NAME",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "metadata.name"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "MY_STS_NAME",
+                                "value": "apisix-etcd"
+                            },
+                            {
+                                "name": "ETCDCTL_API",
+                                "value": "3"
+                            },
+                            {
+                                "name": "ETCD_ON_K8S",
+                                "value": "yes"
+                            },
+                            {
+                                "name": "ETCD_START_FROM_SNAPSHOT",
+                                "value": "no"
+                            },
+                            {
+                                "name": "ETCD_DISASTER_RECOVERY",
+                                "value": "no"
+                            },
+                            {
+                                "name": "ETCD_NAME",
+                                "value": "$(MY_POD_NAME)"
+                            },
+                            {
+                                "name": "ETCD_DATA_DIR",
+                                "value": "/bitnami/etcd/data"
+                            },
+                            {
+                                "name": "ETCD_LOG_LEVEL",
+                                "value": "info"
+                            },
+                            {
+                                "name": "ALLOW_NONE_AUTHENTICATION",
+                                "value": "yes"
+                            },
+                            {
+                                "name": "ETCD_AUTH_TOKEN",
+                                "value": "jwt,priv-key=/opt/bitnami/etcd/certs/token/jwt-token.pem,sign-method=RS256,ttl=10m"
+                            },
+                            {
+                                "name": "ETCD_ADVERTISE_CLIENT_URLS",
+                                "value": "http://$(MY_POD_NAME).apisix-etcd-headless.default.svc.cluster.local:2379,http://apisix-etcd.default.svc.cluster.local:2379"
+                            },
+                            {
+                                "name": "ETCD_LISTEN_CLIENT_URLS",
+                                "value": "http://0.0.0.0:2379"
+                            },
+                            {
+                                "name": "ETCD_INITIAL_ADVERTISE_PEER_URLS",
+                                "value": "http://$(MY_POD_NAME).apisix-etcd-headless.default.svc.cluster.local:2380"
+                            },
+                            {
+                                "name": "ETCD_LISTEN_PEER_URLS",
+                                "value": "http://0.0.0.0:2380"
+                            },
+                            {
+                                "name": "ETCD_INITIAL_CLUSTER_TOKEN",
+                                "value": "etcd-cluster-k8s"
+                            },
+                            {
+                                "name": "ETCD_INITIAL_CLUSTER_STATE",
+                                "value": "new"
+                            },
+                            {
+                                "name": "ETCD_INITIAL_CLUSTER",
+                                "value": "apisix-etcd-0=http://apisix-etcd-0.apisix-etcd-headless.default.svc.cluster.local:2380,apisix-etcd-1=http://apisix-etcd-1.apisix-etcd-headless.default.svc.cluster.local:2380,apisix-etcd-2=http://apisix-etcd-2.apisix-etcd-headless.default.svc.cluster.local:2380"
+                            },
+                            {
+                                "name": "ETCD_CLUSTER_DOMAIN",
+                                "value": "apisix-etcd-headless.default.svc.cluster.local"
+                            }
+                        ],
+                        "image": "docker.io/bitnami/etcd:3.5.4-debian-11-r14",
+                        "imagePullPolicy": "IfNotPresent",
+                        "lifecycle": {
+                            "preStop": {
+                                "exec": {
+                                    "command": [
+                                        "/opt/bitnami/scripts/etcd/prestop.sh"
+                                    ]
+                                }
+                            }
+                        },
+                        "livenessProbe": {
+                            "exec": {
+                                "command": [
+                                    "/opt/bitnami/scripts/etcd/healthcheck.sh"
+                                ]
+                            },
+                            "failureThreshold": 5,
+                            "initialDelaySeconds": 60,
+                            "periodSeconds": 30,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 5
+                        },
+                        "name": "etcd",
+                        "ports": [
+                            {
+                                "containerPort": 2379,
+                                "name": "client",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 2380,
+                                "name": "peer",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "exec": {
+                                "command": [
+                                    "/opt/bitnami/scripts/etcd/healthcheck.sh"
+                                ]
+                            },
+                            "failureThreshold": 5,
+                            "initialDelaySeconds": 60,
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 5
+                        },
+                        "resources": {},
+                        "securityContext": {
+                            "runAsNonRoot": true,
+                            "runAsUser": 1001
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/bitnami/etcd",
+                                "name": "data"
+                            },
+                            {
+                                "mountPath": "/opt/bitnami/etcd/certs/token/",
+                                "name": "etcd-jwt-token",
+                                "readOnly": true
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-npfnm",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "hostname": "apisix-etcd-1",
+                "nodeName": "minikube",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {
+                    "fsGroup": 1001
+                },
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "subdomain": "apisix-etcd-headless",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "data",
+                        "persistentVolumeClaim": {
+                            "claimName": "data-apisix-etcd-1"
+                        }
+                    },
+                    {
+                        "name": "etcd-jwt-token",
+                        "secret": {
+                            "defaultMode": 256,
+                            "secretName": "apisix-etcd-jwt-token"
+                        }
+                    },
+                    {
+                        "name": "kube-api-access-npfnm",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T04:08:50Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T04:08:50Z",
+                        "message": "containers with unready status: [etcd]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T04:08:50Z",
+                        "message": "containers with unready status: [etcd]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T04:08:50Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "docker://5a7a673f2a9a1e9c85c5d5401a337e404b6cb47103b898e157cc0578f412422f",
+                        "image": "bitnami/etcd:3.5.4-debian-11-r14",
+                        "imageID": "docker-pullable://bitnami/etcd@sha256:e5ef30fa508e6f3a028a4e26acc7ec2803eea1370dc9c1da692ee0405cdaf50d",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "docker://64844e61fec5dd3c8a72882a3283045b0abc0f36d9f27535653a177adfe427e1",
+                                "exitCode": 2,
+                                "finishedAt": "2023-04-10T07:10:51Z",
+                                "reason": "Error",
+                                "startedAt": "2023-04-10T07:10:40Z"
+                            }
+                        },
+                        "name": "etcd",
+                        "ready": false,
+                        "restartCount": 40,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2023-04-10T07:15:56Z"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "192.168.49.2",
+                "phase": "Running",
+                "podIP": "172.17.0.16",
+                "podIPs": [
+                    {
+                        "ip": "172.17.0.16"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2023-04-10T04:08:50Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "checksum/token-secret": "1ad535461d73161af0c2758bcd5d123827b74f7c0020e76bc2d082f653651f81"
+                },
+                "creationTimestamp": "2023-04-10T04:08:54Z",
+                "generateName": "apisix-etcd-",
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "etcd",
+                    "controller-revision-hash": "apisix-etcd-c58467596",
+                    "helm.sh/chart": "etcd-8.3.4",
+                    "statefulset.kubernetes.io/pod-name": "apisix-etcd-2"
+                },
+                "name": "apisix-etcd-2",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "StatefulSet",
+                        "name": "apisix-etcd",
+                        "uid": "2fb4d7b1-6f76-42dc-8cd6-ba519b06a6b2"
+                    }
+                ],
+                "resourceVersion": "20990297",
+                "uid": "230cf04a-919f-4f34-8431-ff9e2e23c034"
+            },
+            "spec": {
+                "affinity": {
+                    "podAntiAffinity": {
+                        "preferredDuringSchedulingIgnoredDuringExecution": [
+                            {
+                                "podAffinityTerm": {
+                                    "labelSelector": {
+                                        "matchLabels": {
+                                            "app.kubernetes.io/instance": "apisix",
+                                            "app.kubernetes.io/name": "etcd"
+                                        }
+                                    },
+                                    "namespaces": [
+                                        "default"
+                                    ],
+                                    "topologyKey": "kubernetes.io/hostname"
+                                },
+                                "weight": 1
+                            }
+                        ]
+                    }
+                },
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "BITNAMI_DEBUG",
+                                "value": "false"
+                            },
+                            {
+                                "name": "MY_POD_IP",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "status.podIP"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "MY_POD_NAME",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "metadata.name"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "MY_STS_NAME",
+                                "value": "apisix-etcd"
+                            },
+                            {
+                                "name": "ETCDCTL_API",
+                                "value": "3"
+                            },
+                            {
+                                "name": "ETCD_ON_K8S",
+                                "value": "yes"
+                            },
+                            {
+                                "name": "ETCD_START_FROM_SNAPSHOT",
+                                "value": "no"
+                            },
+                            {
+                                "name": "ETCD_DISASTER_RECOVERY",
+                                "value": "no"
+                            },
+                            {
+                                "name": "ETCD_NAME",
+                                "value": "$(MY_POD_NAME)"
+                            },
+                            {
+                                "name": "ETCD_DATA_DIR",
+                                "value": "/bitnami/etcd/data"
+                            },
+                            {
+                                "name": "ETCD_LOG_LEVEL",
+                                "value": "info"
+                            },
+                            {
+                                "name": "ALLOW_NONE_AUTHENTICATION",
+                                "value": "yes"
+                            },
+                            {
+                                "name": "ETCD_AUTH_TOKEN",
+                                "value": "jwt,priv-key=/opt/bitnami/etcd/certs/token/jwt-token.pem,sign-method=RS256,ttl=10m"
+                            },
+                            {
+                                "name": "ETCD_ADVERTISE_CLIENT_URLS",
+                                "value": "http://$(MY_POD_NAME).apisix-etcd-headless.default.svc.cluster.local:2379,http://apisix-etcd.default.svc.cluster.local:2379"
+                            },
+                            {
+                                "name": "ETCD_LISTEN_CLIENT_URLS",
+                                "value": "http://0.0.0.0:2379"
+                            },
+                            {
+                                "name": "ETCD_INITIAL_ADVERTISE_PEER_URLS",
+                                "value": "http://$(MY_POD_NAME).apisix-etcd-headless.default.svc.cluster.local:2380"
+                            },
+                            {
+                                "name": "ETCD_LISTEN_PEER_URLS",
+                                "value": "http://0.0.0.0:2380"
+                            },
+                            {
+                                "name": "ETCD_INITIAL_CLUSTER_TOKEN",
+                                "value": "etcd-cluster-k8s"
+                            },
+                            {
+                                "name": "ETCD_INITIAL_CLUSTER_STATE",
+                                "value": "new"
+                            },
+                            {
+                                "name": "ETCD_INITIAL_CLUSTER",
+                                "value": "apisix-etcd-0=http://apisix-etcd-0.apisix-etcd-headless.default.svc.cluster.local:2380,apisix-etcd-1=http://apisix-etcd-1.apisix-etcd-headless.default.svc.cluster.local:2380,apisix-etcd-2=http://apisix-etcd-2.apisix-etcd-headless.default.svc.cluster.local:2380"
+                            },
+                            {
+                                "name": "ETCD_CLUSTER_DOMAIN",
+                                "value": "apisix-etcd-headless.default.svc.cluster.local"
+                            }
+                        ],
+                        "image": "docker.io/bitnami/etcd:3.5.4-debian-11-r14",
+                        "imagePullPolicy": "IfNotPresent",
+                        "lifecycle": {
+                            "preStop": {
+                                "exec": {
+                                    "command": [
+                                        "/opt/bitnami/scripts/etcd/prestop.sh"
+                                    ]
+                                }
+                            }
+                        },
+                        "livenessProbe": {
+                            "exec": {
+                                "command": [
+                                    "/opt/bitnami/scripts/etcd/healthcheck.sh"
+                                ]
+                            },
+                            "failureThreshold": 5,
+                            "initialDelaySeconds": 60,
+                            "periodSeconds": 30,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 5
+                        },
+                        "name": "etcd",
+                        "ports": [
+                            {
+                                "containerPort": 2379,
+                                "name": "client",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 2380,
+                                "name": "peer",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "exec": {
+                                "command": [
+                                    "/opt/bitnami/scripts/etcd/healthcheck.sh"
+                                ]
+                            },
+                            "failureThreshold": 5,
+                            "initialDelaySeconds": 60,
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 5
+                        },
+                        "resources": {},
+                        "securityContext": {
+                            "runAsNonRoot": true,
+                            "runAsUser": 1001
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/bitnami/etcd",
+                                "name": "data"
+                            },
+                            {
+                                "mountPath": "/opt/bitnami/etcd/certs/token/",
+                                "name": "etcd-jwt-token",
+                                "readOnly": true
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-m2rp2",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "hostname": "apisix-etcd-2",
+                "nodeName": "minikube",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {
+                    "fsGroup": 1001
+                },
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "subdomain": "apisix-etcd-headless",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "data",
+                        "persistentVolumeClaim": {
+                            "claimName": "data-apisix-etcd-2"
+                        }
+                    },
+                    {
+                        "name": "etcd-jwt-token",
+                        "secret": {
+                            "defaultMode": 256,
+                            "secretName": "apisix-etcd-jwt-token"
+                        }
+                    },
+                    {
+                        "name": "kube-api-access-m2rp2",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T04:08:54Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T04:08:54Z",
+                        "message": "containers with unready status: [etcd]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T04:08:54Z",
+                        "message": "containers with unready status: [etcd]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T04:08:54Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "docker://e06fecb1068c32dfb1fbb1d0483401abf88777e31273a377bf4b705d757d5c3c",
+                        "image": "bitnami/etcd:3.5.4-debian-11-r14",
+                        "imageID": "docker-pullable://bitnami/etcd@sha256:e5ef30fa508e6f3a028a4e26acc7ec2803eea1370dc9c1da692ee0405cdaf50d",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "docker://e06fecb1068c32dfb1fbb1d0483401abf88777e31273a377bf4b705d757d5c3c",
+                                "exitCode": 2,
+                                "finishedAt": "2023-04-10T07:15:10Z",
+                                "reason": "Error",
+                                "startedAt": "2023-04-10T07:14:59Z"
+                            }
+                        },
+                        "name": "etcd",
+                        "ready": false,
+                        "restartCount": 40,
+                        "started": false,
+                        "state": {
+                            "waiting": {
+                                "message": "back-off 5m0s restarting failed container=etcd pod=apisix-etcd-2_default(230cf04a-919f-4f34-8431-ff9e2e23c034)",
+                                "reason": "CrashLoopBackOff"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "192.168.49.2",
+                "phase": "Running",
+                "podIP": "172.17.0.21",
+                "podIPs": [
+                    {
+                        "ip": "172.17.0.21"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2023-04-10T04:08:54Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "checksum/config": "6bac36582b56963dbc2cc7a9761ebe7a2f874ca65d07c45e9cc15a2c5d1e45d3"
+                },
+                "creationTimestamp": "2022-11-15T03:10:06Z",
+                "generateName": "apisix-ingress-controller-6ccdb9c8fc-",
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/name": "ingress-controller",
+                    "pod-template-hash": "6ccdb9c8fc"
+                },
+                "name": "apisix-ingress-controller-6ccdb9c8fc-css8c",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "apisix-ingress-controller-6ccdb9c8fc",
+                        "uid": "791a4265-d2f4-479c-8bd2-20b091957578"
+                    }
+                ],
+                "resourceVersion": "20956442",
+                "uid": "1230853d-7ab3-4778-bc52-f4cfb031063c"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "command": [
+                            "/ingress-apisix/apisix-ingress-controller",
+                            "ingress",
+                            "--config-path",
+                            "/ingress-apisix/conf/config.yaml"
+                        ],
+                        "env": [
+                            {
+                                "name": "POD_NAMESPACE",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "metadata.namespace"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "POD_NAME",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "metadata.name"
+                                    }
+                                }
+                            }
+                        ],
+                        "image": "apache/apisix-ingress-controller:1.5.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "livenessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/healthz",
+                                "port": 8080,
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "name": "ingress-controller",
+                        "ports": [
+                            {
+                                "containerPort": 8080,
+                                "name": "http",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/healthz",
+                                "port": 8080,
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/ingress-apisix/conf",
+                                "name": "configuration"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-kgct9",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "initContainers": [
+                    {
+                        "command": [
+                            "sh",
+                            "-c",
+                            "until nc -z apisix-admin.ingress-apisix.svc.cluster.local 9180 ; do echo waiting for apisix-admin; sleep 2; done;"
+                        ],
+                        "image": "busybox:1.28",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "wait-apisix-admin",
+                        "resources": {},
+                        "securityContext": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-kgct9",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "nodeName": "minikube",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "apisix-ingress-controller",
+                "serviceAccountName": "apisix-ingress-controller",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "items": [
+                                {
+                                    "key": "config.yaml",
+                                    "path": "config.yaml"
+                                }
+                            ],
+                            "name": "apisix-configmap"
+                        },
+                        "name": "configuration"
+                    },
+                    {
+                        "name": "kube-api-access-kgct9",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-15T03:10:06Z",
+                        "message": "containers with incomplete status: [wait-apisix-admin]",
+                        "reason": "ContainersNotInitialized",
+                        "status": "False",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-15T03:10:06Z",
+                        "message": "containers with unready status: [ingress-controller]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-15T03:10:06Z",
+                        "message": "containers with unready status: [ingress-controller]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-15T03:10:06Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "image": "apache/apisix-ingress-controller:1.5.0",
+                        "imageID": "",
+                        "lastState": {},
+                        "name": "ingress-controller",
+                        "ready": false,
+                        "restartCount": 0,
+                        "started": false,
+                        "state": {
+                            "waiting": {
+                                "reason": "PodInitializing"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "192.168.49.2",
+                "initContainerStatuses": [
+                    {
+                        "containerID": "docker://f90a43e1bfa01ba57dff20eae510f1d3aa37e6e8b7134f962ccedbc1bea04302",
+                        "image": "busybox:1.28",
+                        "imageID": "docker-pullable://busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47",
+                        "lastState": {},
+                        "name": "wait-apisix-admin",
+                        "ready": false,
+                        "restartCount": 5,
+                        "state": {
+                            "running": {
+                                "startedAt": "2023-04-10T03:52:30Z"
+                            }
+                        }
+                    }
+                ],
+                "phase": "Pending",
+                "podIP": "172.17.0.5",
+                "podIPs": [
+                    {
+                        "ip": "172.17.0.5"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2022-11-15T03:10:06Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"name\":\"dnsutils\",\"namespace\":\"default\"},\"spec\":{\"containers\":[{\"command\":[\"sleep\",\"infinity\"],\"image\":\"registry.k8s.io/e2e-test-images/jessie-dnsutils:1.3\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"dnsutils\"}],\"restartPolicy\":\"Always\"}}\n"
+                },
+                "creationTimestamp": "2022-11-15T13:05:18Z",
+                "name": "dnsutils",
+                "namespace": "default",
+                "resourceVersion": "20956432",
+                "uid": "0e0ca13b-a9dc-4bfe-a832-464448d6e0e5"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "command": [
+                            "sleep",
+                            "infinity"
+                        ],
+                        "image": "registry.k8s.io/e2e-test-images/jessie-dnsutils:1.3",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "dnsutils",
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-gf27z",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "minikube",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "kube-api-access-gf27z",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-15T13:05:18Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:52:44Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:52:44Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-15T13:05:18Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "docker://968499e86f8c8f9f00352800b562f93c54c645f32a0ff0de9b290c152593a622",
+                        "image": "registry.k8s.io/e2e-test-images/jessie-dnsutils:1.3",
+                        "imageID": "docker-pullable://registry.k8s.io/e2e-test-images/jessie-dnsutils@sha256:8b03e4185ecd305bc9b410faac15d486a3b1ef1946196d429245cdd3c7b152eb",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "docker://0a556efa83a7e834366c53799e6016225ee1bbfd5e84c8dddc6e1b5bfd640947",
+                                "exitCode": 255,
+                                "finishedAt": "2023-04-10T03:51:43Z",
+                                "reason": "Error",
+                                "startedAt": "2023-03-06T04:04:25Z"
+                            }
+                        },
+                        "name": "dnsutils",
+                        "ready": true,
+                        "restartCount": 4,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2023-04-10T03:52:28Z"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "192.168.49.2",
+                "phase": "Running",
+                "podIP": "172.17.0.2",
+                "podIPs": [
+                    {
+                        "ip": "172.17.0.2"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2022-11-15T13:05:18Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2023-04-10T07:13:25Z",
+                "generateName": "my-daemonset-",
+                "labels": {
+                    "app": "my-daemonset",
+                    "controller-revision-hash": "fd7f6c4bb",
+                    "pod-template-generation": "1"
+                },
+                "name": "my-daemonset-b8c79",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "DaemonSet",
+                        "name": "my-daemonset",
+                        "uid": "cf938a00-2870-4220-b95e-766a531c27b8"
+                    }
+                ],
+                "resourceVersion": "20990313",
+                "uid": "4864731f-be3c-4460-9559-8ac54f39fcde"
+            },
+            "spec": {
+                "affinity": {
+                    "nodeAffinity": {
+                        "requiredDuringSchedulingIgnoredDuringExecution": {
+                            "nodeSelectorTerms": [
+                                {
+                                    "matchFields": [
+                                        {
+                                            "key": "metadata.name",
+                                            "operator": "In",
+                                            "values": [
+                                                "minikube"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                },
+                "containers": [
+                    {
+                        "command": [
+                            "/bin/sh",
+                            "-c",
+                            "echo 'Hello, world!'"
+                        ],
+                        "image": "alpine:3.14",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "my-container",
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-t4z7t",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "minikube",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/disk-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/memory-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/pid-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/unschedulable",
+                        "operator": "Exists"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "kube-api-access-t4z7t",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T07:13:25Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T07:13:25Z",
+                        "message": "containers with unready status: [my-container]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T07:13:25Z",
+                        "message": "containers with unready status: [my-container]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T07:13:25Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "docker://939b4f09e62b557ba653d75ba83a2df57af6ab9e14a4af0b0b65076fe869ac4e",
+                        "image": "alpine:3.14",
+                        "imageID": "docker-pullable://alpine@sha256:0f2d5c38dd7a4f4f733e688e3a6733cb5ab1ac6e3cb4603a5dd564e5bfb80eed",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "docker://939b4f09e62b557ba653d75ba83a2df57af6ab9e14a4af0b0b65076fe869ac4e",
+                                "exitCode": 0,
+                                "finishedAt": "2023-04-10T07:15:13Z",
+                                "reason": "Completed",
+                                "startedAt": "2023-04-10T07:15:13Z"
+                            }
+                        },
+                        "name": "my-container",
+                        "ready": false,
+                        "restartCount": 4,
+                        "started": false,
+                        "state": {
+                            "waiting": {
+                                "message": "back-off 1m20s restarting failed container=my-container pod=my-daemonset-b8c79_default(4864731f-be3c-4460-9559-8ac54f39fcde)",
+                                "reason": "CrashLoopBackOff"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "192.168.49.2",
+                "phase": "Running",
+                "podIP": "172.17.0.23",
+                "podIPs": [
+                    {
+                        "ip": "172.17.0.23"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2023-04-10T07:13:25Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/cm-hash": "04feb265f1f203a2"
+                },
+                "creationTimestamp": "2022-11-14T09:46:19Z",
+                "generateName": "nebula-graphd-",
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "graphd",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "controller-revision-hash": "nebula-graphd-85cd966c8",
+                    "statefulset.kubernetes.io/pod-name": "nebula-graphd-0"
+                },
+                "name": "nebula-graphd-0",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "StatefulSet",
+                        "name": "nebula-graphd",
+                        "uid": "77af597a-2186-4beb-af50-6d20e0eff2b8"
+                    }
+                ],
+                "resourceVersion": "20956629",
+                "uid": "74f49fde-53f1-4517-887e-2b00cdb21896"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "command": [
+                            "/bin/bash",
+                            "-ecx",
+                            "exec /usr/local/nebula/bin/nebula-graphd --flagfile=/usr/local/nebula/etc/nebula-graphd.conf --meta_server_addrs=nebula-metad-0.nebula-metad-headless.default.svc.cluster.local:9559 --local_ip=$(hostname).nebula-graphd-svc.default.svc.cluster.local --ws_ip=$(hostname).nebula-graphd-svc.default.svc.cluster.local --daemonize=false"
+                        ],
+                        "image": "vesoft/nebula-graphd:v3.1.0",
+                        "imagePullPolicy": "Always",
+                        "name": "graphd",
+                        "ports": [
+                            {
+                                "containerPort": 9669,
+                                "name": "thrift",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 19669,
+                                "name": "http",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 19670,
+                                "name": "http2",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/status",
+                                "port": 19669,
+                                "scheme": "HTTP"
+                            },
+                            "initialDelaySeconds": 10,
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 5
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "1",
+                                "memory": "1Gi"
+                            },
+                            "requests": {
+                                "cpu": "1m",
+                                "memory": "20Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/usr/local/nebula/logs",
+                                "name": "graphd-log",
+                                "subPath": "logs"
+                            },
+                            {
+                                "mountPath": "/usr/local/nebula/etc",
+                                "name": "nebula-graphd"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-dzz9v",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "hostname": "nebula-graphd-0",
+                "nodeName": "minikube",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "subdomain": "nebula-graphd-svc",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "topologySpreadConstraints": [
+                    {
+                        "labelSelector": {
+                            "matchLabels": {
+                                "app.kubernetes.io/cluster": "nebula",
+                                "app.kubernetes.io/component": "graphd",
+                                "app.kubernetes.io/managed-by": "nebula-operator",
+                                "app.kubernetes.io/name": "nebula-graph"
+                            }
+                        },
+                        "maxSkew": 1,
+                        "topologyKey": "kubernetes.io/hostname",
+                        "whenUnsatisfiable": "ScheduleAnyway"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "graphd-log",
+                        "persistentVolumeClaim": {
+                            "claimName": "graphd-log-nebula-graphd-0"
+                        }
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "items": [
+                                {
+                                    "key": "nebula-graphd.conf",
+                                    "path": "nebula-graphd.conf"
+                                }
+                            ],
+                            "name": "nebula-graphd"
+                        },
+                        "name": "nebula-graphd"
+                    },
+                    {
+                        "name": "kube-api-access-dzz9v",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-14T09:46:21Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:53:19Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:53:19Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-14T09:46:21Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "docker://d14b6d911dccf97cdd0f2ba9a4d64942e2d7ef53cbb4e5f0a2ba2610215e0448",
+                        "image": "vesoft/nebula-graphd:v3.1.0",
+                        "imageID": "docker-pullable://vesoft/nebula-graphd@sha256:b9b67411370c941beebfc9e82efbb85723a40a07f189710e3410082835430be3",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "docker://0e50787aa646a0da5b5e47838147e463287e34964181f01c7bb8f55e2f5fd6a4",
+                                "exitCode": 255,
+                                "finishedAt": "2023-04-10T03:51:43Z",
+                                "reason": "Error",
+                                "startedAt": "2023-03-06T04:04:30Z"
+                            }
+                        },
+                        "name": "graphd",
+                        "ready": true,
+                        "restartCount": 5,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2023-04-10T03:53:03Z"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "192.168.49.2",
+                "phase": "Running",
+                "podIP": "172.17.0.15",
+                "podIPs": [
+                    {
+                        "ip": "172.17.0.15"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2022-11-14T09:46:21Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/cm-hash": "04feb265f1f203a2"
+                },
+                "creationTimestamp": "2022-11-16T09:00:37Z",
+                "generateName": "nebula-graphd-",
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "graphd",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "controller-revision-hash": "nebula-graphd-85cd966c8",
+                    "statefulset.kubernetes.io/pod-name": "nebula-graphd-1"
+                },
+                "name": "nebula-graphd-1",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "StatefulSet",
+                        "name": "nebula-graphd",
+                        "uid": "77af597a-2186-4beb-af50-6d20e0eff2b8"
+                    }
+                ],
+                "resourceVersion": "20956727",
+                "uid": "727d0b79-8096-4ab7-8c6a-6cd473214192"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "command": [
+                            "/bin/bash",
+                            "-ecx",
+                            "exec /usr/local/nebula/bin/nebula-graphd --flagfile=/usr/local/nebula/etc/nebula-graphd.conf --meta_server_addrs=nebula-metad-0.nebula-metad-headless.default.svc.cluster.local:9559 --local_ip=$(hostname).nebula-graphd-svc.default.svc.cluster.local --ws_ip=$(hostname).nebula-graphd-svc.default.svc.cluster.local --daemonize=false"
+                        ],
+                        "image": "vesoft/nebula-graphd:v3.1.0",
+                        "imagePullPolicy": "Always",
+                        "name": "graphd",
+                        "ports": [
+                            {
+                                "containerPort": 9669,
+                                "name": "thrift",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 19669,
+                                "name": "http",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 19670,
+                                "name": "http2",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/status",
+                                "port": 19669,
+                                "scheme": "HTTP"
+                            },
+                            "initialDelaySeconds": 10,
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 5
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "1",
+                                "memory": "1Gi"
+                            },
+                            "requests": {
+                                "cpu": "1m",
+                                "memory": "20Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/usr/local/nebula/logs",
+                                "name": "graphd-log",
+                                "subPath": "logs"
+                            },
+                            {
+                                "mountPath": "/usr/local/nebula/etc",
+                                "name": "nebula-graphd"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-bgn84",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "hostname": "nebula-graphd-1",
+                "nodeName": "minikube",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "subdomain": "nebula-graphd-svc",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "topologySpreadConstraints": [
+                    {
+                        "labelSelector": {
+                            "matchLabels": {
+                                "app.kubernetes.io/cluster": "nebula",
+                                "app.kubernetes.io/component": "graphd",
+                                "app.kubernetes.io/managed-by": "nebula-operator",
+                                "app.kubernetes.io/name": "nebula-graph"
+                            }
+                        },
+                        "maxSkew": 1,
+                        "topologyKey": "kubernetes.io/hostname",
+                        "whenUnsatisfiable": "ScheduleAnyway"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "graphd-log",
+                        "persistentVolumeClaim": {
+                            "claimName": "graphd-log-nebula-graphd-1"
+                        }
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "items": [
+                                {
+                                    "key": "nebula-graphd.conf",
+                                    "path": "nebula-graphd.conf"
+                                }
+                            ],
+                            "name": "nebula-graphd"
+                        },
+                        "name": "nebula-graphd"
+                    },
+                    {
+                        "name": "kube-api-access-bgn84",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-16T09:00:39Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:53:36Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:53:36Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-16T09:00:39Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "docker://bd4fd68c04d22bd37d1b98af5d199d8545e55c29928793be3e0805e30a4c1300",
+                        "image": "vesoft/nebula-graphd:v3.1.0",
+                        "imageID": "docker-pullable://vesoft/nebula-graphd@sha256:b9b67411370c941beebfc9e82efbb85723a40a07f189710e3410082835430be3",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "docker://d665f226d09e68bcf76d444da893c3e817c6a0cf04306ce71b697f9e1bdb15b1",
+                                "exitCode": 255,
+                                "finishedAt": "2023-04-10T03:51:43Z",
+                                "reason": "Error",
+                                "startedAt": "2023-03-06T04:04:42Z"
+                            }
+                        },
+                        "name": "graphd",
+                        "ready": true,
+                        "restartCount": 3,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2023-04-10T03:53:22Z"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "192.168.49.2",
+                "phase": "Running",
+                "podIP": "172.17.0.22",
+                "podIPs": [
+                    {
+                        "ip": "172.17.0.22"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2022-11-16T09:00:39Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/cm-hash": "d6d215628f9203cb"
+                },
+                "creationTimestamp": "2022-11-14T09:45:17Z",
+                "generateName": "nebula-metad-",
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "metad",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "controller-revision-hash": "nebula-metad-fb546b55",
+                    "statefulset.kubernetes.io/pod-name": "nebula-metad-0"
+                },
+                "name": "nebula-metad-0",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "StatefulSet",
+                        "name": "nebula-metad",
+                        "uid": "576c39f3-dc11-40e1-acff-c1ea63de871f"
+                    }
+                ],
+                "resourceVersion": "20956548",
+                "uid": "9b731573-108f-401e-b331-31eefa5f9793"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "command": [
+                            "/bin/bash",
+                            "-ecx",
+                            "exec /usr/local/nebula/bin/nebula-metad --flagfile=/usr/local/nebula/etc/nebula-metad.conf --meta_server_addrs=nebula-metad-0.nebula-metad-headless.default.svc.cluster.local:9559 --local_ip=$(hostname).nebula-metad-headless.default.svc.cluster.local --ws_ip=$(hostname).nebula-metad-headless.default.svc.cluster.local --daemonize=false"
+                        ],
+                        "image": "vesoft/nebula-metad:v3.1.0",
+                        "imagePullPolicy": "Always",
+                        "name": "metad",
+                        "ports": [
+                            {
+                                "containerPort": 9559,
+                                "name": "thrift",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 19559,
+                                "name": "http",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 19560,
+                                "name": "http2",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/status",
+                                "port": 19559,
+                                "scheme": "HTTP"
+                            },
+                            "initialDelaySeconds": 10,
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 5
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "1",
+                                "memory": "1Gi"
+                            },
+                            "requests": {
+                                "cpu": "1m",
+                                "memory": "20Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/usr/local/nebula/logs",
+                                "name": "metad-log",
+                                "subPath": "logs"
+                            },
+                            {
+                                "mountPath": "/usr/local/nebula/data",
+                                "name": "metad-data",
+                                "subPath": "data"
+                            },
+                            {
+                                "mountPath": "/usr/local/nebula/etc",
+                                "name": "nebula-metad"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-4f5qj",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "hostname": "nebula-metad-0",
+                "nodeName": "minikube",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "subdomain": "nebula-metad-headless",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "topologySpreadConstraints": [
+                    {
+                        "labelSelector": {
+                            "matchLabels": {
+                                "app.kubernetes.io/cluster": "nebula",
+                                "app.kubernetes.io/component": "metad",
+                                "app.kubernetes.io/managed-by": "nebula-operator",
+                                "app.kubernetes.io/name": "nebula-graph"
+                            }
+                        },
+                        "maxSkew": 1,
+                        "topologyKey": "kubernetes.io/hostname",
+                        "whenUnsatisfiable": "ScheduleAnyway"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "metad-log",
+                        "persistentVolumeClaim": {
+                            "claimName": "metad-log-nebula-metad-0"
+                        }
+                    },
+                    {
+                        "name": "metad-data",
+                        "persistentVolumeClaim": {
+                            "claimName": "metad-data-nebula-metad-0"
+                        }
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "items": [
+                                {
+                                    "key": "nebula-metad.conf",
+                                    "path": "nebula-metad.conf"
+                                }
+                            ],
+                            "name": "nebula-metad"
+                        },
+                        "name": "nebula-metad"
+                    },
+                    {
+                        "name": "kube-api-access-4f5qj",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-14T09:45:18Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:53:05Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:53:05Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-14T09:45:18Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "docker://7677eeb76886ba97cb7f221238f44684ec20827f4889abc82a42cd344cf6a904",
+                        "image": "vesoft/nebula-metad:v3.1.0",
+                        "imageID": "docker-pullable://vesoft/nebula-metad@sha256:cb044db5a2d5df76c3308c6003a637f814939203969b13e98a4379d6e36d3670",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "docker://3fc4390983581a97c057b23e38a793f26ec0a49872077fc4939a4eea02e04d11",
+                                "exitCode": 255,
+                                "finishedAt": "2023-04-10T03:51:43Z",
+                                "reason": "Error",
+                                "startedAt": "2023-03-06T04:04:21Z"
+                            }
+                        },
+                        "name": "metad",
+                        "ready": true,
+                        "restartCount": 5,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2023-04-10T03:52:54Z"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "192.168.49.2",
+                "phase": "Running",
+                "podIP": "172.17.0.8",
+                "podIPs": [
+                    {
+                        "ip": "172.17.0.8"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2022-11-14T09:45:18Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/cm-hash": "28d0b1df3f72093c"
+                },
+                "creationTimestamp": "2022-11-14T09:46:18Z",
+                "generateName": "nebula-storaged-",
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "storaged",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "controller-revision-hash": "nebula-storaged-7ff48f65fd",
+                    "statefulset.kubernetes.io/pod-name": "nebula-storaged-0"
+                },
+                "name": "nebula-storaged-0",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "StatefulSet",
+                        "name": "nebula-storaged",
+                        "uid": "692c5937-eec9-4dcb-b51f-c32a697aded2"
+                    }
+                ],
+                "resourceVersion": "20956737",
+                "uid": "5aa2cef5-e486-4501-89b1-efd3f5cd6798"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "command": [
+                            "/bin/bash",
+                            "-ecx",
+                            "exec /usr/local/nebula/bin/nebula-storaged --flagfile=/usr/local/nebula/etc/nebula-storaged.conf --meta_server_addrs=nebula-metad-0.nebula-metad-headless.default.svc.cluster.local:9559 --local_ip=$(hostname).nebula-storaged-headless.default.svc.cluster.local --ws_ip=$(hostname).nebula-storaged-headless.default.svc.cluster.local --daemonize=false"
+                        ],
+                        "image": "vesoft/nebula-storaged:v3.1.0",
+                        "imagePullPolicy": "Always",
+                        "name": "storaged",
+                        "ports": [
+                            {
+                                "containerPort": 9779,
+                                "name": "thrift",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 19779,
+                                "name": "http",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 19780,
+                                "name": "http2",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 9778,
+                                "name": "admin",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/status",
+                                "port": 19779,
+                                "scheme": "HTTP"
+                            },
+                            "initialDelaySeconds": 10,
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 5
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "1",
+                                "memory": "1Gi"
+                            },
+                            "requests": {
+                                "cpu": "1m",
+                                "memory": "20Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/usr/local/nebula/logs",
+                                "name": "storaged-log",
+                                "subPath": "logs"
+                            },
+                            {
+                                "mountPath": "/usr/local/nebula/data",
+                                "name": "storaged-data",
+                                "subPath": "data"
+                            },
+                            {
+                                "mountPath": "/usr/local/nebula/etc",
+                                "name": "nebula-storaged"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-4wbhn",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "hostname": "nebula-storaged-0",
+                "nodeName": "minikube",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "subdomain": "nebula-storaged-headless",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "topologySpreadConstraints": [
+                    {
+                        "labelSelector": {
+                            "matchLabels": {
+                                "app.kubernetes.io/cluster": "nebula",
+                                "app.kubernetes.io/component": "storaged",
+                                "app.kubernetes.io/managed-by": "nebula-operator",
+                                "app.kubernetes.io/name": "nebula-graph"
+                            }
+                        },
+                        "maxSkew": 1,
+                        "topologyKey": "kubernetes.io/hostname",
+                        "whenUnsatisfiable": "ScheduleAnyway"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "storaged-log",
+                        "persistentVolumeClaim": {
+                            "claimName": "storaged-log-nebula-storaged-0"
+                        }
+                    },
+                    {
+                        "name": "storaged-data",
+                        "persistentVolumeClaim": {
+                            "claimName": "storaged-data-nebula-storaged-0"
+                        }
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "items": [
+                                {
+                                    "key": "nebula-storaged.conf",
+                                    "path": "nebula-storaged.conf"
+                                }
+                            ],
+                            "name": "nebula-storaged"
+                        },
+                        "name": "nebula-storaged"
+                    },
+                    {
+                        "name": "kube-api-access-4wbhn",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-14T09:46:20Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:53:38Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:53:38Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-14T09:46:19Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "docker://df78cd57caa2cf4f416c6cc54f29ba1052e7b68f5fc70cc9daaac3eeae676551",
+                        "image": "vesoft/nebula-storaged:v3.1.0",
+                        "imageID": "docker-pullable://vesoft/nebula-storaged@sha256:d74f9bc8f26597d5e0ab11a6c52a968a7801acbc6f14895cfa849bce7a2b8171",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "docker://3f1d6d504615f863ab106fc7518ca3b38a12b0bdde5b57ac4876b2deb0db9930",
+                                "exitCode": 255,
+                                "finishedAt": "2023-04-10T03:51:43Z",
+                                "reason": "Error",
+                                "startedAt": "2023-03-06T04:04:38Z"
+                            }
+                        },
+                        "name": "storaged",
+                        "ready": true,
+                        "restartCount": 5,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2023-04-10T03:52:59Z"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "192.168.49.2",
+                "phase": "Running",
+                "podIP": "172.17.0.10",
+                "podIPs": [
+                    {
+                        "ip": "172.17.0.10"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2022-11-14T09:46:20Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/cm-hash": "28d0b1df3f72093c"
+                },
+                "creationTimestamp": "2022-11-14T09:46:18Z",
+                "generateName": "nebula-storaged-",
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "storaged",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "controller-revision-hash": "nebula-storaged-7ff48f65fd",
+                    "statefulset.kubernetes.io/pod-name": "nebula-storaged-1"
+                },
+                "name": "nebula-storaged-1",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "StatefulSet",
+                        "name": "nebula-storaged",
+                        "uid": "692c5937-eec9-4dcb-b51f-c32a697aded2"
+                    }
+                ],
+                "resourceVersion": "20956825",
+                "uid": "ed0263e3-08ee-4498-9cea-f5175f597022"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "command": [
+                            "/bin/bash",
+                            "-ecx",
+                            "exec /usr/local/nebula/bin/nebula-storaged --flagfile=/usr/local/nebula/etc/nebula-storaged.conf --meta_server_addrs=nebula-metad-0.nebula-metad-headless.default.svc.cluster.local:9559 --local_ip=$(hostname).nebula-storaged-headless.default.svc.cluster.local --ws_ip=$(hostname).nebula-storaged-headless.default.svc.cluster.local --daemonize=false"
+                        ],
+                        "image": "vesoft/nebula-storaged:v3.1.0",
+                        "imagePullPolicy": "Always",
+                        "name": "storaged",
+                        "ports": [
+                            {
+                                "containerPort": 9779,
+                                "name": "thrift",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 19779,
+                                "name": "http",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 19780,
+                                "name": "http2",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 9778,
+                                "name": "admin",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/status",
+                                "port": 19779,
+                                "scheme": "HTTP"
+                            },
+                            "initialDelaySeconds": 10,
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 5
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "1",
+                                "memory": "1Gi"
+                            },
+                            "requests": {
+                                "cpu": "1m",
+                                "memory": "20Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/usr/local/nebula/logs",
+                                "name": "storaged-log",
+                                "subPath": "logs"
+                            },
+                            {
+                                "mountPath": "/usr/local/nebula/data",
+                                "name": "storaged-data",
+                                "subPath": "data"
+                            },
+                            {
+                                "mountPath": "/usr/local/nebula/etc",
+                                "name": "nebula-storaged"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-brvc4",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "hostname": "nebula-storaged-1",
+                "nodeName": "minikube",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "subdomain": "nebula-storaged-headless",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "topologySpreadConstraints": [
+                    {
+                        "labelSelector": {
+                            "matchLabels": {
+                                "app.kubernetes.io/cluster": "nebula",
+                                "app.kubernetes.io/component": "storaged",
+                                "app.kubernetes.io/managed-by": "nebula-operator",
+                                "app.kubernetes.io/name": "nebula-graph"
+                            }
+                        },
+                        "maxSkew": 1,
+                        "topologyKey": "kubernetes.io/hostname",
+                        "whenUnsatisfiable": "ScheduleAnyway"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "storaged-log",
+                        "persistentVolumeClaim": {
+                            "claimName": "storaged-log-nebula-storaged-1"
+                        }
+                    },
+                    {
+                        "name": "storaged-data",
+                        "persistentVolumeClaim": {
+                            "claimName": "storaged-data-nebula-storaged-1"
+                        }
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "items": [
+                                {
+                                    "key": "nebula-storaged.conf",
+                                    "path": "nebula-storaged.conf"
+                                }
+                            ],
+                            "name": "nebula-storaged"
+                        },
+                        "name": "nebula-storaged"
+                    },
+                    {
+                        "name": "kube-api-access-brvc4",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-14T09:46:21Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:54:00Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:54:00Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-14T09:46:21Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "docker://9d0ab6ba74aebb58500a2bc7bb5c2e875d8b80c31017b0b64a10be9991d6cfe4",
+                        "image": "vesoft/nebula-storaged:v3.1.0",
+                        "imageID": "docker-pullable://vesoft/nebula-storaged@sha256:d74f9bc8f26597d5e0ab11a6c52a968a7801acbc6f14895cfa849bce7a2b8171",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "docker://ba336e4721a800f7bf1d34ef6343a65aa991c0eb6ae4a134c5f5be7032d66285",
+                                "exitCode": 255,
+                                "finishedAt": "2023-04-10T03:51:43Z",
+                                "reason": "Error",
+                                "startedAt": "2023-03-06T04:04:13Z"
+                            }
+                        },
+                        "name": "storaged",
+                        "ready": true,
+                        "restartCount": 5,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2023-04-10T03:52:42Z"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "192.168.49.2",
+                "phase": "Running",
+                "podIP": "172.17.0.4",
+                "podIPs": [
+                    {
+                        "ip": "172.17.0.4"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2022-11-14T09:46:21Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/cm-hash": "28d0b1df3f72093c"
+                },
+                "creationTimestamp": "2022-11-14T09:46:19Z",
+                "generateName": "nebula-storaged-",
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "storaged",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "controller-revision-hash": "nebula-storaged-7ff48f65fd",
+                    "statefulset.kubernetes.io/pod-name": "nebula-storaged-2"
+                },
+                "name": "nebula-storaged-2",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "StatefulSet",
+                        "name": "nebula-storaged",
+                        "uid": "692c5937-eec9-4dcb-b51f-c32a697aded2"
+                    }
+                ],
+                "resourceVersion": "20956803",
+                "uid": "686771de-235d-4749-963c-91caf50f7b8c"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "command": [
+                            "/bin/bash",
+                            "-ecx",
+                            "exec /usr/local/nebula/bin/nebula-storaged --flagfile=/usr/local/nebula/etc/nebula-storaged.conf --meta_server_addrs=nebula-metad-0.nebula-metad-headless.default.svc.cluster.local:9559 --local_ip=$(hostname).nebula-storaged-headless.default.svc.cluster.local --ws_ip=$(hostname).nebula-storaged-headless.default.svc.cluster.local --daemonize=false"
+                        ],
+                        "image": "vesoft/nebula-storaged:v3.1.0",
+                        "imagePullPolicy": "Always",
+                        "name": "storaged",
+                        "ports": [
+                            {
+                                "containerPort": 9779,
+                                "name": "thrift",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 19779,
+                                "name": "http",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 19780,
+                                "name": "http2",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 9778,
+                                "name": "admin",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/status",
+                                "port": 19779,
+                                "scheme": "HTTP"
+                            },
+                            "initialDelaySeconds": 10,
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 5
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "1",
+                                "memory": "1Gi"
+                            },
+                            "requests": {
+                                "cpu": "1m",
+                                "memory": "20Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/usr/local/nebula/logs",
+                                "name": "storaged-log",
+                                "subPath": "logs"
+                            },
+                            {
+                                "mountPath": "/usr/local/nebula/data",
+                                "name": "storaged-data",
+                                "subPath": "data"
+                            },
+                            {
+                                "mountPath": "/usr/local/nebula/etc",
+                                "name": "nebula-storaged"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-4hk6j",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "hostname": "nebula-storaged-2",
+                "nodeName": "minikube",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "subdomain": "nebula-storaged-headless",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "topologySpreadConstraints": [
+                    {
+                        "labelSelector": {
+                            "matchLabels": {
+                                "app.kubernetes.io/cluster": "nebula",
+                                "app.kubernetes.io/component": "storaged",
+                                "app.kubernetes.io/managed-by": "nebula-operator",
+                                "app.kubernetes.io/name": "nebula-graph"
+                            }
+                        },
+                        "maxSkew": 1,
+                        "topologyKey": "kubernetes.io/hostname",
+                        "whenUnsatisfiable": "ScheduleAnyway"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "storaged-log",
+                        "persistentVolumeClaim": {
+                            "claimName": "storaged-log-nebula-storaged-2"
+                        }
+                    },
+                    {
+                        "name": "storaged-data",
+                        "persistentVolumeClaim": {
+                            "claimName": "storaged-data-nebula-storaged-2"
+                        }
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "items": [
+                                {
+                                    "key": "nebula-storaged.conf",
+                                    "path": "nebula-storaged.conf"
+                                }
+                            ],
+                            "name": "nebula-storaged"
+                        },
+                        "name": "nebula-storaged"
+                    },
+                    {
+                        "name": "kube-api-access-4hk6j",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-14T09:46:21Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:53:55Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:53:55Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-11-14T09:46:21Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "docker://dccffed5f718f0c943d0f365a06d8809a6471c0077c4feff17d21731f8fd99fb",
+                        "image": "vesoft/nebula-storaged:v3.1.0",
+                        "imageID": "docker-pullable://vesoft/nebula-storaged@sha256:d74f9bc8f26597d5e0ab11a6c52a968a7801acbc6f14895cfa849bce7a2b8171",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "docker://36510dfbecdb21db9b1396df912246aaf2bb47b992fb4bd0c6c39ecd3e23c5c1",
+                                "exitCode": 255,
+                                "finishedAt": "2023-04-10T03:51:43Z",
+                                "reason": "Error",
+                                "startedAt": "2023-03-06T04:04:25Z"
+                            }
+                        },
+                        "name": "storaged",
+                        "ready": true,
+                        "restartCount": 5,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2023-04-10T03:53:18Z"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "192.168.49.2",
+                "phase": "Running",
+                "podIP": "172.17.0.20",
+                "podIPs": [
+                    {
+                        "ip": "172.17.0.20"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2022-11-14T09:46:21Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "nebula-graph.io/cm-hash": "28d0b1df3f72093c"
+                },
+                "creationTimestamp": "2022-12-04T15:27:50Z",
+                "generateName": "nebula-storaged-",
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "storaged",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph",
+                    "controller-revision-hash": "nebula-storaged-7ff48f65fd",
+                    "statefulset.kubernetes.io/pod-name": "nebula-storaged-3"
+                },
+                "name": "nebula-storaged-3",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "StatefulSet",
+                        "name": "nebula-storaged",
+                        "uid": "692c5937-eec9-4dcb-b51f-c32a697aded2"
+                    }
+                ],
+                "resourceVersion": "20956711",
+                "uid": "db231e69-7938-409b-9e0c-6f249fff2a69"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "command": [
+                            "/bin/bash",
+                            "-ecx",
+                            "exec /usr/local/nebula/bin/nebula-storaged --flagfile=/usr/local/nebula/etc/nebula-storaged.conf --meta_server_addrs=nebula-metad-0.nebula-metad-headless.default.svc.cluster.local:9559 --local_ip=$(hostname).nebula-storaged-headless.default.svc.cluster.local --ws_ip=$(hostname).nebula-storaged-headless.default.svc.cluster.local --daemonize=false"
+                        ],
+                        "image": "vesoft/nebula-storaged:v3.1.0",
+                        "imagePullPolicy": "Always",
+                        "name": "storaged",
+                        "ports": [
+                            {
+                                "containerPort": 9779,
+                                "name": "thrift",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 19779,
+                                "name": "http",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 19780,
+                                "name": "http2",
+                                "protocol": "TCP"
+                            },
+                            {
+                                "containerPort": 9778,
+                                "name": "admin",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/status",
+                                "port": 19779,
+                                "scheme": "HTTP"
+                            },
+                            "initialDelaySeconds": 10,
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 5
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "1",
+                                "memory": "1Gi"
+                            },
+                            "requests": {
+                                "cpu": "1m",
+                                "memory": "20Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/usr/local/nebula/logs",
+                                "name": "storaged-log",
+                                "subPath": "logs"
+                            },
+                            {
+                                "mountPath": "/usr/local/nebula/data",
+                                "name": "storaged-data",
+                                "subPath": "data"
+                            },
+                            {
+                                "mountPath": "/usr/local/nebula/etc",
+                                "name": "nebula-storaged"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-cffdf",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "hostname": "nebula-storaged-3",
+                "nodeName": "minikube",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "subdomain": "nebula-storaged-headless",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "topologySpreadConstraints": [
+                    {
+                        "labelSelector": {
+                            "matchLabels": {
+                                "app.kubernetes.io/cluster": "nebula",
+                                "app.kubernetes.io/component": "storaged",
+                                "app.kubernetes.io/managed-by": "nebula-operator",
+                                "app.kubernetes.io/name": "nebula-graph"
+                            }
+                        },
+                        "maxSkew": 1,
+                        "topologyKey": "kubernetes.io/hostname",
+                        "whenUnsatisfiable": "ScheduleAnyway"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "storaged-log",
+                        "persistentVolumeClaim": {
+                            "claimName": "storaged-log-nebula-storaged-3"
+                        }
+                    },
+                    {
+                        "name": "storaged-data",
+                        "persistentVolumeClaim": {
+                            "claimName": "storaged-data-nebula-storaged-3"
+                        }
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "items": [
+                                {
+                                    "key": "nebula-storaged.conf",
+                                    "path": "nebula-storaged.conf"
+                                }
+                            ],
+                            "name": "nebula-storaged"
+                        },
+                        "name": "nebula-storaged"
+                    },
+                    {
+                        "name": "kube-api-access-cffdf",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-12-04T15:27:51Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:53:33Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2023-04-10T03:53:33Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-12-04T15:27:51Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "docker://4d55195d319d2e846e3dd6095d36ac8d40f23240e6f74f94f32720e14794c60f",
+                        "image": "vesoft/nebula-storaged:v3.1.0",
+                        "imageID": "docker-pullable://vesoft/nebula-storaged@sha256:d74f9bc8f26597d5e0ab11a6c52a968a7801acbc6f14895cfa849bce7a2b8171",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "docker://6d6b0e0c96f44952648b447bb06ff48c3734461bd09300c7df5f24a71ae3433a",
+                                "exitCode": 255,
+                                "finishedAt": "2023-04-10T03:51:43Z",
+                                "reason": "Error",
+                                "startedAt": "2023-03-06T04:04:46Z"
+                            }
+                        },
+                        "name": "storaged",
+                        "ready": true,
+                        "restartCount": 2,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2023-04-10T03:52:49Z"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "192.168.49.2",
+                "phase": "Running",
+                "podIP": "172.17.0.7",
+                "podIPs": [
+                    {
+                        "ip": "172.17.0.7"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2022-12-04T15:27:51Z"
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

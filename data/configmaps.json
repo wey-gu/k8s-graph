@@ -1,0 +1,187 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "data": {
+                "config.yaml": "#\n# Licensed to the Apache Software Foundation (ASF) under one or more\n# contributor license agreements.  See the NOTICE file distributed with\n# this work for additional information regarding copyright ownership.\n# The ASF licenses this file to You under the Apache License, Version 2.0\n# (the \"License\"); you may not use this file except in compliance with\n# the License.  You may obtain a copy of the License at\n#\n#     http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\napisix:    # universal configurations\n  node_listen: 9080    # APISIX listening port\n  enable_heartbeat: true\n  enable_admin: true\n  enable_admin_cors: true\n  enable_debug: false\n\n  enable_dev_mode: false                       # Sets nginx worker_processes to 1 if set to true\n  enable_reuseport: true                       # Enable nginx SO_REUSEPORT switch if set to true.\n  enable_ipv6: true # Enable nginx IPv6 resolver\n  enable_server_tokens: true # Whether the APISIX version number should be shown in Server header\n\n  # proxy_protocol:                   # Proxy Protocol configuration\n  #   listen_http_port: 9181          # The port with proxy protocol for http, it differs from node_listen and admin_listen.\n  #                                   # This port can only receive http request with proxy protocol, but node_listen \u0026 admin_listen\n  #                                   # can only receive http request. If you enable proxy protocol, you must use this port to\n  #                                   # receive http request with proxy protocol\n  #   listen_https_port: 9182         # The port with proxy protocol for https\n  #   enable_tcp_pp: true             # Enable the proxy protocol for tcp proxy, it works for stream_proxy.tcp option\n  #   enable_tcp_pp_to_upstream: true # Enables the proxy protocol to the upstream server\n\n  proxy_cache:                         # Proxy Caching configuration\n    cache_ttl: 10s                     # The default caching time if the upstream does not specify the cache time\n    zones:                             # The parameters of a cache\n    - name: disk_cache_one             # The name of the cache, administrator can be specify\n                                       # which cache to use by name in the admin api\n      memory_size: 50m                 # The size of shared memory, it's used to store the cache index\n      disk_size: 1G                    # The size of disk, it's used to store the cache data\n      disk_path: \"/tmp/disk_cache_one\" # The path to store the cache data\n      cache_levels: \"1:2\"              # The hierarchy levels of a cache\n  #  - name: disk_cache_two\n  #    memory_size: 50m\n  #    disk_size: 1G\n  #    disk_path: \"/tmp/disk_cache_two\"\n  #    cache_levels: \"1:2\"\n  config_center: etcd           # etcd: use etcd to store the config value\n                                # yaml: fetch the config value from local yaml file `/your_path/conf/apisix.yaml`\n  allow_admin:                  # http://nginx.org/en/docs/http/ngx_http_access_module.html#allow\n    - 127.0.0.1/24\n    - 0.0.0.0/0\n  #   - \"::/64\"\n  port_admin: 9180\n\n  # Default token when use API to call for Admin API.\n  # *NOTE*: Highly recommended to modify this value to protect APISIX's Admin API.\n  # Disabling this configuration item means that the Admin API does not\n  # require any authentication.\n  admin_key:\n    # admin: can everything for configuration data\n    - name: \"admin\"\n      key: edd1c9f034335f136f87ad84b625c8f1\n      role: admin\n    # viewer: only can view configuration data\n    - name: \"viewer\"\n      key: 4054f7cf07e344346cd3f287985e76a2\n      role: viewer\n\n  router:\n    http: radixtree_uri  # radixtree_uri: match route by uri(base on radixtree)\n                                # radixtree_host_uri: match route by host + uri(base on radixtree)\n                                # radixtree_uri_with_parameter: match route by uri with parameters\n    ssl: 'radixtree_sni'        # radixtree_sni: match route by SNI(base on radixtree)\n  stream_proxy:                 # TCP/UDP proxy\n    only: false\n    tcp:                        # TCP proxy port list\n      - addr: 9100\n        tls: true\n      - addr: 9779\n        tls: true\n      - addr: 9559\n        tls: true\n      - addr: 19779\n        tls: true\n    udp:                        # UDP proxy port list\n      - 9200\n  # dns_resolver:\n  #\n  #   - 127.0.0.1\n  #\n  #   - 172.20.0.10\n  #\n  #   - 114.114.114.114\n  #\n  #   - 223.5.5.5\n  #\n  #   - 1.1.1.1\n  #\n  #   - 8.8.8.8\n  #\n  dns_resolver_valid: 30\n  resolver_timeout: 5\n  ssl:\n    enable: false\n    listen:\n      - port: 9443\n        enable_http2: true\n    ssl_protocols: \"TLSv1.2 TLSv1.3\"\n    ssl_ciphers: \"ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA256:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA\"\n\nnginx_config:    # config for render the template to genarate nginx.conf\n  error_log: \"/dev/stderr\"\n  error_log_level: \"warn\"    # warn,error\n  worker_processes: \"auto\"\n  enable_cpu_affinity: true\n  worker_rlimit_nofile: 20480  # the number of files a worker process can open, should be larger than worker_connections\n  event:\n    worker_connections: 10620\n  http:\n    enable_access_log: true\n    access_log: \"/dev/stdout\"\n    access_log_format: \"$remote_addr - $remote_user [$time_local] $http_host \\\"$request\\\" $status $body_bytes_sent $request_time \\\"$http_referer\\\" \\\"$http_user_agent\\\" $upstream_addr $upstream_status $upstream_response_time \\\"$upstream_scheme://$upstream_host$upstream_uri\\\"\"\n    access_log_format_escape: default\n    keepalive_timeout: 60s         # timeout during which a keep-alive client connection will stay open on the server side.\n    client_header_timeout: 60s     # timeout for reading client request header, then 408 (Request Time-out) error is returned to the client\n    client_body_timeout: 60s       # timeout for reading client request body, then 408 (Request Time-out) error is returned to the client\n    send_timeout: 10s              # timeout for transmitting a response to the client.then the connection is closed\n    underscores_in_headers: \"on\"   # default enables the use of underscores in client request header fields\n    real_ip_header: \"X-Real-IP\"    # http://nginx.org/en/docs/http/ngx_http_realip_module.html#real_ip_header\n    real_ip_from:                  # http://nginx.org/en/docs/http/ngx_http_realip_module.html#set_real_ip_from\n      - 127.0.0.1\n      - 'unix:'\netcd:\n  host:                          # it's possible to define multiple etcd hosts addresses of the same etcd cluster.\n    - \"http://apisix-etcd.default.svc.cluster.local:2379\"\n  prefix: \"/apisix\"    # apisix configurations prefix\n  timeout: 30    # 30 seconds\nplugins:    # plugin list\n  - api-breaker\n  - authz-keycloak\n  - basic-auth\n  - batch-requests\n  - consumer-restriction\n  - cors\n  - echo\n  - fault-injection\n  - file-logger\n  - grpc-transcode\n  - hmac-auth\n  - http-logger\n  - ip-restriction\n  - ua-restriction\n  - jwt-auth\n  - kafka-logger\n  - key-auth\n  - limit-conn\n  - limit-count\n  - limit-req\n  - node-status\n  - openid-connect\n  - authz-casbin\n  - prometheus\n  - proxy-cache\n  - proxy-mirror\n  - proxy-rewrite\n  - redirect\n  - referer-restriction\n  - request-id\n  - request-validation\n  - response-rewrite\n  - serverless-post-function\n  - serverless-pre-function\n  - sls-logger\n  - syslog\n  - tcp-logger\n  - udp-logger\n  - uri-blocker\n  - wolf-rbac\n  - zipkin\n  - traffic-split\n  - gzip\n  - real-ip\n  - ext-plugin-pre-req\n  - ext-plugin-post-req\nstream_plugins:\n  - mqtt-proxy\n  - ip-restriction\n  - limit-conn"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "apisix",
+                    "meta.helm.sh/release-namespace": "default"
+                },
+                "creationTimestamp": "2022-11-15T03:10:06Z",
+                "labels": {
+                    "app.kubernetes.io/managed-by": "Helm"
+                },
+                "name": "apisix",
+                "namespace": "default",
+                "resourceVersion": "277706",
+                "uid": "02f956b2-1aa2-40a7-aae7-57cb6fdf3068"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "data": {
+                "config.yaml": "# log options\nlog_level: \"info\"\nlog_output: \"stderr\"\ncert_file: \"/etc/webhook/certs/cert.pem\"\nkey_file: \"/etc/webhook/certs/key.pem\"\nhttp_listen: \":8080\"\nhttps_listen: \":8443\"\ningress_publish_service: \nenable_profiling: true\napisix-resource-sync-interval: 300s\nkubernetes:\n  kubeconfig: \"\"\n  resync_interval: \"6h\"\n  app_namespaces:\n  - \"*\"\n  namespace_selector:\n  - \"\"\n  election_id: \"ingress-apisix-leader\"\n  ingress_class: \"apisix\"\n  ingress_version: \"networking/v1\"\n  watch_endpointslices: false\n  apisix_route_version: \"apisix.apache.org/v2\"\n  enable_gateway_api: false\napisix:\n  \n  default_cluster_base_url: http://apisix-admin.ingress-apisix.svc.cluster.local:9180/apisix/admin\n  \n  default_cluster_admin_key: \"edd1c9f034335f136f87ad84b625c8f1\"\n  default_cluster_name: \"default\"\n"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "apisix",
+                    "meta.helm.sh/release-namespace": "default"
+                },
+                "creationTimestamp": "2022-11-15T03:10:06Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "ingress-controller",
+                    "app.kubernetes.io/version": "1.5.0",
+                    "helm.sh/chart": "ingress-controller-0.10.1"
+                },
+                "name": "apisix-configmap",
+                "namespace": "default",
+                "resourceVersion": "216448",
+                "uid": "58c1e8bd-9e2d-43d8-a490-f7118f5afe2d"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "data": {
+                "conf.yaml": "conf:\n  listen:\n    host: 0.0.0.0\n    port: 9000\n  etcd:\n    prefix: \"/apisix\"\n    endpoints:\n      - apisix-etcd:2379\n  log:\n    error_log:\n      level: warn\n      file_path: /dev/stderr\n    access_log:\n      file_path: /dev/stdout\nauthentication:\n  secret: secret\n  expire_time: 3600\n  users:\n    - username: admin\n      password: admin"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "apisix-dashboard",
+                    "meta.helm.sh/release-namespace": "default"
+                },
+                "creationTimestamp": "2022-11-15T03:31:48Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "apisix-dashboard",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "apisix-dashboard",
+                    "app.kubernetes.io/version": "2.13.0",
+                    "helm.sh/chart": "apisix-dashboard-0.6.1"
+                },
+                "name": "apisix-dashboard",
+                "namespace": "default",
+                "resourceVersion": "220167",
+                "uid": "e2499170-2b3a-4aec-81f0-9ff80f4a9a92"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "data": {
+                "ca.crt": "-----BEGIN CERTIFICATE-----\nMIIDBjCCAe6gAwIBAgIBATANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwptaW5p\na3ViZUNBMB4XDTIyMDUwNjA5MTkwNVoXDTMyMDUwNDA5MTkwNVowFTETMBEGA1UE\nAxMKbWluaWt1YmVDQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKvr\nz4awLfsKiczkkXQcPuflv964G5d4tamiQtOyKN6bjyuqEqauVc0kwnKgznNMzFSS\nhMDhWBUzvbXn448OLuf3tBGGbay5RlsobS9wejOPQ7jEOFuMCYl5pSoPlM2jsARD\npnHRfM25qOagrqhj+d50C49TqfjLNTcsAROChj6dnwlZXNVJEgTWn96gT45ylg5p\n4fjTsuD1gGUZhPmZ3zbQ0IO4AkuStJaGTlsw8iDqfMAG5OtufqzDA2LWrZGFWipx\nXSGnGrEH00NyAfVPSn1b8LF1ubATHWLM+2pBrFZ9Lnj3yVzNGXO0QuMcKvMrZuzc\nC/NRy/8rE9t02EhpH5ECAwEAAaNhMF8wDgYDVR0PAQH/BAQDAgKkMB0GA1UdJQQW\nMBQGCCsGAQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQW\nBBRZrNuVDGOn4jj2sTBhjDrcRgIchDANBgkqhkiG9w0BAQsFAAOCAQEARhdaA5gq\nTkmbwXvA+5MYodAmsxylGAfUdLYO8NH58P/ncR/O5/+SPSjEEDIG7aOHywMcdNmU\nbOqXaffcp4KvTCVEXUcjzTfVQNvpbVgRQEvL+s+LjqrOoSEDj876+7lJJhrHK/mu\nwJnRN/44edZfEuVtOI90dTS6gDhXvMzFJAOd68PSEEYWFuNBQF0f1Ma+Q4HDUNX5\nPmhvU2dAcLunjNne/gtK65T91EKEPFyD2DgnlnCqcWy7cd4k5zSn2YCKo8U7tEu/\nNXUQrK0oWLDxULchCx71oZbEvBv/fHbqKoUqAp7OsqwiEM0SpNiZVvX0EuOW+zdv\nx/qDK2VV0krp3w==\n-----END CERTIFICATE-----\n"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "annotations": {
+                    "kubernetes.io/description": "Contains a CA bundle that can be used to verify the kube-apiserver when using internal endpoints such as the internal service IP or kubernetes.default.svc. No other usage is guaranteed across distributions of Kubernetes clusters."
+                },
+                "creationTimestamp": "2022-11-14T08:15:53Z",
+                "name": "kube-root-ca.crt",
+                "namespace": "default",
+                "resourceVersion": "354",
+                "uid": "3f9b93b3-d554-47db-ba8c-0a68c30e8528"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "data": {
+                "nebula-graphd.conf": "\n########## basics ##########\n# Whether to run as a daemon process\n--daemonize=true\n# The file to host the process id\n--pid_file=pids/nebula-graphd.pid\n# Whether to enable optimizer\n--enable_optimizer=true\n# Heartbeat interval of communication between meta client and graphd service\n--heartbeat_interval_secs=10\n# Whether to use the configuration obtained from the configuration file\n--local_config=true\n\n########## logging ##########\n# The directory to host logging files\n--log_dir=logs\n# Log level, 0, 1, 2, 3 for INFO, WARNING, ERROR, FATAL respectively\n--minloglevel=0\n# Verbose log level, 1, 2, 3, 4, the higher of the level, the more verbose of the logging\n--v=0\n# Maximum seconds to buffer the log messages\n--logbufsecs=0\n# Whether to redirect stdout and stderr to separate output files\n--redirect_stdout=true\n# Destination filename of stdout and stderr, which will also reside in log_dir.\n--stdout_log_file=graphd-stdout.log\n--stderr_log_file=graphd-stderr.log\n# Copy log messages at or above this level to stderr in addition to logfiles. The numbers of severity levels INFO, WARNING, ERROR, and FATAL are 0, 1, 2, and 3, respectively.\n--stderrthreshold=2\n# wether logging files' name contain timestamp\n--timestamp_in_logfile_name=true\n\n########## query ##########\n# Whether to treat partial success as an error.\n# This flag is only used for Read-only access, and Modify access always treats partial success as an error.\n--accept_partial_success=false\n# Maximum sentence length, unit byte\n--max_allowed_query_size=4194304\n\n########## networking ##########\n# Comma separated Meta Server Addresses\n--meta_server_addrs=127.0.0.1:9559\n# Local IP used to identify the nebula-graphd process.\n# Change it to an address other than loopback if the service is distributed or\n# will be accessed remotely.\n--local_ip=127.0.0.1\n# Network device to listen on\n--listen_netdev=any\n# Port to listen on\n--port=9669\n# To turn on SO_REUSEPORT or not\n--reuse_port=false\n# Backlog of the listen socket, adjust this together with net.core.somaxconn\n--listen_backlog=1024\n# The number of seconds Nebula service waits before closing the idle connections\n--client_idle_timeout_secs=28800\n# The number of seconds before idle sessions expire\n# The range should be in [1, 604800]\n--session_idle_timeout_secs=28800\n# The number of threads to accept incoming connections\n--num_accept_threads=1\n# The number of networking IO threads, 0 for # of CPU cores\n--num_netio_threads=0\n# The number of threads to execute user queries, 0 for # of CPU cores\n--num_worker_threads=0\n# HTTP service ip\n--ws_ip=0.0.0.0\n# HTTP service port\n--ws_http_port=19669\n# storage client timeout\n--storage_client_timeout_ms=60000\n# Port to listen on Meta with HTTP protocol, it corresponds to ws_http_port in metad's configuration file\n--ws_meta_http_port=19559\n\n########## authentication ##########\n# Enable authorization\n--enable_authorize=false\n# User login authentication type, password for nebula authentication, ldap for ldap authentication, cloud for cloud authentication\n--auth_type=password\n\n########## memory ##########\n# System memory high watermark ratio, cancel the memory checking when the ratio greater than 1.0\n--system_memory_high_watermark_ratio=1.0\n\n########## audit ##########\n# This variable is used to enable audit. The value can be 'true' or 'false'.\n--enable_audit=false\n# This variable is used to configure where the audit log will be written. Optional：[ file | es ]\n# If it is set to 'file', the log will be written into a file specified by audit_log_file variable.\n# If it is set to 'es', the audit log will be written to Elasticsearch.\n--audit_log_handler=file\n# This variable is used to specify the filename that’s going to store the audit log.\n# It can contain the path relative to the install dir or absolute path.\n# This variable has effect only when audit_log_handler is set to 'file'.\n--audit_log_file=./logs/audit/audit.log\n# This variable is used to specify the audit log strategy, Optional：[ asynchronous｜ synchronous ]\n# asynchronous: log using memory buffer, do not block the main thread\n# synchronous: log directly to file, flush and sync every event\n# Caution: For performance reasons, when the buffer is full and has not been flushed to the disk,\n# the 'asynchronous' mode will discard subsequent requests.\n# This variable has effect only when audit_log_handler is set to 'file'.\n--audit_log_strategy=synchronous\n# This variable can be used to specify the size of memory buffer used for logging,\n# used when audit_log_strategy variable is set to 'asynchronous' values.\n# This variable has effect only when audit_log_handler is set to 'file'. Uint: B\n--audit_log_max_buffer_size=1048576\n# This variable is used to specify the audit log format. Supports three log formats [ xml | json | csv ]\n# This variable has effect only when audit_log_handler is set to 'file'.\n--audit_log_format=xml\n# This variable can be used to specify the comma-separated list of Elasticsearch addresses,\n# eg, '192.168.0.1:7001, 192.168.0.2:7001'.\n# This variable has effect only when audit_log_handler is set to 'es'.\n--audit_log_es_address=\n# This variable can be used to specify the user name of the Elasticsearch.\n# This variable has effect only when audit_log_handler is set to 'es'.\n--audit_log_es_user=\n# This variable can be used to specify the user password of the Elasticsearch.\n# This variable has effect only when audit_log_handler is set to 'es'.\n--audit_log_es_password=\n# This variable can be used to specify the number of logs which are sent to Elasticsearch at one time.\n# This variable has effect only when audit_log_handler is set to 'es'.\n--audit_log_es_batch_size=1000\n# This variable is used to specify the list of spaces for not tracking.\n# The value can be comma separated list of spaces, ie, 'nba, basketball'.\n--audit_log_exclude_spaces=\n# This variable is used to specify the list of log categories for tracking, eg, 'login, ddl'.\n# There are eight categories for tracking. There are: [ login | exit | ddl | dql | dml | dcl | util | unknown ].\n--audit_log_categories=login,exit\n\n########## metrics ##########\n--enable_space_level_metrics=false\n\n########## experimental feature ##########\n# if use experimental features\n--enable_experimental_feature=false\n\n########## session ##########\n# Maximum number of sessions that can be created per IP and per user\n--max_sessions_per_ip_per_user=300\n"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "creationTimestamp": "2022-11-14T09:46:19Z",
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "graphd",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph"
+                },
+                "name": "nebula-graphd",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps.nebula-graph.io/v1alpha1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "NebulaCluster",
+                        "name": "nebula",
+                        "uid": "6ee6fc37-758c-428b-802c-13986968e5a1"
+                    }
+                ],
+                "resourceVersion": "16497",
+                "uid": "a186b16e-942a-44e1-9ddf-7e51a259b7bf"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "data": {
+                "nebula-metad.conf": "\n########## basics ##########\n# Whether to run as a daemon process\n--daemonize=true\n# The file to host the process id\n--pid_file=pids/nebula-metad.pid\n--license-path=share/nebula.license\n\n########## logging ##########\n# The directory to host logging files\n--log_dir=logs\n# Log level, 0, 1, 2, 3 for INFO, WARNING, ERROR, FATAL respectively\n--minloglevel=0\n# Verbose log level, 1, 2, 3, 4, the higher of the level, the more verbose of the logging\n--v=0\n# Maximum seconds to buffer the log messages\n--logbufsecs=0\n# Whether to redirect stdout and stderr to separate output files\n--redirect_stdout=true\n# Destination filename of stdout and stderr, which will also reside in log_dir.\n--stdout_log_file=metad-stdout.log\n--stderr_log_file=metad-stderr.log\n# Copy log messages at or above this level to stderr in addition to logfiles. The numbers of severity levels INFO, WARNING, ERROR, and FATAL are 0, 1, 2, and 3, respectively.\n--stderrthreshold=2\n# wether logging files' name contain time stamp.\n--timestamp_in_logfile_name=true\n\n########## networking ##########\n# Comma separated Meta Server addresses\n--meta_server_addrs=127.0.0.1:9559\n# Local IP used to identify the nebula-metad process.\n# Change it to an address other than loopback if the service is distributed or\n# will be accessed remotely.\n--local_ip=127.0.0.1\n# Meta daemon listening port\n--port=9559\n# HTTP service ip\n--ws_ip=0.0.0.0\n# HTTP service port\n--ws_http_port=19559\n# Port to listen on Storage with HTTP protocol, it corresponds to ws_http_port in storage's configuration file\n--ws_storage_http_port=19779\n\n########## storage ##########\n# Root data path, here should be only single path for metad\n--data_path=data/meta\n\n########## Misc #########\n# The default number of parts when a space is created\n--default_parts_num=100\n# The default replica factor when a space is created\n--default_replica_factor=1\n\n--heartbeat_interval_secs=10\n--agent_heartbeat_interval_secs=60\n\n############## rocksdb Options ##############\n--rocksdb_wal_sync=true\n"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "creationTimestamp": "2022-11-14T09:45:17Z",
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "metad",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph"
+                },
+                "name": "nebula-metad",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps.nebula-graph.io/v1alpha1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "NebulaCluster",
+                        "name": "nebula",
+                        "uid": "6ee6fc37-758c-428b-802c-13986968e5a1"
+                    }
+                ],
+                "resourceVersion": "16173",
+                "uid": "0c55ba9a-7417-4d42-8947-5ca78d39d827"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "data": {
+                "nebula-storaged.conf": "\n########## basics ##########\n# Whether to run as a daemon process\n--daemonize=true\n# The file to host the process id\n--pid_file=pids/nebula-storaged.pid\n# Whether to use the configuration obtained from the configuration file\n--local_config=true\n\n########## logging ##########\n# The directory to host logging files\n--log_dir=logs\n# Log level, 0, 1, 2, 3 for INFO, WARNING, ERROR, FATAL respectively\n--minloglevel=0\n# Verbose log level, 1, 2, 3, 4, the higher of the level, the more verbose of the logging\n--v=0\n# Maximum seconds to buffer the log messages\n--logbufsecs=0\n# Whether to redirect stdout and stderr to separate output files\n--redirect_stdout=true\n# Destination filename of stdout and stderr, which will also reside in log_dir.\n--stdout_log_file=storaged-stdout.log\n--stderr_log_file=storaged-stderr.log\n# Copy log messages at or above this level to stderr in addition to logfiles. The numbers of severity levels INFO, WARNING, ERROR, and FATAL are 0, 1, 2, and 3, respectively.\n--stderrthreshold=2\n# Wether logging files' name contain timestamp.\n--timestamp_in_logfile_name=true\n\n########## networking ##########\n# Comma separated Meta server addresses\n--meta_server_addrs=127.0.0.1:9559\n# Local IP used to identify the nebula-storaged process.\n# Change it to an address other than loopback if the service is distributed or\n# will be accessed remotely.\n--local_ip=127.0.0.1\n# Storage daemon listening port\n--port=9779\n# HTTP service ip\n--ws_ip=0.0.0.0\n# HTTP service port\n--ws_http_port=19779\n# heartbeat with meta service\n--heartbeat_interval_secs=10\n\n######### Raft #########\n# Raft election timeout\n--raft_heartbeat_interval_secs=30\n# RPC timeout for raft client (ms)\n--raft_rpc_timeout_ms=500\n## recycle Raft WAL\n--wal_ttl=14400\n\n########## Disk ##########\n# Root data path. split by comma. e.g. --data_path=/disk1/path1/,/disk2/path2/\n# One path per Rocksdb instance.\n--data_path=data/storage\n\n# Minimum reserved bytes of each data path\n--minimum_reserved_bytes=268435456\n\n# The default reserved bytes for one batch operation\n--rocksdb_batch_size=4096\n# The default block cache size used in BlockBasedTable.\n# The unit is MB.\n--rocksdb_block_cache=4\n# Disable page cache to better control memory used by rocksdb.\n# Caution: Make sure to allocate enough block cache if disabling page cache!\n--disable_page_cache=false\n\n# Compression algorithm, options: no,snappy,lz4,lz4hc,zlib,bzip2,zstd\n# For the sake of binary compatibility, the default value is snappy.\n# Recommend to use:\n#   * lz4 to gain more CPU performance, with the same compression ratio with snappy\n#   * zstd to occupy less disk space\n#   * lz4hc for the read-heavy write-light scenario\n--rocksdb_compression=lz4\n\n# Set different compressions for different levels\n# For example, if --rocksdb_compression is snappy,\n# \"no:no:lz4:lz4::zstd\" is identical to \"no:no:lz4:lz4:snappy:zstd:snappy\"\n# In order to disable compression for level 0/1, set it to \"no:no\"\n--rocksdb_compression_per_level=\n\n############## rocksdb Options ##############\n# rocksdb DBOptions in json, each name and value of option is a string, given as \"option_name\":\"option_value\" separated by comma\n--rocksdb_db_options={\"max_subcompactions\":\"4\",\"max_background_jobs\":\"4\"}\n# rocksdb ColumnFamilyOptions in json, each name and value of option is string, given as \"option_name\":\"option_value\" separated by comma\n--rocksdb_column_family_options={\"disable_auto_compactions\":\"false\",\"write_buffer_size\":\"67108864\",\"max_write_buffer_number\":\"4\",\"max_bytes_for_level_base\":\"268435456\"}\n# rocksdb BlockBasedTableOptions in json, each name and value of option is string, given as \"option_name\":\"option_value\" separated by comma\n--rocksdb_block_based_table_options={\"block_size\":\"8192\"}\n\n# Whether or not to enable rocksdb's statistics, disabled by default\n--enable_rocksdb_statistics=false\n\n# Statslevel used by rocksdb to collection statistics, optional values are\n#   * kExceptHistogramOrTimers, disable timer stats, and skip histogram stats\n#   * kExceptTimers, Skip timer stats\n#   * kExceptDetailedTimers, Collect all stats except time inside mutex lock AND time spent on compression.\n#   * kExceptTimeForMutex, Collect all stats except the counters requiring to get time inside the mutex lock.\n#   * kAll, Collect all stats\n--rocksdb_stats_level=kExceptHistogramOrTimers\n\n# Whether or not to enable rocksdb's prefix bloom filter, enabled by default.\n--enable_rocksdb_prefix_filtering=true\n# Whether or not to enable rocksdb's whole key bloom filter, disabled by default.\n--enable_rocksdb_whole_key_filtering=false\n\n############## Key-Value separation ##############\n# Whether or not to enable BlobDB (RocksDB key-value separation support)\n--rocksdb_enable_kv_separation=false\n# RocksDB key value separation threshold in bytes. Values at or above this threshold will be written to blob files during flush or compaction.\n--rocksdb_kv_separation_threshold=100\n# Compression algorithm for blobs, options: no,snappy,lz4,lz4hc,zlib,bzip2,zstd\n--rocksdb_blob_compression=lz4\n# Whether to garbage collect blobs during compaction\n--rocksdb_enable_blob_garbage_collection=true\n\n############## storage cache ##############\n# Whether to enable storage cache\n--enable_storage_cache=false\n# Total capacity reserved for storage in memory cache in MB\n--storage_cache_capacity=0\n# Number of buckets in base 2 logarithm. E.g., in case of 20, the total number of buckets will be 2^20. \n# A good estimate can be ceil(log2(cache_entries * 1.6)). The maximum allowed is 32.\n--storage_cache_buckets_power=20\n# Number of locks in base 2 logarithm. E.g., in case of 10, the total number of locks will be 2^10. \n# A good estimate can be max(1, buckets_power - 10). The maximum allowed is 32.\n--storage_cache_locks_power=10\n\n# Whether to add vertex pool in cache. Only valid when storage cache is enabled.\n--enable_vertex_pool=false\n# Vertex pool size in MB\n--vertex_pool_capacity=50\n# TTL in seconds for vertex items in the cache\n--vertex_item_ttl=300\n\n# Whether to add empty key pool in cache. Only valid when storage cache is enabled.\n--enable_empty_key_pool=false\n# Empty key pool size in MB\n--empty_key_pool_capacity=50\n# TTL in seconds for empty key items in the cache\n--empty_key_item_ttl=300\n\n############### misc ####################\n--snapshot_part_rate_limit=10485760\n--snapshot_batch_size=1048576\n--rebuild_index_part_rate_limit=4194304\n--rebuild_index_batch_size=1048576\n"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "creationTimestamp": "2022-11-14T09:46:18Z",
+                "labels": {
+                    "app.kubernetes.io/cluster": "nebula",
+                    "app.kubernetes.io/component": "storaged",
+                    "app.kubernetes.io/managed-by": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-graph"
+                },
+                "name": "nebula-storaged",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps.nebula-graph.io/v1alpha1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "NebulaCluster",
+                        "name": "nebula",
+                        "uid": "6ee6fc37-758c-428b-802c-13986968e5a1"
+                    }
+                ],
+                "resourceVersion": "16412",
+                "uid": "57e73ff6-d680-43ab-b6f2-054a623024cd"
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}
