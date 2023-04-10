@@ -1,4 +1,6 @@
+# Graph Enabled Kubernetes Infra Ops
 
+This is a follow-up blog of [Graph Enabled Infra Ops](https://siwei.io/graph-enabled-infra-ops/), which was a demo of how to use NebulaGraph to help OpenStack Infra Ops. In this blog, we will explore how to use NebulaGraph to help Kubernetes Infra Ops.
 
 ## Prepare Environment
 
