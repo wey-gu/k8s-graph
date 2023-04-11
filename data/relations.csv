@@ -242,6 +242,15 @@ Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
 Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
 Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
 Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,nebula-storaged-0,has connection to,Pod,nebula-storaged-1
+Pod,nebula-storaged-1,has connection to,Pod,nebula-storaged-0
+Pod,nebula-storaged-0,has connection to,Pod,nebula-storaged-2
+Pod,nebula-storaged-2,has connection to,Pod,nebula-storaged-0
+Pod,nebula-graphd-0,has connection to,Pod,nebula-metad-0
+Pod,nebula-graphd-1,has connection to,Pod,nebula-metad-0
+Pod,apisix-6d89854bc5-5m788,has connection to,Pod,apisix-ingress-controller-6ccdb9c8fc-css8c
+Pod,dnsutils,has connection to,Pod,hostpath-provisioner-5978dc8846-tdjj2
+Pod,coredns-565d847f94-h2cs6,has connection to,Pod,hostpath-provisioner-5978dc8846-tdjj2
 Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
 Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
 Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
