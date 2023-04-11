@@ -43,6 +43,7 @@ kubectl get ingresses -o json > ingresses.json
 kubectl get configmaps -o json > configmaps.json
 kubectl get secrets -o json > secrets.json
 kubectl get horizontalpodautoscalers -o json > horizontalpodautoscalers.json
+kubectl get nodes -o json > nodes.json
 ```
 
 2. convert json to csv and .ngql NebulaGraph query file
