@@ -21,8 +21,11 @@ mkdir -p custom_resources
 for crd_name in $crd_names; do
   kubectl get $crd_name --all-namespaces -o json > custom_resources/$crd_name.json
 done
-"""
 
+# Get eBPF data
+/usr/share/bcc/tools/tcptracer > tcptracer_output.txt
+"""
+import re
 import json
 import csv
 
@@ -68,6 +71,9 @@ with open('nodes.json', 'r') as file:
 
 with open('crds.json', 'r') as file:
     crds_data = json.load(file)
+
+with open("tcptracer_output.txt", "r") as f:
+    ebpf_data = f.read()
 
 # Functions to find relations
 def get_owner_references(item):
@@ -338,6 +344,36 @@ for crd_name in crd_names:
         'target': 'CustomResourceDefinition',
         'target_name': crd_name
     })
+
+def get_resource_by_ip_map(pods_data):
+    ip_resource_map = {}
+    for pod in pods_data["items"]:
+        pod_ip = pod["status"]["podIP"]
+        if pod_ip not in ["127.0.0.1", ""]:
+            ip_resource_map[pod_ip] = pod["metadata"]["name"]
+    return ip_resource_map
+
+# Get ebpf captured connection relations
+tcp_connections = re.findall(
+    r"\w+\s+\d+\s+(\S+)\s+\d+\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+)\s+\d+\s+\d+", ebpf_data
+)
+
+ip_resource_map = get_resource_by_ip_map(pods_data)
+
+for connection in tcp_connections:
+    comm, src_ip, dst_ip = connection
+    # continue only when src_ip and dst_ip are in all in ip_resource_map
+    if src_ip not in ip_resource_map or dst_ip not in ip_resource_map:
+        continue
+    
+    relations.append({
+        'source': 'Pod',
+        'source_name': ip_resource_map[src_ip],
+        'relationship': 'has connection to',
+        'target': 'Pod',
+        'target_name': ip_resource_map[dst_ip]
+    })
+
 
 # Filter out relations with empty target_name
 filtered_relations = [relation for relation in relations if relation['target_name'].strip()]

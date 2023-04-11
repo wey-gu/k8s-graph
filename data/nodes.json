@@ -26,7 +26,7 @@
                     "node.kubernetes.io/exclude-from-external-load-balancers": ""
                 },
                 "name": "minikube",
-                "resourceVersion": "21192673",
+                "resourceVersion": "21253403",
                 "uid": "cb6b4151-1712-477a-8120-c09df58acad8"
             },
             "spec": {
@@ -64,7 +64,7 @@
                 },
                 "conditions": [
                     {
-                        "lastHeartbeatTime": "2023-04-11T03:38:23Z",
+                        "lastHeartbeatTime": "2023-04-11T09:43:36Z",
                         "lastTransitionTime": "2022-11-14T08:15:32Z",
                         "message": "kubelet has sufficient memory available",
                         "reason": "KubeletHasSufficientMemory",
@@ -72,7 +72,7 @@
                         "type": "MemoryPressure"
                     },
                     {
-                        "lastHeartbeatTime": "2023-04-11T03:38:23Z",
+                        "lastHeartbeatTime": "2023-04-11T09:43:36Z",
                         "lastTransitionTime": "2022-11-14T08:15:32Z",
                         "message": "kubelet has no disk pressure",
                         "reason": "KubeletHasNoDiskPressure",
@@ -80,7 +80,7 @@
                         "type": "DiskPressure"
                     },
                     {
-                        "lastHeartbeatTime": "2023-04-11T03:38:23Z",
+                        "lastHeartbeatTime": "2023-04-11T09:43:36Z",
                         "lastTransitionTime": "2022-11-14T08:15:32Z",
                         "message": "kubelet has sufficient PID available",
                         "reason": "KubeletHasSufficientPID",
@@ -88,7 +88,7 @@
                         "type": "PIDPressure"
                     },
                     {
-                        "lastHeartbeatTime": "2023-04-11T03:38:23Z",
+                        "lastHeartbeatTime": "2023-04-11T09:43:36Z",
                         "lastTransitionTime": "2022-11-14T08:15:51Z",
                         "message": "kubelet is posting ready status",
                         "reason": "KubeletReady",
@@ -108,6 +108,13 @@
                             "registry.k8s.io/etcd:3.5.4-0"
                         ],
                         "sizeBytes": 299520781
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/mrsupiri/kube-ebpf@sha256:b7ca409814bb6c73296fab6eba840c64f6476812b74a87192e7714f028412048",
+                            "ghcr.io/mrsupiri/kube-ebpf:latest"
+                        ],
+                        "sizeBytes": 297870441
                     },
                     {
                         "names": [
@@ -139,10 +146,31 @@
                     },
                     {
                         "names": [
+                            "ghcr.io/mrsupiri/kube-ebpf/init-headers@sha256:043d94c462e03500cf67c45b78d47800793b80db4805107c30c32dd55e8bcf37",
+                            "ghcr.io/mrsupiri/kube-ebpf/init-headers:latest"
+                        ],
+                        "sizeBytes": 239409121
+                    },
+                    {
+                        "names": [
+                            "zlim/bcc@sha256:914bea8970535cd6b0d5dee13f99569c5f0d597942c8333c0aa92443473aff27",
+                            "zlim/bcc:latest"
+                        ],
+                        "sizeBytes": 223615335
+                    },
+                    {
+                        "names": [
                             "openkruise/kruise-manager@sha256:8c88b0c341f9bfc2679a3e16bd5645df2b48386bb66a18a123f795844c673c8c",
                             "openkruise/kruise-manager:v1.2.0"
                         ],
                         "sizeBytes": 213619113
+                    },
+                    {
+                        "names": [
+                            "prom/prometheus@sha256:3a75763d209af6ef82aca8fb202a76092a690d25f24d2def7f4eff64e79b7ed9",
+                            "prom/prometheus:v2.33.1"
+                        ],
+                        "sizeBytes": 203523686
                     },
                     {
                         "names": [

@@ -9,7 +9,7 @@
                 "generation": 3,
                 "name": "nebula",
                 "namespace": "default",
-                "resourceVersion": "20956829",
+                "resourceVersion": "21244416",
                 "uid": "6ee6fc37-758c-428b-802c-13986968e5a1"
             },
             "spec": {
@@ -113,8 +113,8 @@
             "status": {
                 "conditions": [
                     {
-                        "lastTransitionTime": "2023-04-10T03:54:01Z",
-                        "lastUpdateTime": "2023-04-10T03:54:01Z",
+                        "lastTransitionTime": "2023-04-11T08:49:32Z",
+                        "lastUpdateTime": "2023-04-11T08:49:32Z",
                         "message": "Nebula cluster is running",
                         "reason": "Ready",
                         "status": "True",

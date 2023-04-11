@@ -23,11 +23,15 @@ minikube start --vm-driver=none
 
 ```bash
 kubectl apply -f resources/sample.yaml
+kubectl apply -f https://github.com/MrSupiri/kube-ebpf/raw/main/deployment.yaml
+kubectl apply -f https://github.com/MrSupiri/kube-ebpf/raw/main/prometheus-deployment.yaml
 ```
 
 ## Pull data from Kubernetes Cluster
 
 1. get resources and save to files
+
+Get resources from Kubernetes cluster.
 
 ```bash
 cd data
@@ -50,6 +54,25 @@ mkdir -p custom_resources
 for crd_name in $crd_names; do
   kubectl get $crd_name --all-namespaces -o json > custom_resources/$crd_name.json
 done
+```
+
+Get resources with eBPF.
+
+```bash
+minikube ssh -- sudo apt update
+minikube ssh -- sudo apt install linux-headers-5.4.0-146-generic
+minikube ssh
+
+# Install bcc from source following https://github.com/iovisor/bcc/blob/master/INSTALL.md#ubuntu---source
+apt install zip
+export PATH="/usr/share/bcc/tools/:/usr/share/bcc/tools/old/:$PATH"
+# replace python to python3 for /usr/share/bcc/tools/tcptracer
+grep python3 /usr/share/bcc/tools/tcptracer || sed -i 's/python/python3/g' /usr/share/bcc/tools/tcptracer
+/usr/share/bcc/tools/tcptracer > tcptracer_output.txt
+exit
+
+# copy tcptracer_output.txt to local
+minikube ssh -- cat tcptracer_output.txt > tcptracer_output.txt
 ```
 
 2. convert json to csv and .ngql NebulaGraph query file
@@ -77,4 +100,3 @@ USE `k8s`;
 3. Load the `graph.ngql` generated with `pull_k8s_resources.py` to NebulaGraph in Console of NebulaGraph Studio.
 
 <img width="2032" alt="k8s-graph-nebulagraph" src="https://user-images.githubusercontent.com/1651790/230852511-fbead10c-0b27-411b-8eac-72f455710ad3.png">
-

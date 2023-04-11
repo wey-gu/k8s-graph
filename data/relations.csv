@@ -37,6 +37,7 @@ StatefulSet,nebula-storaged,controls,Pod,nebula-storaged-2
 StatefulSet,nebula-storaged,controls,Pod,nebula-storaged-3
 DaemonSet,my-daemonset,controls,Pod,my-daemonset-b8c79
 DaemonSet,kube-proxy,controls,Pod,kube-proxy-7xscl
+DaemonSet,kube-ebpf,controls,Pod,kube-ebpf-zktlb
 ReplicaSet,cert-manager-76f6c4cd4c,controls,Pod,cert-manager-76f6c4cd4c-tnqrf
 ReplicaSet,cert-manager-cainjector-785f4d76b8,controls,Pod,cert-manager-cainjector-785f4d76b8-vnv2v
 ReplicaSet,cert-manager-webhook-7485454cd7,controls,Pod,cert-manager-webhook-7485454cd7-gg6c6
@@ -45,6 +46,7 @@ ReplicaSet,apisix-dashboard-b544bd766,controls,Pod,apisix-dashboard-b544bd766-nh
 ReplicaSet,apisix-ingress-controller-6ccdb9c8fc,controls,Pod,apisix-ingress-controller-6ccdb9c8fc-css8c
 ReplicaSet,coredns-565d847f94,controls,Pod,coredns-565d847f94-h2cs6
 ReplicaSet,hostpath-provisioner-5978dc8846,controls,Pod,hostpath-provisioner-5978dc8846-tdjj2
+ReplicaSet,prometheus-6ff6f6b54,controls,Pod,prometheus-6ff6f6b54-hb259
 ReplicaSet,nebula-operator-controller-manager-deployment-86749f78c8,controls,Pod,nebula-operator-controller-manager-deployment-86749f78c8-9j865
 ReplicaSet,nebula-operator-controller-manager-deployment-86749f78c8,controls,Pod,nebula-operator-controller-manager-deployment-86749f78c8-r4xbv
 Deployment,cert-manager,creates,ReplicaSet,cert-manager-76f6c4cd4c
@@ -55,6 +57,7 @@ Deployment,apisix-dashboard,creates,ReplicaSet,apisix-dashboard-b544bd766
 Deployment,apisix-ingress-controller,creates,ReplicaSet,apisix-ingress-controller-6ccdb9c8fc
 Deployment,coredns,creates,ReplicaSet,coredns-565d847f94
 Deployment,hostpath-provisioner,creates,ReplicaSet,hostpath-provisioner-5978dc8846
+Deployment,prometheus,creates,ReplicaSet,prometheus-6ff6f6b54
 Deployment,nebula-operator-controller-manager-deployment,creates,ReplicaSet,nebula-operator-controller-manager-deployment-86749f78c8
 Pod,apisix-etcd-0,uses,PersistentVolumeClaim,data-apisix-etcd-0
 Pod,apisix-etcd-1,uses,PersistentVolumeClaim,data-apisix-etcd-1
@@ -106,6 +109,7 @@ Pod,nebula-storaged-2,uses,ConfigMap,nebula-storaged
 Pod,nebula-storaged-3,uses,ConfigMap,nebula-storaged
 Pod,coredns-565d847f94-h2cs6,uses,ConfigMap,coredns
 Pod,kube-proxy-7xscl,uses,ConfigMap,kube-proxy
+Pod,prometheus-6ff6f6b54-hb259,uses,ConfigMap,prometheus-config
 Pod,nebula-operator-controller-manager-deployment-86749f78c8-9j865,uses,Secret,nebula-operator-webhook-secret
 Pod,nebula-operator-controller-manager-deployment-86749f78c8-r4xbv,uses,Secret,nebula-operator-webhook-secret
 HorizontalPodAutoscaler,my-autoscaler,scales,Deployment,my-deployment
@@ -135,6 +139,8 @@ Node,minikube,schedules,Pod,kube-controller-manager-minikube
 Node,minikube,schedules,Pod,kube-proxy-7xscl
 Node,minikube,schedules,Pod,kube-scheduler-minikube
 Node,minikube,schedules,Pod,storage-provisioner
+Node,minikube,schedules,Pod,kube-ebpf-zktlb
+Node,minikube,schedules,Pod,prometheus-6ff6f6b54-hb259
 Node,minikube,schedules,Pod,nebula-operator-controller-manager-deployment-86749f78c8-9j865
 Node,minikube,schedules,Pod,nebula-operator-controller-manager-deployment-86749f78c8-r4xbv
 CertificateRequest,nebula-operator-webhook-cert-jzzlm,labels,app.kubernetes.io/component,admission-webhook
@@ -184,3 +190,62 @@ NodeImage,minikube,labels,minikube.k8s.io/commit,4243041b7a72319b9be7842a7d34b67
 NodeImage,minikube,labels,minikube.k8s.io/name,minikube
 NodeImage,minikube,labels,minikube.k8s.io/primary,true
 NodeImage,minikube,is a,CustomResourceDefinition,nodeimages.apps.kruise.io
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,kube-ebpf-zktlb,has connection to,Pod,kube-ebpf-zktlb
+Pod,prometheus-6ff6f6b54-hb259,has connection to,Pod,kube-ebpf-zktlb

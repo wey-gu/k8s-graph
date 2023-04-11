@@ -141,7 +141,7 @@
                         "uid": "13edff87-1a1d-4578-9f6e-6bf0a69e9286"
                     }
                 ],
-                "resourceVersion": "20956498",
+                "resourceVersion": "21244196",
                 "uid": "fa9547f5-3954-4736-b0c5-b5259e0b8f36"
             },
             "spec": {
@@ -818,7 +818,7 @@
                         "uid": "c01a6ab7-f6bd-4b39-862d-108c3e7adc8e"
                     }
                 ],
-                "resourceVersion": "20956453",
+                "resourceVersion": "21244148",
                 "uid": "691cde40-1832-4fc0-b5c9-4816cab2c177"
             },
             "spec": {
@@ -1023,7 +1023,7 @@
                         "uid": "d62469ca-b442-4053-a727-f9fd0f118554"
                     }
                 ],
-                "resourceVersion": "20956479",
+                "resourceVersion": "21244204",
                 "uid": "365c48b6-69bd-424e-950d-489cc586032a"
             },
             "spec": {
@@ -1121,6 +1121,111 @@
             "kind": "ReplicaSet",
             "metadata": {
                 "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1"
+                },
+                "creationTimestamp": "2023-04-11T08:07:00Z",
+                "generation": 1,
+                "labels": {
+                    "app": "prometheus",
+                    "pod-template-hash": "6ff6f6b54"
+                },
+                "name": "prometheus-6ff6f6b54",
+                "namespace": "monitoring",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "prometheus",
+                        "uid": "ee4b9ec9-c295-4263-b634-dcd52666b8f7"
+                    }
+                ],
+                "resourceVersion": "21237387",
+                "uid": "e10544dd-6f4d-46ec-b44a-97b4b8ce3ed6"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app": "prometheus",
+                        "pod-template-hash": "6ff6f6b54"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "prometheus",
+                            "pod-template-hash": "6ff6f6b54"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "args": [
+                                    "--config.file=/etc/prometheus/prometheus.yml"
+                                ],
+                                "image": "prom/prometheus:v2.33.1",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "prometheus",
+                                "ports": [
+                                    {
+                                        "containerPort": 9090,
+                                        "name": "default",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/etc/prometheus",
+                                        "name": "config-volume"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {
+                            "fsGroup": 65534,
+                            "runAsGroup": 65534,
+                            "runAsNonRoot": true,
+                            "runAsUser": 65534
+                        },
+                        "serviceAccount": "prometheus",
+                        "serviceAccountName": "prometheus",
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "name": "prometheus-config"
+                                },
+                                "name": "config-volume"
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 1,
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "readyReplicas": 1,
+                "replicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
                     "deployment.kubernetes.io/desired-replicas": "2",
                     "deployment.kubernetes.io/max-replicas": "3",
                     "deployment.kubernetes.io/revision": "1",
@@ -1150,7 +1255,7 @@
                         "uid": "f27a5fda-ec58-437b-bc8d-6a45fea976d6"
                     }
                 ],
-                "resourceVersion": "20956683",
+                "resourceVersion": "21244179",
                 "uid": "a5348c19-bfa6-4d1d-bd39-434af33c5154"
             },
             "spec": {

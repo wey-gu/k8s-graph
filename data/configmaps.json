@@ -266,12 +266,12 @@
             "kind": "ConfigMap",
             "metadata": {
                 "annotations": {
-                    "control-plane.alpha.kubernetes.io/leader": "{\"holderIdentity\":\"cert-manager-cainjector-785f4d76b8-vnv2v_c35ade7d-6d0e-4b26-b952-b8059d0f9c48\",\"leaseDurationSeconds\":15,\"acquireTime\":\"2023-04-10T03:53:08Z\",\"renewTime\":\"2023-04-11T03:42:07Z\",\"leaderTransitions\":7}"
+                    "control-plane.alpha.kubernetes.io/leader": "{\"holderIdentity\":\"cert-manager-cainjector-785f4d76b8-vnv2v_510454b2-bacf-45a2-8abd-3fcd8b0f8c04\",\"leaseDurationSeconds\":15,\"acquireTime\":\"2023-04-11T08:48:37Z\",\"renewTime\":\"2023-04-11T09:48:17Z\",\"leaderTransitions\":8}"
                 },
                 "creationTimestamp": "2022-11-14T08:16:51Z",
                 "name": "cert-manager-cainjector-leader-election",
                 "namespace": "kube-system",
-                "resourceVersion": "21193288",
+                "resourceVersion": "21254180",
                 "uid": "57ce35e3-6c84-455a-818c-1454657e6e5d"
             }
         },
@@ -280,12 +280,12 @@
             "kind": "ConfigMap",
             "metadata": {
                 "annotations": {
-                    "control-plane.alpha.kubernetes.io/leader": "{\"holderIdentity\":\"cert-manager-76f6c4cd4c-tnqrf-external-cert-manager-controller\",\"leaseDurationSeconds\":60,\"acquireTime\":\"2022-11-14T09:44:17Z\",\"renewTime\":\"2023-04-11T03:41:55Z\",\"leaderTransitions\":2}"
+                    "control-plane.alpha.kubernetes.io/leader": "{\"holderIdentity\":\"cert-manager-76f6c4cd4c-tnqrf-external-cert-manager-controller\",\"leaseDurationSeconds\":60,\"acquireTime\":\"2022-11-14T09:44:17Z\",\"renewTime\":\"2023-04-11T09:48:07Z\",\"leaderTransitions\":2}"
                 },
                 "creationTimestamp": "2022-11-14T08:17:35Z",
                 "name": "cert-manager-controller",
                 "namespace": "kube-system",
-                "resourceVersion": "21193259",
+                "resourceVersion": "21254154",
                 "uid": "94db02d2-e7dc-4b6c-bb92-bf0d4f371f06"
             }
         },
@@ -395,6 +395,40 @@
                 "annotations": {
                     "kubernetes.io/description": "Contains a CA bundle that can be used to verify the kube-apiserver when using internal endpoints such as the internal service IP or kubernetes.default.svc. No other usage is guaranteed across distributions of Kubernetes clusters."
                 },
+                "creationTimestamp": "2023-04-11T08:06:04Z",
+                "name": "kube-root-ca.crt",
+                "namespace": "monitoring",
+                "resourceVersion": "21236970",
+                "uid": "0b4306d8-8f71-4e88-af90-b018acecacaf"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "data": {
+                "prometheus.yml": "global:\n  scrape_interval: 10s\nscrape_configs:\n  - job_name: 'k8s-pods'\n    scrape_interval: 1s\n    metrics_path: /\n    kubernetes_sd_configs:\n    - role: pod\n    relabel_configs:\n    - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]\n      regex: \"true\"\n      replacement: $1\n      action: keep\n"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"data\":{\"prometheus.yml\":\"global:\\n  scrape_interval: 10s\\nscrape_configs:\\n  - job_name: 'k8s-pods'\\n    scrape_interval: 1s\\n    metrics_path: /\\n    kubernetes_sd_configs:\\n    - role: pod\\n    relabel_configs:\\n    - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]\\n      regex: \\\"true\\\"\\n      replacement: $1\\n      action: keep\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"name\":\"prometheus-config\",\"namespace\":\"monitoring\"}}\n"
+                },
+                "creationTimestamp": "2023-04-11T08:07:00Z",
+                "name": "prometheus-config",
+                "namespace": "monitoring",
+                "resourceVersion": "21237133",
+                "uid": "3968d77c-62dd-4023-aca5-fb9cd3067085"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "data": {
+                "ca.crt": "-----BEGIN CERTIFICATE-----\nMIIDBjCCAe6gAwIBAgIBATANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwptaW5p\na3ViZUNBMB4XDTIyMDUwNjA5MTkwNVoXDTMyMDUwNDA5MTkwNVowFTETMBEGA1UE\nAxMKbWluaWt1YmVDQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKvr\nz4awLfsKiczkkXQcPuflv964G5d4tamiQtOyKN6bjyuqEqauVc0kwnKgznNMzFSS\nhMDhWBUzvbXn448OLuf3tBGGbay5RlsobS9wejOPQ7jEOFuMCYl5pSoPlM2jsARD\npnHRfM25qOagrqhj+d50C49TqfjLNTcsAROChj6dnwlZXNVJEgTWn96gT45ylg5p\n4fjTsuD1gGUZhPmZ3zbQ0IO4AkuStJaGTlsw8iDqfMAG5OtufqzDA2LWrZGFWipx\nXSGnGrEH00NyAfVPSn1b8LF1ubATHWLM+2pBrFZ9Lnj3yVzNGXO0QuMcKvMrZuzc\nC/NRy/8rE9t02EhpH5ECAwEAAaNhMF8wDgYDVR0PAQH/BAQDAgKkMB0GA1UdJQQW\nMBQGCCsGAQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQW\nBBRZrNuVDGOn4jj2sTBhjDrcRgIchDANBgkqhkiG9w0BAQsFAAOCAQEARhdaA5gq\nTkmbwXvA+5MYodAmsxylGAfUdLYO8NH58P/ncR/O5/+SPSjEEDIG7aOHywMcdNmU\nbOqXaffcp4KvTCVEXUcjzTfVQNvpbVgRQEvL+s+LjqrOoSEDj876+7lJJhrHK/mu\nwJnRN/44edZfEuVtOI90dTS6gDhXvMzFJAOd68PSEEYWFuNBQF0f1Ma+Q4HDUNX5\nPmhvU2dAcLunjNne/gtK65T91EKEPFyD2DgnlnCqcWy7cd4k5zSn2YCKo8U7tEu/\nNXUQrK0oWLDxULchCx71oZbEvBv/fHbqKoUqAp7OsqwiEM0SpNiZVvX0EuOW+zdv\nx/qDK2VV0krp3w==\n-----END CERTIFICATE-----\n"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "annotations": {
+                    "kubernetes.io/description": "Contains a CA bundle that can be used to verify the kube-apiserver when using internal endpoints such as the internal service IP or kubernetes.default.svc. No other usage is guaranteed across distributions of Kubernetes clusters."
+                },
                 "creationTimestamp": "2022-11-14T09:43:18Z",
                 "name": "kube-root-ca.crt",
                 "namespace": "nebula-operator-system",
@@ -407,12 +441,12 @@
             "kind": "ConfigMap",
             "metadata": {
                 "annotations": {
-                    "control-plane.alpha.kubernetes.io/leader": "{\"holderIdentity\":\"nebula-operator-controller-manager-deployment-86749f78c8-9j865_55bbf0c7-e88a-45e4-8280-09c3d38a1972\",\"leaseDurationSeconds\":15,\"acquireTime\":\"2023-04-10T03:53:09Z\",\"renewTime\":\"2023-04-11T03:42:07Z\",\"leaderTransitions\":6}"
+                    "control-plane.alpha.kubernetes.io/leader": "{\"holderIdentity\":\"nebula-operator-controller-manager-deployment-86749f78c8-r4xbv_bb7a916f-2ae4-4845-adb6-d8c38b9e68b5\",\"leaseDurationSeconds\":15,\"acquireTime\":\"2023-04-11T08:48:29Z\",\"renewTime\":\"2023-04-11T09:48:17Z\",\"leaderTransitions\":7}"
                 },
                 "creationTimestamp": "2022-11-14T09:44:54Z",
                 "name": "nebula-controller-manager-leader",
                 "namespace": "nebula-operator-system",
-                "resourceVersion": "21193290",
+                "resourceVersion": "21254181",
                 "uid": "e8c8241e-2a9f-4090-ba1f-c5be4a30212e"
             }
         }

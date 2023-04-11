@@ -19,7 +19,7 @@
                 },
                 "name": "apisix-etcd",
                 "namespace": "default",
-                "resourceVersion": "20959401",
+                "resourceVersion": "21244194",
                 "uid": "2fb4d7b1-6f76-42dc-8cd6-ba519b06a6b2"
             },
             "spec": {
@@ -528,7 +528,7 @@
                         "uid": "6ee6fc37-758c-428b-802c-13986968e5a1"
                     }
                 ],
-                "resourceVersion": "20956552",
+                "resourceVersion": "21244158",
                 "uid": "576c39f3-dc11-40e1-acff-c1ea63de871f"
             },
             "spec": {
@@ -770,7 +770,7 @@
                         "uid": "6ee6fc37-758c-428b-802c-13986968e5a1"
                     }
                 ],
-                "resourceVersion": "20956827",
+                "resourceVersion": "21244397",
                 "uid": "692c5937-eec9-4dcb-b51f-c32a697aded2"
             },
             "spec": {
