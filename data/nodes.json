@@ -1,0 +1,314 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "kubeadm.alpha.kubernetes.io/cri-socket": "unix:///var/run/cri-dockerd.sock",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2022-11-14T08:15:37Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "amd64",
+                    "beta.kubernetes.io/os": "linux",
+                    "kubernetes.io/arch": "amd64",
+                    "kubernetes.io/hostname": "minikube",
+                    "kubernetes.io/os": "linux",
+                    "minikube.k8s.io/commit": "4243041b7a72319b9be7842a7d34b6767bbdac2b",
+                    "minikube.k8s.io/name": "minikube",
+                    "minikube.k8s.io/primary": "true",
+                    "minikube.k8s.io/updated_at": "2022_11_14T08_15_41_0700",
+                    "minikube.k8s.io/version": "v1.27.0",
+                    "node-role.kubernetes.io/control-plane": "",
+                    "node.kubernetes.io/exclude-from-external-load-balancers": ""
+                },
+                "name": "minikube",
+                "resourceVersion": "21182625",
+                "uid": "cb6b4151-1712-477a-8120-c09df58acad8"
+            },
+            "spec": {
+                "podCIDR": "10.244.0.0/24",
+                "podCIDRs": [
+                    "10.244.0.0/24"
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "192.168.49.2",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "minikube",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "72",
+                    "ephemeral-storage": "982357440Ki",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "memory": "197942672Ki",
+                    "pods": "110"
+                },
+                "capacity": {
+                    "cpu": "72",
+                    "ephemeral-storage": "982357440Ki",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "memory": "197942672Ki",
+                    "pods": "110"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2023-04-11T02:37:39Z",
+                        "lastTransitionTime": "2022-11-14T08:15:32Z",
+                        "message": "kubelet has sufficient memory available",
+                        "reason": "KubeletHasSufficientMemory",
+                        "status": "False",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2023-04-11T02:37:39Z",
+                        "lastTransitionTime": "2022-11-14T08:15:32Z",
+                        "message": "kubelet has no disk pressure",
+                        "reason": "KubeletHasNoDiskPressure",
+                        "status": "False",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2023-04-11T02:37:39Z",
+                        "lastTransitionTime": "2022-11-14T08:15:32Z",
+                        "message": "kubelet has sufficient PID available",
+                        "reason": "KubeletHasSufficientPID",
+                        "status": "False",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2023-04-11T02:37:39Z",
+                        "lastTransitionTime": "2022-11-14T08:15:51Z",
+                        "message": "kubelet is posting ready status",
+                        "reason": "KubeletReady",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10250
+                    }
+                },
+                "images": [
+                    {
+                        "names": [
+                            "registry.k8s.io/etcd@sha256:6f72b851544986cb0921b53ea655ec04c36131248f16d4ad110cb3ca0c369dc1",
+                            "registry.k8s.io/etcd:3.5.4-0"
+                        ],
+                        "sizeBytes": 299520781
+                    },
+                    {
+                        "names": [
+                            "vesoft/nebula-storaged@sha256:d74f9bc8f26597d5e0ab11a6c52a968a7801acbc6f14895cfa849bce7a2b8171",
+                            "vesoft/nebula-storaged:v3.1.0"
+                        ],
+                        "sizeBytes": 288894593
+                    },
+                    {
+                        "names": [
+                            "vesoft/nebula-metad@sha256:cb044db5a2d5df76c3308c6003a637f814939203969b13e98a4379d6e36d3670",
+                            "vesoft/nebula-metad:v3.1.0"
+                        ],
+                        "sizeBytes": 287477347
+                    },
+                    {
+                        "names": [
+                            "vesoft/nebula-graphd@sha256:b9b67411370c941beebfc9e82efbb85723a40a07f189710e3410082835430be3",
+                            "vesoft/nebula-graphd:v3.1.0"
+                        ],
+                        "sizeBytes": 281580599
+                    },
+                    {
+                        "names": [
+                            "registry.k8s.io/e2e-test-images/jessie-dnsutils@sha256:8b03e4185ecd305bc9b410faac15d486a3b1ef1946196d429245cdd3c7b152eb",
+                            "registry.k8s.io/e2e-test-images/jessie-dnsutils:1.3"
+                        ],
+                        "sizeBytes": 253376380
+                    },
+                    {
+                        "names": [
+                            "openkruise/kruise-manager@sha256:8c88b0c341f9bfc2679a3e16bd5645df2b48386bb66a18a123f795844c673c8c",
+                            "openkruise/kruise-manager:v1.2.0"
+                        ],
+                        "sizeBytes": 213619113
+                    },
+                    {
+                        "names": [
+                            "bitnami/etcd@sha256:e5ef30fa508e6f3a028a4e26acc7ec2803eea1370dc9c1da692ee0405cdaf50d",
+                            "bitnami/etcd:3.5.4-debian-11-r14"
+                        ],
+                        "sizeBytes": 158693925
+                    },
+                    {
+                        "names": [
+                            "apache/apisix@sha256:de49e358f7ac6c9214460890213e9ab358e87bff11c0d144cad2765b1189f4a8",
+                            "apache/apisix:2.15.0-alpine"
+                        ],
+                        "sizeBytes": 145440120
+                    },
+                    {
+                        "names": [
+                            "registry.k8s.io/kube-apiserver@sha256:f6902791fb9aa6e283ed7d1d743417b3c425eec73151517813bef1539a66aefa",
+                            "registry.k8s.io/kube-apiserver:v1.25.0"
+                        ],
+                        "sizeBytes": 127711996
+                    },
+                    {
+                        "names": [
+                            "registry.k8s.io/kube-controller-manager@sha256:66ce7d460e53f942bb4729f656d66fe475ec3d41728de986b6d790eee6d8205d",
+                            "registry.k8s.io/kube-controller-manager:v1.25.0"
+                        ],
+                        "sizeBytes": 117095443
+                    },
+                    {
+                        "names": [
+                            "apache/apisix-dashboard@sha256:7ce2f9517a7472a17c32244b75effdbebb0f9296815b5a675f591fd220a868ec",
+                            "apache/apisix-dashboard:2.13-alpine"
+                        ],
+                        "sizeBytes": 109341940
+                    },
+                    {
+                        "names": [
+                            "vesoft/nebula-operator@sha256:a7562b8fa830c50d8b7fc090d2f526972fe4db6d647ed7252554e882372fd64e",
+                            "vesoft/nebula-operator:v1.3.0"
+                        ],
+                        "sizeBytes": 83418314
+                    },
+                    {
+                        "names": [
+                            "vesoft/nebula-operator@sha256:13ee3798aa47214fafd8569294952f424837ca0ffea95b64039f09b7d311e891",
+                            "vesoft/nebula-operator:v1.2.0"
+                        ],
+                        "sizeBytes": 82272685
+                    },
+                    {
+                        "names": [
+                            "apache/apisix-ingress-controller@sha256:7fbd85f0547c7605442fc0a2b8408397a0cd22e1fdca7c5cfe3b59457c2f1541",
+                            "apache/apisix-ingress-controller:1.5.0"
+                        ],
+                        "sizeBytes": 67013752
+                    },
+                    {
+                        "names": [
+                            "quay.io/jetstack/cert-manager-controller@sha256:22543d32793abc0069680f80ee5be348dcbb3c74c85ba55835b4cf6c76fe18da",
+                            "quay.io/jetstack/cert-manager-controller:v1.3.1"
+                        ],
+                        "sizeBytes": 64005402
+                    },
+                    {
+                        "names": [
+                            "registry.k8s.io/kube-proxy@sha256:1b1f3456bb19866aa1655c607514b85cd2b6efdfea4d93ea55e79475ff2765f9",
+                            "registry.k8s.io/kube-proxy:v1.25.0"
+                        ],
+                        "sizeBytes": 61683733
+                    },
+                    {
+                        "names": [
+                            "registry.k8s.io/kube-scheduler@sha256:9330c53feca7b51b25e427fa96afd5d1460b3233e9fa92e20c895c067da56ac1",
+                            "registry.k8s.io/kube-scheduler:v1.25.0"
+                        ],
+                        "sizeBytes": 50580512
+                    },
+                    {
+                        "names": [
+                            "quay.io/jetstack/cert-manager-webhook@sha256:41eacd93a30b566b780a6ae525b2547d2a87f1ec5f067fc02840a220aeb0c3f7",
+                            "quay.io/jetstack/cert-manager-webhook:v1.3.1"
+                        ],
+                        "sizeBytes": 50073287
+                    },
+                    {
+                        "names": [
+                            "gcr.io/kubebuilder/kube-rbac-proxy@sha256:db06cc4c084dd0253134f156dddaaf53ef1c3fb3cc809e5d81711baa4029ea4c",
+                            "gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0"
+                        ],
+                        "sizeBytes": 48952053
+                    },
+                    {
+                        "names": [
+                            "registry.k8s.io/coredns/coredns@sha256:8e352a029d304ca7431c6507b56800636c321cb52289686a581ab70aaa8a2e2a",
+                            "registry.k8s.io/coredns/coredns:v1.9.3"
+                        ],
+                        "sizeBytes": 48803555
+                    },
+                    {
+                        "names": [
+                            "quay.io/jetstack/cert-manager-cainjector@sha256:51c0df411b66aa175e9fc6840f3135d55b52c3781d0b3d4aa10862066d460193",
+                            "quay.io/jetstack/cert-manager-cainjector:v1.3.1"
+                        ],
+                        "sizeBytes": 47694011
+                    },
+                    {
+                        "names": [
+                            "quay.io/rimusz/hostpath-provisioner@sha256:87f0398ec7ffbbb91a3ac8e55cfaa4339b613154c009950e3ecbbb388a33b90e",
+                            "quay.io/rimusz/hostpath-provisioner:v0.2.5"
+                        ],
+                        "sizeBytes": 42358494
+                    },
+                    {
+                        "names": [
+                            "gcr.io/k8s-minikube/storage-provisioner@sha256:18eb69d1418e854ad5a19e399310e52808a8321e4c441c1dddad8977a0d7a944",
+                            "gcr.io/k8s-minikube/storage-provisioner:v5"
+                        ],
+                        "sizeBytes": 31465472
+                    },
+                    {
+                        "names": [
+                            "alpine@sha256:0f2d5c38dd7a4f4f733e688e3a6733cb5ab1ac6e3cb4603a5dd564e5bfb80eed",
+                            "alpine:3.14"
+                        ],
+                        "sizeBytes": 5613762
+                    },
+                    {
+                        "names": [
+                            "busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47",
+                            "busybox:1.28"
+                        ],
+                        "sizeBytes": 1146369
+                    },
+                    {
+                        "names": [
+                            "registry.k8s.io/pause@sha256:9001185023633d17a2f98ff69b6ff2615b8ea02a825adffa40422f51dfdcde9d",
+                            "registry.k8s.io/pause:3.8"
+                        ],
+                        "sizeBytes": 711184
+                    },
+                    {
+                        "names": [
+                            "k8s.gcr.io/pause@sha256:3d380ca8864549e74af4b29c10f9cb0956236dfb01c40ca076fb6c37253234db",
+                            "k8s.gcr.io/pause:3.6"
+                        ],
+                        "sizeBytes": 682696
+                    }
+                ],
+                "nodeInfo": {
+                    "architecture": "amd64",
+                    "bootID": "f2e16d40-e947-4908-893d-951c70fd5ec0",
+                    "containerRuntimeVersion": "docker://20.10.17",
+                    "kernelVersion": "5.4.0-146-generic",
+                    "kubeProxyVersion": "v1.25.0",
+                    "kubeletVersion": "v1.25.0",
+                    "machineID": "40026c506a9948afaae3b0fda0a61c83",
+                    "operatingSystem": "linux",
+                    "osImage": "Ubuntu 20.04.5 LTS",
+                    "systemUUID": "8f02ef3c-ccc3-4e5f-a66d-41f605f37a7c"
+                }
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

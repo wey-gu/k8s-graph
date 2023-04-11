@@ -14,6 +14,7 @@ kubectl get ingresses -o json > ingresses.json
 kubectl get configmaps -o json > configmaps.json
 kubectl get secrets -o json > secrets.json
 kubectl get horizontalpodautoscalers -o json > horizontalpodautoscalers.json
+kubectl get nodes -o json > nodes.json
 """
 
 import json
@@ -55,6 +56,9 @@ with open('secrets.json', 'r') as file:
 
 with open('horizontalpodautoscalers.json', 'r') as file:
     hpa_data = json.load(file)
+
+with open('nodes.json', 'r') as file:
+    nodes_data = json.load(file)
 
 # Functions to find relations
 def get_owner_references(item):
@@ -234,6 +238,23 @@ for hpa in hpa_data['items']:
         'target': resource_kind,
         'target_name': resource_name
     })
+
+# Node to Pod relations
+for node in nodes_data['items']:
+    node_name = node['metadata']['name']
+    pods_on_node = []
+    for pod in pods_data['items']:
+        if pod['spec'].get('nodeName') == node_name:
+            pod_name = pod['metadata']['name']
+            pods_on_node.append(pod_name)
+
+            relations.append({
+                'source': 'Node',
+                'source_name': node_name,
+                'relationship': 'schedules',
+                'target': 'Pod',
+                'target_name': pod_name
+            })
 
 # Filter out relations with empty target_name
 filtered_relations = [relation for relation in relations if relation['target_name'].strip()]
