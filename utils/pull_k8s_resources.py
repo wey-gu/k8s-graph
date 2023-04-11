@@ -172,7 +172,7 @@ def append_relationships_from_metadata(relationships, metadata, relationship_typ
         BYPASS_KEYWORDS = ['updated', 'version']
         skip = False
         for keyword in BYPASS_KEYWORDS:
-            if keyword in key.lower():
+            if keyword in key.lower() or keyword in value.lower():
                 skip = True
         if skip:
             continue

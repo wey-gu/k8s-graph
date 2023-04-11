@@ -100,3 +100,8 @@ USE `k8s`;
 3. Load the `graph.ngql` generated with `pull_k8s_resources.py` to NebulaGraph in Console of NebulaGraph Studio.
 
 <img width="2032" alt="k8s-graph-nebulagraph" src="https://user-images.githubusercontent.com/1651790/230852511-fbead10c-0b27-411b-8eac-72f455710ad3.png">
+
+
+## Get insights from the K8s Graph
+
+Refer to [k8s.ipynb](https://github.com/wey-gu/k8s-graph/blob/main/k8s.ipynb) for more details.
