@@ -1,0 +1,41 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "apps.kruise.io/v1alpha1",
+            "kind": "NodeImage",
+            "metadata": {
+                "creationTimestamp": "2022-11-14T08:18:37Z",
+                "generation": 1,
+                "labels": {
+                    "beta.kubernetes.io/arch": "amd64",
+                    "beta.kubernetes.io/os": "linux",
+                    "kubernetes.io/arch": "amd64",
+                    "kubernetes.io/hostname": "minikube",
+                    "kubernetes.io/os": "linux",
+                    "minikube.k8s.io/commit": "4243041b7a72319b9be7842a7d34b6767bbdac2b",
+                    "minikube.k8s.io/name": "minikube",
+                    "minikube.k8s.io/primary": "true",
+                    "minikube.k8s.io/updated_at": "2022_11_14T08_15_41_0700",
+                    "minikube.k8s.io/version": "v1.27.0",
+                    "node-role.kubernetes.io/control-plane": "",
+                    "node.kubernetes.io/exclude-from-external-load-balancers": ""
+                },
+                "name": "minikube",
+                "resourceVersion": "870",
+                "uid": "f9cf86e3-00e6-4299-9b53-1e94a88f8792"
+            },
+            "spec": {},
+            "status": {
+                "desired": 0,
+                "failed": 0,
+                "pulling": 0,
+                "succeeded": 0
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

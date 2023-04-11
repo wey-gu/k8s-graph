@@ -1,0 +1,60 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "cert-manager.io/v1",
+            "kind": "Certificate",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "nebula-operator",
+                    "meta.helm.sh/release-namespace": "nebula-operator-system"
+                },
+                "creationTimestamp": "2022-11-14T09:43:41Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/component": "admission-webhook",
+                    "app.kubernetes.io/instance": "nebula-operator",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "nebula-operator",
+                    "app.kubernetes.io/version": "1.0.0",
+                    "helm.sh/chart": "nebula-operator-1.2.0"
+                },
+                "name": "nebula-operator-webhook-cert",
+                "namespace": "nebula-operator-system",
+                "resourceVersion": "13126858",
+                "uid": "2d3d97f3-8d90-43b7-aaf5-de869bb622cf"
+            },
+            "spec": {
+                "dnsNames": [
+                    "nebula-operator-webhook-service.nebula-operator-system.svc",
+                    "nebula-operator-webhook-service.nebula-operator-system.svc.cluster.local"
+                ],
+                "issuerRef": {
+                    "kind": "Issuer",
+                    "name": "nebula-operator-webhook-issuer"
+                },
+                "secretName": "nebula-operator-webhook-secret"
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastTransitionTime": "2023-03-06T04:05:12Z",
+                        "message": "Certificate is up to date and has not expired",
+                        "observedGeneration": 1,
+                        "reason": "Ready",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "notAfter": "2023-06-04T04:05:11Z",
+                "notBefore": "2023-03-06T04:05:11Z",
+                "renewalTime": "2023-05-05T04:05:11Z",
+                "revision": 2
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

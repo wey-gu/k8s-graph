@@ -44,6 +44,12 @@ kubectl get configmaps -o json > configmaps.json
 kubectl get secrets -o json > secrets.json
 kubectl get horizontalpodautoscalers -o json > horizontalpodautoscalers.json
 kubectl get nodes -o json > nodes.json
+kubectl get crds --all-namespaces -o json > crds.json
+crd_names=$(jq -r '.items[].metadata.name' crds.json)
+mkdir -p custom_resources
+for crd_name in $crd_names; do
+  kubectl get $crd_name --all-namespaces -o json > custom_resources/$crd_name.json
+done
 ```
 
 2. convert json to csv and .ngql NebulaGraph query file

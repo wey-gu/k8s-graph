@@ -6,6 +6,103 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/name\":\"cert-manager\"},\"name\":\"cert-manager\",\"namespace\":\"cert-manager\"},\"spec\":{\"ports\":[{\"port\":9402,\"protocol\":\"TCP\",\"targetPort\":9402}],\"selector\":{\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/name\":\"cert-manager\"},\"type\":\"ClusterIP\"}}\n"
+                },
+                "creationTimestamp": "2022-11-14T09:43:09Z",
+                "labels": {
+                    "app": "cert-manager",
+                    "app.kubernetes.io/component": "controller",
+                    "app.kubernetes.io/instance": "cert-manager",
+                    "app.kubernetes.io/name": "cert-manager"
+                },
+                "name": "cert-manager",
+                "namespace": "cert-manager",
+                "resourceVersion": "15683",
+                "uid": "04c80bee-9833-4d40-97fa-84841c55c956"
+            },
+            "spec": {
+                "clusterIP": "10.97.43.233",
+                "clusterIPs": [
+                    "10.97.43.233"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "port": 9402,
+                        "protocol": "TCP",
+                        "targetPort": 9402
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/component": "controller",
+                    "app.kubernetes.io/instance": "cert-manager",
+                    "app.kubernetes.io/name": "cert-manager"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"webhook\",\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/name\":\"webhook\"},\"name\":\"cert-manager-webhook\",\"namespace\":\"cert-manager\"},\"spec\":{\"ports\":[{\"name\":\"https\",\"port\":443,\"targetPort\":10250}],\"selector\":{\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/name\":\"webhook\"},\"type\":\"ClusterIP\"}}\n"
+                },
+                "creationTimestamp": "2022-11-14T09:43:09Z",
+                "labels": {
+                    "app": "webhook",
+                    "app.kubernetes.io/component": "webhook",
+                    "app.kubernetes.io/instance": "cert-manager",
+                    "app.kubernetes.io/name": "webhook"
+                },
+                "name": "cert-manager-webhook",
+                "namespace": "cert-manager",
+                "resourceVersion": "15687",
+                "uid": "0321e5f2-7509-4d99-95e1-a0f0aa9582c0"
+            },
+            "spec": {
+                "clusterIP": "10.101.111.236",
+                "clusterIPs": [
+                    "10.101.111.236"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "https",
+                        "port": 443,
+                        "protocol": "TCP",
+                        "targetPort": 10250
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/component": "webhook",
+                    "app.kubernetes.io/instance": "cert-manager",
+                    "app.kubernetes.io/name": "webhook"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
                     "meta.helm.sh/release-name": "apisix",
                     "meta.helm.sh/release-namespace": "default"
                 },
@@ -737,6 +834,116 @@
                     "app.kubernetes.io/component": "storaged",
                     "app.kubernetes.io/managed-by": "nebula-operator",
                     "app.kubernetes.io/name": "nebula-graph"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "prometheus.io/port": "9153",
+                    "prometheus.io/scrape": "true"
+                },
+                "creationTimestamp": "2022-11-14T08:15:41Z",
+                "labels": {
+                    "k8s-app": "kube-dns",
+                    "kubernetes.io/cluster-service": "true",
+                    "kubernetes.io/name": "CoreDNS"
+                },
+                "name": "kube-dns",
+                "namespace": "kube-system",
+                "resourceVersion": "252",
+                "uid": "ee21b566-9a6f-421a-a353-899631d26646"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.10",
+                "clusterIPs": [
+                    "10.96.0.10"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "dns",
+                        "port": 53,
+                        "protocol": "UDP",
+                        "targetPort": 53
+                    },
+                    {
+                        "name": "dns-tcp",
+                        "port": 53,
+                        "protocol": "TCP",
+                        "targetPort": 53
+                    },
+                    {
+                        "name": "metrics",
+                        "port": 9153,
+                        "protocol": "TCP",
+                        "targetPort": 9153
+                    }
+                ],
+                "selector": {
+                    "k8s-app": "kube-dns"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "nebula-operator",
+                    "meta.helm.sh/release-namespace": "nebula-operator-system"
+                },
+                "creationTimestamp": "2022-11-14T09:43:40Z",
+                "labels": {
+                    "app.kubernetes.io/component": "admission-webhook",
+                    "app.kubernetes.io/instance": "nebula-operator",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "nebula-operator",
+                    "app.kubernetes.io/version": "1.0.0",
+                    "helm.sh/chart": "nebula-operator-1.2.0"
+                },
+                "name": "nebula-operator-webhook-service",
+                "namespace": "nebula-operator-system",
+                "resourceVersion": "15831",
+                "uid": "9feeb14b-6062-42c2-a4f1-82a5c5d8388c"
+            },
+            "spec": {
+                "clusterIP": "10.104.165.205",
+                "clusterIPs": [
+                    "10.104.165.205"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "port": 443,
+                        "protocol": "TCP",
+                        "targetPort": 9443
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/component": "controller-manager",
+                    "app.kubernetes.io/instance": "nebula-operator",
+                    "app.kubernetes.io/name": "nebula-operator"
                 },
                 "sessionAffinity": "None",
                 "type": "ClusterIP"

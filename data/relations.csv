@@ -1,4 +1,6 @@
 source,source_name,relationship,target,target_name
+Service,cert-manager,selects,Pod,cert-manager-76f6c4cd4c-tnqrf
+Service,cert-manager-webhook,selects,Pod,cert-manager-webhook-7485454cd7-gg6c6
 Service,apisix-admin,selects,Pod,apisix-6d89854bc5-5m788
 Service,apisix-dashboard,selects,Pod,apisix-dashboard-b544bd766-nh79j
 Service,apisix-etcd,selects,Pod,apisix-etcd-0
@@ -20,6 +22,9 @@ Service,nebula-storaged-headless,selects,Pod,nebula-storaged-0
 Service,nebula-storaged-headless,selects,Pod,nebula-storaged-1
 Service,nebula-storaged-headless,selects,Pod,nebula-storaged-2
 Service,nebula-storaged-headless,selects,Pod,nebula-storaged-3
+Service,kube-dns,selects,Pod,coredns-565d847f94-h2cs6
+Service,nebula-operator-webhook-service,selects,Pod,nebula-operator-controller-manager-deployment-86749f78c8-9j865
+Service,nebula-operator-webhook-service,selects,Pod,nebula-operator-controller-manager-deployment-86749f78c8-r4xbv
 StatefulSet,apisix-etcd,controls,Pod,apisix-etcd-0
 StatefulSet,apisix-etcd,controls,Pod,apisix-etcd-1
 StatefulSet,apisix-etcd,controls,Pod,apisix-etcd-2
@@ -31,12 +36,26 @@ StatefulSet,nebula-storaged,controls,Pod,nebula-storaged-1
 StatefulSet,nebula-storaged,controls,Pod,nebula-storaged-2
 StatefulSet,nebula-storaged,controls,Pod,nebula-storaged-3
 DaemonSet,my-daemonset,controls,Pod,my-daemonset-b8c79
+DaemonSet,kube-proxy,controls,Pod,kube-proxy-7xscl
+ReplicaSet,cert-manager-76f6c4cd4c,controls,Pod,cert-manager-76f6c4cd4c-tnqrf
+ReplicaSet,cert-manager-cainjector-785f4d76b8,controls,Pod,cert-manager-cainjector-785f4d76b8-vnv2v
+ReplicaSet,cert-manager-webhook-7485454cd7,controls,Pod,cert-manager-webhook-7485454cd7-gg6c6
 ReplicaSet,apisix-6d89854bc5,controls,Pod,apisix-6d89854bc5-5m788
 ReplicaSet,apisix-dashboard-b544bd766,controls,Pod,apisix-dashboard-b544bd766-nh79j
 ReplicaSet,apisix-ingress-controller-6ccdb9c8fc,controls,Pod,apisix-ingress-controller-6ccdb9c8fc-css8c
+ReplicaSet,coredns-565d847f94,controls,Pod,coredns-565d847f94-h2cs6
+ReplicaSet,hostpath-provisioner-5978dc8846,controls,Pod,hostpath-provisioner-5978dc8846-tdjj2
+ReplicaSet,nebula-operator-controller-manager-deployment-86749f78c8,controls,Pod,nebula-operator-controller-manager-deployment-86749f78c8-9j865
+ReplicaSet,nebula-operator-controller-manager-deployment-86749f78c8,controls,Pod,nebula-operator-controller-manager-deployment-86749f78c8-r4xbv
+Deployment,cert-manager,creates,ReplicaSet,cert-manager-76f6c4cd4c
+Deployment,cert-manager-cainjector,creates,ReplicaSet,cert-manager-cainjector-785f4d76b8
+Deployment,cert-manager-webhook,creates,ReplicaSet,cert-manager-webhook-7485454cd7
 Deployment,apisix,creates,ReplicaSet,apisix-6d89854bc5
 Deployment,apisix-dashboard,creates,ReplicaSet,apisix-dashboard-b544bd766
 Deployment,apisix-ingress-controller,creates,ReplicaSet,apisix-ingress-controller-6ccdb9c8fc
+Deployment,coredns,creates,ReplicaSet,coredns-565d847f94
+Deployment,hostpath-provisioner,creates,ReplicaSet,hostpath-provisioner-5978dc8846
+Deployment,nebula-operator-controller-manager-deployment,creates,ReplicaSet,nebula-operator-controller-manager-deployment-86749f78c8
 Pod,apisix-etcd-0,uses,PersistentVolumeClaim,data-apisix-etcd-0
 Pod,apisix-etcd-1,uses,PersistentVolumeClaim,data-apisix-etcd-1
 Pod,apisix-etcd-2,uses,PersistentVolumeClaim,data-apisix-etcd-2
@@ -67,6 +86,9 @@ PersistentVolumeClaim,storaged-log-nebula-storaged-0,binds to,PersistentVolume,p
 PersistentVolumeClaim,storaged-log-nebula-storaged-1,binds to,PersistentVolume,pvc-867f20d6-bc1d-4d86-a1cd-4626d2f3f686
 PersistentVolumeClaim,storaged-log-nebula-storaged-2,binds to,PersistentVolume,pvc-a0f049ca-7856-4032-aa06-b340243c4a5e
 PersistentVolumeClaim,storaged-log-nebula-storaged-3,binds to,PersistentVolume,pvc-af6332b3-e876-40b0-b68d-f72ca0638254
+PersistentVolumeClaim,data-apisix-etcd-0,binds to,PersistentVolume,pvc-6a0fa940-46a4-41b9-aa72-6c3391552627
+PersistentVolumeClaim,data-apisix-etcd-1,binds to,PersistentVolume,pvc-fe758145-71f6-4d89-b2a8-e4144fdeec1b
+PersistentVolumeClaim,data-apisix-etcd-2,binds to,PersistentVolume,pvc-89693448-eb52-4482-aadf-596831bd33f0
 Ingress,my-ingress,routes to,Service,api-service
 Ingress,my-ingress,routes to,Service,dashboard-service
 Pod,apisix-6d89854bc5-5m788,uses,ConfigMap,apisix
@@ -82,7 +104,14 @@ Pod,nebula-storaged-0,uses,ConfigMap,nebula-storaged
 Pod,nebula-storaged-1,uses,ConfigMap,nebula-storaged
 Pod,nebula-storaged-2,uses,ConfigMap,nebula-storaged
 Pod,nebula-storaged-3,uses,ConfigMap,nebula-storaged
+Pod,coredns-565d847f94-h2cs6,uses,ConfigMap,coredns
+Pod,kube-proxy-7xscl,uses,ConfigMap,kube-proxy
+Pod,nebula-operator-controller-manager-deployment-86749f78c8-9j865,uses,Secret,nebula-operator-webhook-secret
+Pod,nebula-operator-controller-manager-deployment-86749f78c8-r4xbv,uses,Secret,nebula-operator-webhook-secret
 HorizontalPodAutoscaler,my-autoscaler,scales,Deployment,my-deployment
+Node,minikube,schedules,Pod,cert-manager-76f6c4cd4c-tnqrf
+Node,minikube,schedules,Pod,cert-manager-cainjector-785f4d76b8-vnv2v
+Node,minikube,schedules,Pod,cert-manager-webhook-7485454cd7-gg6c6
 Node,minikube,schedules,Pod,apisix-6d89854bc5-5m788
 Node,minikube,schedules,Pod,apisix-dashboard-b544bd766-nh79j
 Node,minikube,schedules,Pod,apisix-etcd-0
@@ -98,3 +127,60 @@ Node,minikube,schedules,Pod,nebula-storaged-0
 Node,minikube,schedules,Pod,nebula-storaged-1
 Node,minikube,schedules,Pod,nebula-storaged-2
 Node,minikube,schedules,Pod,nebula-storaged-3
+Node,minikube,schedules,Pod,coredns-565d847f94-h2cs6
+Node,minikube,schedules,Pod,etcd-minikube
+Node,minikube,schedules,Pod,hostpath-provisioner-5978dc8846-tdjj2
+Node,minikube,schedules,Pod,kube-apiserver-minikube
+Node,minikube,schedules,Pod,kube-controller-manager-minikube
+Node,minikube,schedules,Pod,kube-proxy-7xscl
+Node,minikube,schedules,Pod,kube-scheduler-minikube
+Node,minikube,schedules,Pod,storage-provisioner
+Node,minikube,schedules,Pod,nebula-operator-controller-manager-deployment-86749f78c8-9j865
+Node,minikube,schedules,Pod,nebula-operator-controller-manager-deployment-86749f78c8-r4xbv
+CertificateRequest,nebula-operator-webhook-cert-jzzlm,labels,app.kubernetes.io/component,admission-webhook
+CertificateRequest,nebula-operator-webhook-cert-jzzlm,labels,app.kubernetes.io/instance,nebula-operator
+CertificateRequest,nebula-operator-webhook-cert-jzzlm,labels,app.kubernetes.io/managed-by,Helm
+CertificateRequest,nebula-operator-webhook-cert-jzzlm,labels,app.kubernetes.io/name,nebula-operator
+CertificateRequest,nebula-operator-webhook-cert-jzzlm,labels,helm.sh/chart,nebula-operator-1.2.0
+CertificateRequest,nebula-operator-webhook-cert-jzzlm,annotations,cert-manager.io/certificate-name,nebula-operator-webhook-cert
+CertificateRequest,nebula-operator-webhook-cert-jzzlm,annotations,cert-manager.io/certificate-revision,2
+CertificateRequest,nebula-operator-webhook-cert-jzzlm,annotations,cert-manager.io/private-key-secret-name,nebula-operator-webhook-cert-vcgzq
+CertificateRequest,nebula-operator-webhook-cert-jzzlm,annotations,meta.helm.sh/release-name,nebula-operator
+CertificateRequest,nebula-operator-webhook-cert-jzzlm,annotations,meta.helm.sh/release-namespace,nebula-operator-system
+CertificateRequest,nebula-operator-webhook-cert-xqsqd,labels,app.kubernetes.io/component,admission-webhook
+CertificateRequest,nebula-operator-webhook-cert-xqsqd,labels,app.kubernetes.io/instance,nebula-operator
+CertificateRequest,nebula-operator-webhook-cert-xqsqd,labels,app.kubernetes.io/managed-by,Helm
+CertificateRequest,nebula-operator-webhook-cert-xqsqd,labels,app.kubernetes.io/name,nebula-operator
+CertificateRequest,nebula-operator-webhook-cert-xqsqd,labels,helm.sh/chart,nebula-operator-1.2.0
+CertificateRequest,nebula-operator-webhook-cert-xqsqd,annotations,cert-manager.io/certificate-name,nebula-operator-webhook-cert
+CertificateRequest,nebula-operator-webhook-cert-xqsqd,annotations,cert-manager.io/certificate-revision,1
+CertificateRequest,nebula-operator-webhook-cert-xqsqd,annotations,cert-manager.io/private-key-secret-name,nebula-operator-webhook-cert-bfff6
+CertificateRequest,nebula-operator-webhook-cert-xqsqd,annotations,meta.helm.sh/release-name,nebula-operator
+CertificateRequest,nebula-operator-webhook-cert-xqsqd,annotations,meta.helm.sh/release-namespace,nebula-operator-system
+CertificateRequest,nebula-operator-webhook-cert-xqsqd,is a,CustomResourceDefinition,certificaterequests.cert-manager.io
+Certificate,nebula-operator-webhook-cert,labels,app.kubernetes.io/component,admission-webhook
+Certificate,nebula-operator-webhook-cert,labels,app.kubernetes.io/instance,nebula-operator
+Certificate,nebula-operator-webhook-cert,labels,app.kubernetes.io/managed-by,Helm
+Certificate,nebula-operator-webhook-cert,labels,app.kubernetes.io/name,nebula-operator
+Certificate,nebula-operator-webhook-cert,labels,helm.sh/chart,nebula-operator-1.2.0
+Certificate,nebula-operator-webhook-cert,annotations,meta.helm.sh/release-name,nebula-operator
+Certificate,nebula-operator-webhook-cert,annotations,meta.helm.sh/release-namespace,nebula-operator-system
+Certificate,nebula-operator-webhook-cert,is a,CustomResourceDefinition,certificates.cert-manager.io
+Issuer,nebula-operator-webhook-issuer,labels,app.kubernetes.io/component,admission-webhook
+Issuer,nebula-operator-webhook-issuer,labels,app.kubernetes.io/instance,nebula-operator
+Issuer,nebula-operator-webhook-issuer,labels,app.kubernetes.io/managed-by,Helm
+Issuer,nebula-operator-webhook-issuer,labels,app.kubernetes.io/name,nebula-operator
+Issuer,nebula-operator-webhook-issuer,labels,helm.sh/chart,nebula-operator-1.2.0
+Issuer,nebula-operator-webhook-issuer,annotations,meta.helm.sh/release-name,nebula-operator
+Issuer,nebula-operator-webhook-issuer,annotations,meta.helm.sh/release-namespace,nebula-operator-system
+Issuer,nebula-operator-webhook-issuer,is a,CustomResourceDefinition,issuers.cert-manager.io
+NebulaCluster,nebula,is a,CustomResourceDefinition,nebulaclusters.apps.nebula-graph.io
+NodeImage,minikube,labels,beta.kubernetes.io/arch,amd64
+NodeImage,minikube,labels,beta.kubernetes.io/os,linux
+NodeImage,minikube,labels,kubernetes.io/arch,amd64
+NodeImage,minikube,labels,kubernetes.io/hostname,minikube
+NodeImage,minikube,labels,kubernetes.io/os,linux
+NodeImage,minikube,labels,minikube.k8s.io/commit,4243041b7a72319b9be7842a7d34b6767bbdac2b
+NodeImage,minikube,labels,minikube.k8s.io/name,minikube
+NodeImage,minikube,labels,minikube.k8s.io/primary,true
+NodeImage,minikube,is a,CustomResourceDefinition,nodeimages.apps.kruise.io

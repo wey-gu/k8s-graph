@@ -1,20 +1,26 @@
 """
 Get resources:
-
+bash
 cd data
-kubectl get pods -o json > pods.json
-kubectl get services -o json > services.json
-kubectl get deployments -o json > deployments.json
-kubectl get replicasets -o json > replicasets.json
-kubectl get statefulsets -o json > statefulsets.json
-kubectl get daemonsets -o json > daemonsets.json
-kubectl get persistentvolumeclaims -o json > persistentvolumeclaims.json
-kubectl get persistentvolumes -o json > persistentvolumes.json
-kubectl get ingresses -o json > ingresses.json
-kubectl get configmaps -o json > configmaps.json
-kubectl get secrets -o json > secrets.json
-kubectl get horizontalpodautoscalers -o json > horizontalpodautoscalers.json
-kubectl get nodes -o json > nodes.json
+kubectl get pods --all-namespaces -o json > pods.json
+kubectl get services --all-namespaces -o json > services.json
+kubectl get deployments --all-namespaces -o json > deployments.json
+kubectl get replicasets --all-namespaces -o json > replicasets.json
+kubectl get statefulsets --all-namespaces -o json > statefulsets.json
+kubectl get daemonsets --all-namespaces -o json > daemonsets.json
+kubectl get persistentvolumeclaims --all-namespaces -o json > persistentvolumeclaims.json
+kubectl get persistentvolumes --all-namespaces -o json > persistentvolumes.json
+kubectl get ingresses --all-namespaces -o json > ingresses.json
+kubectl get configmaps --all-namespaces -o json > configmaps.json
+kubectl get secrets --all-namespaces -o json > secrets.json
+kubectl get horizontalpodautoscalers --all-namespaces -o json > horizontalpodautoscalers.json
+kubectl get nodes --all-namespaces -o json > nodes.json
+kubectl get crds --all-namespaces -o json > crds.json
+crd_names=$(jq -r '.items[].metadata.name' crds.json)
+mkdir -p custom_resources
+for crd_name in $crd_names; do
+  kubectl get $crd_name --all-namespaces -o json > custom_resources/$crd_name.json
+done
 """
 
 import json
@@ -59,6 +65,9 @@ with open('horizontalpodautoscalers.json', 'r') as file:
 
 with open('nodes.json', 'r') as file:
     nodes_data = json.load(file)
+
+with open('crds.json', 'r') as file:
+    crds_data = json.load(file)
 
 # Functions to find relations
 def get_owner_references(item):
@@ -125,6 +134,49 @@ def find_related_ingress_services(ingress):
 def find_related_hpa_scalable_resource(hpa):
     scalable_resource = hpa['spec']['scaleTargetRef']
     return scalable_resource['kind'], scalable_resource['name']
+
+
+def find_resource_names(obj):
+    resource_names = set()
+
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            if key == 'kind' and isinstance(value, str):
+                resource_names.add(value)
+            else:
+                resource_names |= find_resource_names(value)
+    elif isinstance(obj, list):
+        for item in obj:
+            resource_names |= find_resource_names(item)
+
+    return resource_names
+
+def extract_relationships_from_metadata(metadata, relationship_type):
+    relationships = []
+
+    if relationship_type in metadata:
+        for key, value in metadata[relationship_type].items():
+            if value:
+                relationships.append((key, value))
+
+    return relationships
+
+def append_relationships_from_metadata(relationships, metadata, relationship_type, kind):
+    for key, value in extract_relationships_from_metadata(metadata, relationship_type):
+        BYPASS_KEYWORDS = ['updated', 'version']
+        skip = False
+        for keyword in BYPASS_KEYWORDS:
+            if keyword in key.lower():
+                skip = True
+        if skip:
+            continue
+        relationships.append({
+            'source': kind,
+            'source_name': metadata['name'],
+            'relationship': relationship_type,
+            'target': key,
+            'target_name': value
+        })
 
 # Process relations
 relations = []
@@ -256,6 +308,37 @@ for node in nodes_data['items']:
                 'target_name': pod_name
             })
 
+# crds and custom resources
+crd_names = [item['metadata']['name'] for item in crds_data['items']]
+for crd_name in crd_names:
+    with open(f'custom_resources/{crd_name}.json', 'r') as file:
+        custom_resource_data = json.load(file)
+
+    resource_names = find_resource_names(custom_resource_data)
+
+    source = custom_resource_data['kind']
+    source_name = None
+    if source != "List":
+        continue
+    for item in custom_resource_data['items']:
+        source = item['kind']
+        source_name = item['metadata'].get('name', None)
+        # From metadata.labels
+        append_relationships_from_metadata(relations, item['metadata'], "labels", source)
+        # From metadata.annotations
+        append_relationships_from_metadata(relations, item['metadata'], "annotations", source)
+
+    if source_name is None:
+        continue
+    # custom resource to CRD
+    relations.append({
+        'source': source,
+        'source_name': source_name,
+        'relationship': 'is a',
+        'target': 'CustomResourceDefinition',
+        'target_name': crd_name
+    })
+
 # Filter out relations with empty target_name
 filtered_relations = [relation for relation in relations if relation['target_name'].strip()]
 
@@ -291,6 +374,9 @@ def generate_nebula_statements(csv_file, ngql_file):
     for relation in relations:
         source_tag = relation['source']
         target_tag = relation['target']
+        # remove dot and slash from tag names
+        source_tag = source_tag.replace('.', '_').replace('/', '_')
+        target_tag = target_tag.replace('.', '_').replace('/', '_')
 
         # Add tags to the set
         tags.add(source_tag)

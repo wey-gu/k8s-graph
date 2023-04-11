@@ -1,0 +1,172 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "apps.nebula-graph.io/v1alpha1",
+            "kind": "NebulaCluster",
+            "metadata": {
+                "creationTimestamp": "2022-11-14T09:45:16Z",
+                "generation": 3,
+                "name": "nebula",
+                "namespace": "default",
+                "resourceVersion": "20956829",
+                "uid": "6ee6fc37-758c-428b-802c-13986968e5a1"
+            },
+            "spec": {
+                "graphd": {
+                    "image": "vesoft/nebula-graphd",
+                    "logVolumeClaim": {
+                        "resources": {
+                            "requests": {
+                                "storage": "2Gi"
+                            }
+                        },
+                        "storageClassName": "hostpath"
+                    },
+                    "replicas": 2,
+                    "resources": {
+                        "limits": {
+                            "cpu": "1",
+                            "memory": "1Gi"
+                        },
+                        "requests": {
+                            "cpu": "1m",
+                            "memory": "20Mi"
+                        }
+                    },
+                    "service": {
+                        "externalTrafficPolicy": "Local",
+                        "type": "NodePort"
+                    },
+                    "version": "v3.1.0"
+                },
+                "imagePullPolicy": "Always",
+                "metad": {
+                    "dataVolumeClaim": {
+                        "resources": {
+                            "requests": {
+                                "storage": "2Gi"
+                            }
+                        },
+                        "storageClassName": "hostpath"
+                    },
+                    "image": "vesoft/nebula-metad",
+                    "logVolumeClaim": {
+                        "resources": {
+                            "requests": {
+                                "storage": "2Gi"
+                            }
+                        },
+                        "storageClassName": "hostpath"
+                    },
+                    "replicas": 1,
+                    "resources": {
+                        "limits": {
+                            "cpu": "1",
+                            "memory": "1Gi"
+                        },
+                        "requests": {
+                            "cpu": "1m",
+                            "memory": "20Mi"
+                        }
+                    },
+                    "version": "v3.1.0"
+                },
+                "reference": {
+                    "name": "statefulsets.apps",
+                    "version": "v1"
+                },
+                "schedulerName": "default-scheduler",
+                "storaged": {
+                    "dataVolumeClaim": {
+                        "resources": {
+                            "requests": {
+                                "storage": "2Gi"
+                            }
+                        },
+                        "storageClassName": "hostpath"
+                    },
+                    "image": "vesoft/nebula-storaged",
+                    "logVolumeClaim": {
+                        "resources": {
+                            "requests": {
+                                "storage": "2Gi"
+                            }
+                        },
+                        "storageClassName": "hostpath"
+                    },
+                    "replicas": 4,
+                    "resources": {
+                        "limits": {
+                            "cpu": "1",
+                            "memory": "1Gi"
+                        },
+                        "requests": {
+                            "cpu": "1m",
+                            "memory": "20Mi"
+                        }
+                    },
+                    "version": "v3.1.0"
+                },
+                "unsatisfiableAction": "ScheduleAnyway"
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastTransitionTime": "2023-04-10T03:54:01Z",
+                        "lastUpdateTime": "2023-04-10T03:54:01Z",
+                        "message": "Nebula cluster is running",
+                        "reason": "Ready",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "graphd": {
+                    "phase": "Running",
+                    "version": "v3.1.0",
+                    "workload": {
+                        "collisionCount": 0,
+                        "currentRevision": "nebula-graphd-85cd966c8",
+                        "observedGeneration": 2,
+                        "readyReplicas": 2,
+                        "replicas": 2,
+                        "updateRevision": "nebula-graphd-85cd966c8",
+                        "updatedReplicas": 2
+                    }
+                },
+                "metad": {
+                    "phase": "Running",
+                    "version": "v3.1.0",
+                    "workload": {
+                        "collisionCount": 0,
+                        "currentRevision": "nebula-metad-fb546b55",
+                        "observedGeneration": 1,
+                        "readyReplicas": 1,
+                        "replicas": 1,
+                        "updateRevision": "nebula-metad-fb546b55",
+                        "updatedReplicas": 1
+                    }
+                },
+                "storaged": {
+                    "hostsAdded": true,
+                    "phase": "Running",
+                    "version": "v3.1.0",
+                    "workload": {
+                        "collisionCount": 0,
+                        "currentRevision": "nebula-storaged-7ff48f65fd",
+                        "observedGeneration": 2,
+                        "readyReplicas": 4,
+                        "replicas": 4,
+                        "updateRevision": "nebula-storaged-7ff48f65fd",
+                        "updatedReplicas": 4
+                    }
+                },
+                "version": "3.1.0"
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

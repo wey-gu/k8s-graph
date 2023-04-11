@@ -8,6 +8,346 @@
                 "annotations": {
                     "deployment.kubernetes.io/desired-replicas": "1",
                     "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1"
+                },
+                "creationTimestamp": "2022-11-14T09:43:09Z",
+                "generation": 1,
+                "labels": {
+                    "app": "cert-manager",
+                    "app.kubernetes.io/component": "controller",
+                    "app.kubernetes.io/instance": "cert-manager",
+                    "app.kubernetes.io/name": "cert-manager",
+                    "pod-template-hash": "76f6c4cd4c"
+                },
+                "name": "cert-manager-76f6c4cd4c",
+                "namespace": "cert-manager",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "cert-manager",
+                        "uid": "45ed0692-585d-4002-a857-178e474a811f"
+                    }
+                ],
+                "resourceVersion": "20956431",
+                "uid": "4d836607-9518-42d4-8152-a456a7264717"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app.kubernetes.io/component": "controller",
+                        "app.kubernetes.io/instance": "cert-manager",
+                        "app.kubernetes.io/name": "cert-manager",
+                        "pod-template-hash": "76f6c4cd4c"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "annotations": {
+                            "prometheus.io/path": "/metrics",
+                            "prometheus.io/port": "9402",
+                            "prometheus.io/scrape": "true"
+                        },
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "cert-manager",
+                            "app.kubernetes.io/component": "controller",
+                            "app.kubernetes.io/instance": "cert-manager",
+                            "app.kubernetes.io/name": "cert-manager",
+                            "pod-template-hash": "76f6c4cd4c"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "args": [
+                                    "--v=2",
+                                    "--cluster-resource-namespace=$(POD_NAMESPACE)",
+                                    "--leader-election-namespace=kube-system"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "POD_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "image": "quay.io/jetstack/cert-manager-controller:v1.3.1",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "cert-manager",
+                                "ports": [
+                                    {
+                                        "containerPort": 9402,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "serviceAccount": "cert-manager",
+                        "serviceAccountName": "cert-manager",
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 1,
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "readyReplicas": 1,
+                "replicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1"
+                },
+                "creationTimestamp": "2022-11-14T09:43:09Z",
+                "generation": 1,
+                "labels": {
+                    "app": "cainjector",
+                    "app.kubernetes.io/component": "cainjector",
+                    "app.kubernetes.io/instance": "cert-manager",
+                    "app.kubernetes.io/name": "cainjector",
+                    "pod-template-hash": "785f4d76b8"
+                },
+                "name": "cert-manager-cainjector-785f4d76b8",
+                "namespace": "cert-manager",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "cert-manager-cainjector",
+                        "uid": "13edff87-1a1d-4578-9f6e-6bf0a69e9286"
+                    }
+                ],
+                "resourceVersion": "20956498",
+                "uid": "fa9547f5-3954-4736-b0c5-b5259e0b8f36"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app.kubernetes.io/component": "cainjector",
+                        "app.kubernetes.io/instance": "cert-manager",
+                        "app.kubernetes.io/name": "cainjector",
+                        "pod-template-hash": "785f4d76b8"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "cainjector",
+                            "app.kubernetes.io/component": "cainjector",
+                            "app.kubernetes.io/instance": "cert-manager",
+                            "app.kubernetes.io/name": "cainjector",
+                            "pod-template-hash": "785f4d76b8"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "args": [
+                                    "--v=2",
+                                    "--leader-election-namespace=kube-system"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "POD_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "image": "quay.io/jetstack/cert-manager-cainjector:v1.3.1",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "cert-manager",
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "serviceAccount": "cert-manager-cainjector",
+                        "serviceAccountName": "cert-manager-cainjector",
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 1,
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "readyReplicas": 1,
+                "replicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1"
+                },
+                "creationTimestamp": "2022-11-14T09:43:10Z",
+                "generation": 1,
+                "labels": {
+                    "app": "webhook",
+                    "app.kubernetes.io/component": "webhook",
+                    "app.kubernetes.io/instance": "cert-manager",
+                    "app.kubernetes.io/name": "webhook",
+                    "pod-template-hash": "7485454cd7"
+                },
+                "name": "cert-manager-webhook-7485454cd7",
+                "namespace": "cert-manager",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "cert-manager-webhook",
+                        "uid": "5d4ec7e8-b3cc-4510-9471-adc1d668b626"
+                    }
+                ],
+                "resourceVersion": "20956493",
+                "uid": "a1e13ca4-f3ef-4fc9-99fb-e303afd592f2"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app.kubernetes.io/component": "webhook",
+                        "app.kubernetes.io/instance": "cert-manager",
+                        "app.kubernetes.io/name": "webhook",
+                        "pod-template-hash": "7485454cd7"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "webhook",
+                            "app.kubernetes.io/component": "webhook",
+                            "app.kubernetes.io/instance": "cert-manager",
+                            "app.kubernetes.io/name": "webhook",
+                            "pod-template-hash": "7485454cd7"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "args": [
+                                    "--v=2",
+                                    "--secure-port=10250",
+                                    "--dynamic-serving-ca-secret-namespace=$(POD_NAMESPACE)",
+                                    "--dynamic-serving-ca-secret-name=cert-manager-webhook-ca",
+                                    "--dynamic-serving-dns-names=cert-manager-webhook,cert-manager-webhook.cert-manager,cert-manager-webhook.cert-manager.svc"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "POD_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "image": "quay.io/jetstack/cert-manager-webhook:v1.3.1",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/livez",
+                                        "port": 6080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 60,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "name": "cert-manager",
+                                "ports": [
+                                    {
+                                        "containerPort": 10250,
+                                        "name": "https",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/healthz",
+                                        "port": 6080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 5,
+                                    "periodSeconds": 5,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "serviceAccount": "cert-manager-webhook",
+                        "serviceAccountName": "cert-manager-webhook",
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 1,
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "readyReplicas": 1,
+                "replicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
                     "deployment.kubernetes.io/revision": "1",
                     "meta.helm.sh/release-name": "apisix",
                     "meta.helm.sh/release-namespace": "default"
@@ -449,6 +789,523 @@
                 "fullyLabeledReplicas": 1,
                 "observedGeneration": 1,
                 "replicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1"
+                },
+                "creationTimestamp": "2022-11-14T08:15:53Z",
+                "generation": 1,
+                "labels": {
+                    "k8s-app": "kube-dns",
+                    "pod-template-hash": "565d847f94"
+                },
+                "name": "coredns-565d847f94",
+                "namespace": "kube-system",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "coredns",
+                        "uid": "c01a6ab7-f6bd-4b39-862d-108c3e7adc8e"
+                    }
+                ],
+                "resourceVersion": "20956453",
+                "uid": "691cde40-1832-4fc0-b5c9-4816cab2c177"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "k8s-app": "kube-dns",
+                        "pod-template-hash": "565d847f94"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "k8s-app": "kube-dns",
+                            "pod-template-hash": "565d847f94"
+                        }
+                    },
+                    "spec": {
+                        "affinity": {
+                            "podAntiAffinity": {
+                                "preferredDuringSchedulingIgnoredDuringExecution": [
+                                    {
+                                        "podAffinityTerm": {
+                                            "labelSelector": {
+                                                "matchExpressions": [
+                                                    {
+                                                        "key": "k8s-app",
+                                                        "operator": "In",
+                                                        "values": [
+                                                            "kube-dns"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            "topologyKey": "kubernetes.io/hostname"
+                                        },
+                                        "weight": 100
+                                    }
+                                ]
+                            }
+                        },
+                        "containers": [
+                            {
+                                "args": [
+                                    "-conf",
+                                    "/etc/coredns/Corefile"
+                                ],
+                                "image": "registry.k8s.io/coredns/coredns:v1.9.3",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "failureThreshold": 5,
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 60,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 5
+                                },
+                                "name": "coredns",
+                                "ports": [
+                                    {
+                                        "containerPort": 53,
+                                        "name": "dns",
+                                        "protocol": "UDP"
+                                    },
+                                    {
+                                        "containerPort": 53,
+                                        "name": "dns-tcp",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 9153,
+                                        "name": "metrics",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/ready",
+                                        "port": 8181,
+                                        "scheme": "HTTP"
+                                    },
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "170Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "100m",
+                                        "memory": "70Mi"
+                                    }
+                                },
+                                "securityContext": {
+                                    "allowPrivilegeEscalation": false,
+                                    "capabilities": {
+                                        "add": [
+                                            "NET_BIND_SERVICE"
+                                        ],
+                                        "drop": [
+                                            "all"
+                                        ]
+                                    },
+                                    "readOnlyRootFilesystem": true
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/etc/coredns",
+                                        "name": "config-volume",
+                                        "readOnly": true
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "Default",
+                        "nodeSelector": {
+                            "kubernetes.io/os": "linux"
+                        },
+                        "priorityClassName": "system-cluster-critical",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "serviceAccount": "coredns",
+                        "serviceAccountName": "coredns",
+                        "terminationGracePeriodSeconds": 30,
+                        "tolerations": [
+                            {
+                                "key": "CriticalAddonsOnly",
+                                "operator": "Exists"
+                            },
+                            {
+                                "effect": "NoSchedule",
+                                "key": "node-role.kubernetes.io/master"
+                            },
+                            {
+                                "effect": "NoSchedule",
+                                "key": "node-role.kubernetes.io/control-plane"
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "items": [
+                                        {
+                                            "key": "Corefile",
+                                            "path": "Corefile"
+                                        }
+                                    ],
+                                    "name": "coredns"
+                                },
+                                "name": "config-volume"
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 1,
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "readyReplicas": 1,
+                "replicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "1",
+                    "deployment.kubernetes.io/revision": "1",
+                    "meta.helm.sh/release-name": "hostpath-provisioner",
+                    "meta.helm.sh/release-namespace": "kube-system"
+                },
+                "creationTimestamp": "2022-11-14T08:19:42Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/instance": "hostpath-provisioner",
+                    "app.kubernetes.io/name": "hostpath-provisioner",
+                    "pod-template-hash": "5978dc8846"
+                },
+                "name": "hostpath-provisioner-5978dc8846",
+                "namespace": "kube-system",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "hostpath-provisioner",
+                        "uid": "d62469ca-b442-4053-a727-f9fd0f118554"
+                    }
+                ],
+                "resourceVersion": "20956479",
+                "uid": "365c48b6-69bd-424e-950d-489cc586032a"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app.kubernetes.io/instance": "hostpath-provisioner",
+                        "app.kubernetes.io/name": "hostpath-provisioner",
+                        "pod-template-hash": "5978dc8846"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/instance": "hostpath-provisioner",
+                            "app.kubernetes.io/name": "hostpath-provisioner",
+                            "pod-template-hash": "5978dc8846"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "name": "NODE_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "spec.nodeName"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "NODE_HOST_PATH",
+                                        "value": "/mnt/hostpath"
+                                    },
+                                    {
+                                        "name": "HOSTPATH_PROVISIONER_NAME",
+                                        "value": "hostpath"
+                                    }
+                                ],
+                                "image": "quay.io/rimusz/hostpath-provisioner:v0.2.5",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "hostpath-provisioner",
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "100m",
+                                        "memory": "128Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "100m",
+                                        "memory": "128Mi"
+                                    }
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/mnt/hostpath",
+                                        "name": "pv-volume"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "serviceAccount": "hostpath-provisioner",
+                        "serviceAccountName": "hostpath-provisioner",
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "hostPath": {
+                                    "path": "/mnt/hostpath",
+                                    "type": ""
+                                },
+                                "name": "pv-volume"
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 1,
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "readyReplicas": 1,
+                "replicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "2",
+                    "deployment.kubernetes.io/max-replicas": "3",
+                    "deployment.kubernetes.io/revision": "1",
+                    "meta.helm.sh/release-name": "nebula-operator",
+                    "meta.helm.sh/release-namespace": "nebula-operator-system"
+                },
+                "creationTimestamp": "2022-11-14T09:43:40Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/component": "controller-manager",
+                    "app.kubernetes.io/instance": "nebula-operator",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "nebula-operator",
+                    "app.kubernetes.io/version": "1.0.0",
+                    "helm.sh/chart": "nebula-operator-1.2.0",
+                    "pod-template-hash": "86749f78c8"
+                },
+                "name": "nebula-operator-controller-manager-deployment-86749f78c8",
+                "namespace": "nebula-operator-system",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "nebula-operator-controller-manager-deployment",
+                        "uid": "f27a5fda-ec58-437b-bc8d-6a45fea976d6"
+                    }
+                ],
+                "resourceVersion": "20956683",
+                "uid": "a5348c19-bfa6-4d1d-bd39-434af33c5154"
+            },
+            "spec": {
+                "replicas": 2,
+                "selector": {
+                    "matchLabels": {
+                        "app.kubernetes.io/component": "controller-manager",
+                        "app.kubernetes.io/instance": "nebula-operator",
+                        "app.kubernetes.io/name": "nebula-operator",
+                        "pod-template-hash": "86749f78c8"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/component": "controller-manager",
+                            "app.kubernetes.io/instance": "nebula-operator",
+                            "app.kubernetes.io/managed-by": "Helm",
+                            "app.kubernetes.io/name": "nebula-operator",
+                            "app.kubernetes.io/version": "1.0.0",
+                            "helm.sh/chart": "nebula-operator-1.2.0",
+                            "pod-template-hash": "86749f78c8"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "args": [
+                                    "--health-probe-bind-address=:8081",
+                                    "--metrics-bind-address=:8080",
+                                    "--enable-kruise=false",
+                                    "--max-concurrent-reconciles=3",
+                                    "--enable-leader-election",
+                                    "--leader-election-namespace=nebula-operator-system",
+                                    "--admission-webhook=true"
+                                ],
+                                "command": [
+                                    "/usr/local/bin/controller-manager"
+                                ],
+                                "image": "vesoft/nebula-operator:v1.2.0",
+                                "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/healthz",
+                                        "port": 8081,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 15,
+                                    "periodSeconds": 20,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "name": "controller-manager",
+                                "ports": [
+                                    {
+                                        "containerPort": 9443,
+                                        "name": "webhook-server",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/readyz",
+                                        "port": 8081,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 5,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "200m",
+                                        "memory": "200Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "1m",
+                                        "memory": "100Mi"
+                                    }
+                                },
+                                "securityContext": {
+                                    "allowPrivilegeEscalation": false
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/tmp/k8s-webhook-server/serving-certs",
+                                        "name": "cert",
+                                        "readOnly": true
+                                    }
+                                ]
+                            },
+                            {
+                                "args": [
+                                    "--secure-listen-address=0.0.0.0:8443",
+                                    "--upstream=http://127.0.0.1:8080/",
+                                    "--logtostderr=true",
+                                    "--v=2"
+                                ],
+                                "image": "gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0",
+                                "imagePullPolicy": "Always",
+                                "name": "kube-rbac-proxy",
+                                "ports": [
+                                    {
+                                        "containerPort": 8443,
+                                        "name": "https",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "100m",
+                                        "memory": "30Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "100m",
+                                        "memory": "20Mi"
+                                    }
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {
+                            "runAsNonRoot": true
+                        },
+                        "serviceAccount": "nebula-operator-controller-manager-sa",
+                        "serviceAccountName": "nebula-operator-controller-manager-sa",
+                        "terminationGracePeriodSeconds": 10,
+                        "volumes": [
+                            {
+                                "name": "cert",
+                                "secret": {
+                                    "defaultMode": 420,
+                                    "secretName": "nebula-operator-webhook-secret"
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 2,
+                "fullyLabeledReplicas": 2,
+                "observedGeneration": 1,
+                "readyReplicas": 2,
+                "replicas": 2
             }
         }
     ],

@@ -1,0 +1,169 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "cert-manager.io/v1",
+            "kind": "CertificateRequest",
+            "metadata": {
+                "annotations": {
+                    "cert-manager.io/certificate-name": "nebula-operator-webhook-cert",
+                    "cert-manager.io/certificate-revision": "2",
+                    "cert-manager.io/private-key-secret-name": "nebula-operator-webhook-cert-vcgzq",
+                    "meta.helm.sh/release-name": "nebula-operator",
+                    "meta.helm.sh/release-namespace": "nebula-operator-system"
+                },
+                "creationTimestamp": "2023-03-06T04:05:11Z",
+                "generateName": "nebula-operator-webhook-cert-",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/component": "admission-webhook",
+                    "app.kubernetes.io/instance": "nebula-operator",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "nebula-operator",
+                    "app.kubernetes.io/version": "1.0.0",
+                    "helm.sh/chart": "nebula-operator-1.2.0"
+                },
+                "name": "nebula-operator-webhook-cert-jzzlm",
+                "namespace": "nebula-operator-system",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "cert-manager.io/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Certificate",
+                        "name": "nebula-operator-webhook-cert",
+                        "uid": "2d3d97f3-8d90-43b7-aaf5-de869bb622cf"
+                    }
+                ],
+                "resourceVersion": "13126840",
+                "uid": "1cd78e67-34f2-4c16-8fc5-e4300ec71e04"
+            },
+            "spec": {
+                "extra": {
+                    "authentication.kubernetes.io/pod-name": [
+                        "cert-manager-76f6c4cd4c-tnqrf"
+                    ],
+                    "authentication.kubernetes.io/pod-uid": [
+                        "37b80244-b071-4f15-8aed-5866eaa36949"
+                    ]
+                },
+                "groups": [
+                    "system:serviceaccounts",
+                    "system:serviceaccounts:cert-manager",
+                    "system:authenticated"
+                ],
+                "issuerRef": {
+                    "kind": "Issuer",
+                    "name": "nebula-operator-webhook-issuer"
+                },
+                "request": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQyt6Q0NBZU1DQVFBd0FEQ0NBU0l3RFFZSktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQUx5OAoxN2VKaFUzc0N6dVRaalJtUURYMFZGZFVCOWd1SFlrajZ2dHRBaXYrU0ZEU0hIUVRNcitvMFRXWGlaeG10K25xCkxKcXhMei9xYnBxdnpwc25nZHlBM3VsNHVRSlI1TUNaTXQvNWhvWnlwQldPMXpMOFNoeWh4N01XbUs1eHVjcEwKWmxSdGJkUDhZYnBGTVdwS0FyTDQ0MVBFb3ZPUkl2MEZXQ0FFN3VxcGt6NDNmM1JtcDBwY0szdXRxNFZMZnA3bApsQTAvRjA0RGRiRXpvblB2NG4wSytibjRsbkNWSkxSTXJEMjgwWlVTdCs5VTdhd1NlTEZ6SlN0bkdqVlJzVjcvCndzcVNVbGZDTVZJbVgrT0QwcFNlZWF5emVwMUswbDF2ZmY3Zm9sM2diY2tRMW81YWcyVHYydko2TS9HU2Z3N20KWTNYN25TM3VDTmVPc1ZWcXNOY0NBd0VBQWFDQnRUQ0JzZ1lKS29aSWh2Y05BUWtPTVlHa01JR2hNSUdSQmdOVgpIUkVFZ1lrd2dZYUNPbTVsWW5Wc1lTMXZjR1Z5WVhSdmNpMTNaV0pvYjI5ckxYTmxjblpwWTJVdWJtVmlkV3hoCkxXOXdaWEpoZEc5eUxYTjVjM1JsYlM1emRtT0NTRzVsWW5Wc1lTMXZjR1Z5WVhSdmNpMTNaV0pvYjI5ckxYTmwKY25acFkyVXVibVZpZFd4aExXOXdaWEpoZEc5eUxYTjVjM1JsYlM1emRtTXVZMngxYzNSbGNpNXNiMk5oYkRBTApCZ05WSFE4RUJBTUNCYUF3RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUQ2U3JnQ3NraVhFV0xiSkJJWE5BcnRoCk5nM1B0MGpPZzVNQ0hFSVk1OHZVUkpRZ0FtT3ZEOXpjRXFGYW45T1gzWWJjS2NmQWhmMVhDNnNiREd4MzZCK1AKZzR6MkoxVS8xOFFYNUlrUlhLa3ExVkErK0J2c0JjaUF3alJ3U01EOGJKeFEwN3RuKy9xak9UZUNLRXlGczZwWApiRy9GVmRPVjZJcXFrSVZqUCtTMWgyeisxWmhIb1JwN2NBRml5THhGOFpzcXdpWmtYbitRSXl0ZmlrTW80WUxNCkdUN1ZUYkhhOEFoUVhNODhRV3R5TXA0Q2xMWTNqbFlyL3FiS0p1RVAvZE93V2xTVDErZE5aZ3ZmVVFzbWw3VHkKTC9QbWFVOGVTcnZjbXMrdUpaa2RkRzNGQzAyalpYZ0srRDZXZjdDUytRMnU3L1hHcmF5WVlBU3RyQXkzWTZrPQotLS0tLUVORCBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0K",
+                "uid": "b08992b8-71a6-498f-9b9a-90e8f164d75f",
+                "username": "system:serviceaccount:cert-manager:cert-manager"
+            },
+            "status": {
+                "ca": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURSRENDQWl5Z0F3SUJBZ0lSQUxhZUZDUmEvWFBYTUZVU1JUU3N0S2N3RFFZSktvWklodmNOQVFFTEJRQXcKQURBZUZ3MHlNekF6TURZd05EQTFNVEZhRncweU16QTJNRFF3TkRBMU1URmFNQUF3Z2dFaU1BMEdDU3FHU0liMwpEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUUM4dk5lM2lZVk43QXM3azJZMFprQTE5RlJYVkFmWUxoMkpJK3I3CmJRSXIva2hRMGh4MEV6Sy9xTkUxbDRtY1pyZnA2aXlhc1M4LzZtNmFyODZiSjRIY2dON3BlTGtDVWVUQW1UTGYKK1lhR2NxUVZqdGN5L0VvY29jZXpGcGl1Y2JuS1MyWlViVzNUL0dHNlJURnFTZ0t5K09OVHhLTHprU0w5QlZnZwpCTzdxcVpNK04zOTBacWRLWEN0N3JhdUZTMzZlNVpRTlB4ZE9BM1d4TTZKejcrSjlDdm01K0pad2xTUzBUS3c5CnZOR1ZFcmZ2Vk8yc0VuaXhjeVVyWnhvMVViRmUvOExLa2xKWHdqRlNKbC9qZzlLVW5ubXNzM3FkU3RKZGIzMysKMzZKZDRHM0pFTmFPV29Oazc5cnllalB4a244TzVtTjErNTB0N2dqWGpyRlZhckRYQWdNQkFBR2pnYmd3Z2JVdwpEZ1lEVlIwUEFRSC9CQVFEQWdXZ01Bd0dBMVVkRXdFQi93UUNNQUF3Z1pRR0ExVWRFUUVCL3dTQmlUQ0Job0k2CmJtVmlkV3hoTFc5d1pYSmhkRzl5TFhkbFltaHZiMnN0YzJWeWRtbGpaUzV1WldKMWJHRXRiM0JsY21GMGIzSXQKYzNsemRHVnRMbk4yWTRKSWJtVmlkV3hoTFc5d1pYSmhkRzl5TFhkbFltaHZiMnN0YzJWeWRtbGpaUzV1WldKMQpiR0V0YjNCbGNtRjBiM0l0YzNsemRHVnRMbk4yWXk1amJIVnpkR1Z5TG14dlkyRnNNQTBHQ1NxR1NJYjNEUUVCCkN3VUFBNElCQVFBUXdkTGNZZ3Qxc1VobDJYS2FVZ3JGcUpRQXFSQ2svYzZCRkhaVEpMMUloSE0wN0NnUzBlQXAKUWg2d3FManFqYjhydEFVYkp0WFdxWXpuMlAyNDZ6dCtYZDB2OS9YUGJrMFcvdjFkSGtXN0tVai9wRkVKUHJYVwpMVTZNdnJrUiszQUpCRjhXUkEycWE1cUhMZXIxWWsxZm96UXMrVjZaWkF0VlZaMHZsdlJTR3NtS2ZMMHhucU14Cmx3YjhTZ3JLSXJVcXlxZ3BSYnA4U25BaWNRYXljbyszUmJIVHE5YlJ5Z2dhR1BWOTE4Uzc0aXJ5NmhhUnNGdlIKbTJLLzhxYVBOVk5RQVNiYUNlZlJlc3dCcnhLaE1tcFdpQTIrYSt1cSsvQlg0dTM1V25Oc3VNQVZQT1N2cFBTagpWQkR5YUZRNUFXa3RhYUVCb0gxSndDZzBxODlOb29DYgotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==",
+                "certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURSRENDQWl5Z0F3SUJBZ0lSQUxhZUZDUmEvWFBYTUZVU1JUU3N0S2N3RFFZSktvWklodmNOQVFFTEJRQXcKQURBZUZ3MHlNekF6TURZd05EQTFNVEZhRncweU16QTJNRFF3TkRBMU1URmFNQUF3Z2dFaU1BMEdDU3FHU0liMwpEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUUM4dk5lM2lZVk43QXM3azJZMFprQTE5RlJYVkFmWUxoMkpJK3I3CmJRSXIva2hRMGh4MEV6Sy9xTkUxbDRtY1pyZnA2aXlhc1M4LzZtNmFyODZiSjRIY2dON3BlTGtDVWVUQW1UTGYKK1lhR2NxUVZqdGN5L0VvY29jZXpGcGl1Y2JuS1MyWlViVzNUL0dHNlJURnFTZ0t5K09OVHhLTHprU0w5QlZnZwpCTzdxcVpNK04zOTBacWRLWEN0N3JhdUZTMzZlNVpRTlB4ZE9BM1d4TTZKejcrSjlDdm01K0pad2xTUzBUS3c5CnZOR1ZFcmZ2Vk8yc0VuaXhjeVVyWnhvMVViRmUvOExLa2xKWHdqRlNKbC9qZzlLVW5ubXNzM3FkU3RKZGIzMysKMzZKZDRHM0pFTmFPV29Oazc5cnllalB4a244TzVtTjErNTB0N2dqWGpyRlZhckRYQWdNQkFBR2pnYmd3Z2JVdwpEZ1lEVlIwUEFRSC9CQVFEQWdXZ01Bd0dBMVVkRXdFQi93UUNNQUF3Z1pRR0ExVWRFUUVCL3dTQmlUQ0Job0k2CmJtVmlkV3hoTFc5d1pYSmhkRzl5TFhkbFltaHZiMnN0YzJWeWRtbGpaUzV1WldKMWJHRXRiM0JsY21GMGIzSXQKYzNsemRHVnRMbk4yWTRKSWJtVmlkV3hoTFc5d1pYSmhkRzl5TFhkbFltaHZiMnN0YzJWeWRtbGpaUzV1WldKMQpiR0V0YjNCbGNtRjBiM0l0YzNsemRHVnRMbk4yWXk1amJIVnpkR1Z5TG14dlkyRnNNQTBHQ1NxR1NJYjNEUUVCCkN3VUFBNElCQVFBUXdkTGNZZ3Qxc1VobDJYS2FVZ3JGcUpRQXFSQ2svYzZCRkhaVEpMMUloSE0wN0NnUzBlQXAKUWg2d3FManFqYjhydEFVYkp0WFdxWXpuMlAyNDZ6dCtYZDB2OS9YUGJrMFcvdjFkSGtXN0tVai9wRkVKUHJYVwpMVTZNdnJrUiszQUpCRjhXUkEycWE1cUhMZXIxWWsxZm96UXMrVjZaWkF0VlZaMHZsdlJTR3NtS2ZMMHhucU14Cmx3YjhTZ3JLSXJVcXlxZ3BSYnA4U25BaWNRYXljbyszUmJIVHE5YlJ5Z2dhR1BWOTE4Uzc0aXJ5NmhhUnNGdlIKbTJLLzhxYVBOVk5RQVNiYUNlZlJlc3dCcnhLaE1tcFdpQTIrYSt1cSsvQlg0dTM1V25Oc3VNQVZQT1N2cFBTagpWQkR5YUZRNUFXa3RhYUVCb0gxSndDZzBxODlOb29DYgotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==",
+                "conditions": [
+                    {
+                        "lastTransitionTime": "2023-03-06T04:05:11Z",
+                        "message": "Certificate request has been approved by cert-manager.io",
+                        "reason": "cert-manager.io",
+                        "status": "True",
+                        "type": "Approved"
+                    },
+                    {
+                        "lastTransitionTime": "2023-03-06T04:05:11Z",
+                        "message": "Certificate fetched from issuer successfully",
+                        "reason": "Issued",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "cert-manager.io/v1",
+            "kind": "CertificateRequest",
+            "metadata": {
+                "annotations": {
+                    "cert-manager.io/certificate-name": "nebula-operator-webhook-cert",
+                    "cert-manager.io/certificate-revision": "1",
+                    "cert-manager.io/private-key-secret-name": "nebula-operator-webhook-cert-bfff6",
+                    "meta.helm.sh/release-name": "nebula-operator",
+                    "meta.helm.sh/release-namespace": "nebula-operator-system"
+                },
+                "creationTimestamp": "2022-11-14T09:44:18Z",
+                "generateName": "nebula-operator-webhook-cert-",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/component": "admission-webhook",
+                    "app.kubernetes.io/instance": "nebula-operator",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "nebula-operator",
+                    "app.kubernetes.io/version": "1.0.0",
+                    "helm.sh/chart": "nebula-operator-1.2.0"
+                },
+                "name": "nebula-operator-webhook-cert-xqsqd",
+                "namespace": "nebula-operator-system",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "cert-manager.io/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Certificate",
+                        "name": "nebula-operator-webhook-cert",
+                        "uid": "2d3d97f3-8d90-43b7-aaf5-de869bb622cf"
+                    }
+                ],
+                "resourceVersion": "15968",
+                "uid": "4863cc6a-01aa-4639-a9fa-667a15f871f3"
+            },
+            "spec": {
+                "extra": {
+                    "authentication.kubernetes.io/pod-name": [
+                        "cert-manager-76f6c4cd4c-tnqrf"
+                    ],
+                    "authentication.kubernetes.io/pod-uid": [
+                        "37b80244-b071-4f15-8aed-5866eaa36949"
+                    ]
+                },
+                "groups": [
+                    "system:serviceaccounts",
+                    "system:serviceaccounts:cert-manager",
+                    "system:authenticated"
+                ],
+                "issuerRef": {
+                    "kind": "Issuer",
+                    "name": "nebula-operator-webhook-issuer"
+                },
+                "request": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQyt6Q0NBZU1DQVFBd0FEQ0NBU0l3RFFZSktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQUx5OAoxN2VKaFUzc0N6dVRaalJtUURYMFZGZFVCOWd1SFlrajZ2dHRBaXYrU0ZEU0hIUVRNcitvMFRXWGlaeG10K25xCkxKcXhMei9xYnBxdnpwc25nZHlBM3VsNHVRSlI1TUNaTXQvNWhvWnlwQldPMXpMOFNoeWh4N01XbUs1eHVjcEwKWmxSdGJkUDhZYnBGTVdwS0FyTDQ0MVBFb3ZPUkl2MEZXQ0FFN3VxcGt6NDNmM1JtcDBwY0szdXRxNFZMZnA3bApsQTAvRjA0RGRiRXpvblB2NG4wSytibjRsbkNWSkxSTXJEMjgwWlVTdCs5VTdhd1NlTEZ6SlN0bkdqVlJzVjcvCndzcVNVbGZDTVZJbVgrT0QwcFNlZWF5emVwMUswbDF2ZmY3Zm9sM2diY2tRMW81YWcyVHYydko2TS9HU2Z3N20KWTNYN25TM3VDTmVPc1ZWcXNOY0NBd0VBQWFDQnRUQ0JzZ1lKS29aSWh2Y05BUWtPTVlHa01JR2hNSUdSQmdOVgpIUkVFZ1lrd2dZYUNPbTVsWW5Wc1lTMXZjR1Z5WVhSdmNpMTNaV0pvYjI5ckxYTmxjblpwWTJVdWJtVmlkV3hoCkxXOXdaWEpoZEc5eUxYTjVjM1JsYlM1emRtT0NTRzVsWW5Wc1lTMXZjR1Z5WVhSdmNpMTNaV0pvYjI5ckxYTmwKY25acFkyVXVibVZpZFd4aExXOXdaWEpoZEc5eUxYTjVjM1JsYlM1emRtTXVZMngxYzNSbGNpNXNiMk5oYkRBTApCZ05WSFE4RUJBTUNCYUF3RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUQ2U3JnQ3NraVhFV0xiSkJJWE5BcnRoCk5nM1B0MGpPZzVNQ0hFSVk1OHZVUkpRZ0FtT3ZEOXpjRXFGYW45T1gzWWJjS2NmQWhmMVhDNnNiREd4MzZCK1AKZzR6MkoxVS8xOFFYNUlrUlhLa3ExVkErK0J2c0JjaUF3alJ3U01EOGJKeFEwN3RuKy9xak9UZUNLRXlGczZwWApiRy9GVmRPVjZJcXFrSVZqUCtTMWgyeisxWmhIb1JwN2NBRml5THhGOFpzcXdpWmtYbitRSXl0ZmlrTW80WUxNCkdUN1ZUYkhhOEFoUVhNODhRV3R5TXA0Q2xMWTNqbFlyL3FiS0p1RVAvZE93V2xTVDErZE5aZ3ZmVVFzbWw3VHkKTC9QbWFVOGVTcnZjbXMrdUpaa2RkRzNGQzAyalpYZ0srRDZXZjdDUytRMnU3L1hHcmF5WVlBU3RyQXkzWTZrPQotLS0tLUVORCBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0K",
+                "uid": "b08992b8-71a6-498f-9b9a-90e8f164d75f",
+                "username": "system:serviceaccount:cert-manager:cert-manager"
+            },
+            "status": {
+                "ca": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURRekNDQWl1Z0F3SUJBZ0lRRk1UcGJUa1VleFdac3Fpd1AvR2ZkekFOQmdrcWhraUc5dzBCQVFzRkFEQUEKTUI0WERUSXlNVEV4TkRBNU5EUXhPRm9YRFRJek1ESXhNakE1TkRReE9Gb3dBRENDQVNJd0RRWUpLb1pJaHZjTgpBUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTHk4MTdlSmhVM3NDenVUWmpSbVFEWDBWRmRVQjlndUhZa2o2dnR0CkFpditTRkRTSEhRVE1yK28wVFdYaVp4bXQrbnFMSnF4THovcWJwcXZ6cHNuZ2R5QTN1bDR1UUpSNU1DWk10LzUKaG9aeXBCV08xekw4U2h5aHg3TVdtSzV4dWNwTFpsUnRiZFA4WWJwRk1XcEtBckw0NDFQRW92T1JJdjBGV0NBRQo3dXFwa3o0M2YzUm1wMHBjSzN1dHE0VkxmcDdsbEEwL0YwNERkYkV6b25QdjRuMEsrYm40bG5DVkpMUk1yRDI4CjBaVVN0KzlVN2F3U2VMRnpKU3RuR2pWUnNWNy93c3FTVWxmQ01WSW1YK09EMHBTZWVheXplcDFLMGwxdmZmN2YKb2wzZ2Jja1ExbzVhZzJUdjJ2SjZNL0dTZnc3bVkzWDduUzN1Q05lT3NWVnFzTmNDQXdFQUFhT0J1RENCdFRBTwpCZ05WSFE4QkFmOEVCQU1DQmFBd0RBWURWUjBUQVFIL0JBSXdBRENCbEFZRFZSMFJBUUgvQklHSk1JR0dnanB1ClpXSjFiR0V0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTF6WlhKMmFXTmxMbTVsWW5Wc1lTMXZjR1Z5WVhSdmNpMXoKZVhOMFpXMHVjM1pqZ2todVpXSjFiR0V0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTF6WlhKMmFXTmxMbTVsWW5WcwpZUzF2Y0dWeVlYUnZjaTF6ZVhOMFpXMHVjM1pqTG1Oc2RYTjBaWEl1Ykc5allXd3dEUVlKS29aSWh2Y05BUUVMCkJRQURnZ0VCQUFNelgzTFhVcjFXWHVHcFhvMDNhb2ovL0MzTDZpWE1jVTNiMlQxTmRFUlNZSm0vK0ZUUU9sZlUKUDZ1eSt4RkszS2lxK3pyNFdMZ3pEQ28rNysvL2Vab05FdDNrTno1OFhYNVh3TC85Rmh5TFUwMEVPUzVzTWJRVApVUXBUY3VHVHVITTVFeEJtRGZRZmdQMWw2eUJXSUF5WWlFLy9UdFBPd1dOb1AzQkRpN21HUU9TSHZBeG1HSHJjCnhHN1k4WWYzWmk5UFQxM3A2UzVQN1RCaUJZZW9ST0x5WkdyWnNLLzZSTm9vK3Q0UjNYSEtZbWFWMS9iSTYvNFQKWG1VU29vTHhqVmRJaW5XRG1sTkdzMFlETWdzaXpWblY0Q2E0TTBrZmYydHFMM0tLVE1yd3ZPUllHTmxCRFZBOQo3VnJ1eHF2dmp0TW94YjlxZzBaTE83czVDWHh4TDNNPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==",
+                "certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURRekNDQWl1Z0F3SUJBZ0lRRk1UcGJUa1VleFdac3Fpd1AvR2ZkekFOQmdrcWhraUc5dzBCQVFzRkFEQUEKTUI0WERUSXlNVEV4TkRBNU5EUXhPRm9YRFRJek1ESXhNakE1TkRReE9Gb3dBRENDQVNJd0RRWUpLb1pJaHZjTgpBUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTHk4MTdlSmhVM3NDenVUWmpSbVFEWDBWRmRVQjlndUhZa2o2dnR0CkFpditTRkRTSEhRVE1yK28wVFdYaVp4bXQrbnFMSnF4THovcWJwcXZ6cHNuZ2R5QTN1bDR1UUpSNU1DWk10LzUKaG9aeXBCV08xekw4U2h5aHg3TVdtSzV4dWNwTFpsUnRiZFA4WWJwRk1XcEtBckw0NDFQRW92T1JJdjBGV0NBRQo3dXFwa3o0M2YzUm1wMHBjSzN1dHE0VkxmcDdsbEEwL0YwNERkYkV6b25QdjRuMEsrYm40bG5DVkpMUk1yRDI4CjBaVVN0KzlVN2F3U2VMRnpKU3RuR2pWUnNWNy93c3FTVWxmQ01WSW1YK09EMHBTZWVheXplcDFLMGwxdmZmN2YKb2wzZ2Jja1ExbzVhZzJUdjJ2SjZNL0dTZnc3bVkzWDduUzN1Q05lT3NWVnFzTmNDQXdFQUFhT0J1RENCdFRBTwpCZ05WSFE4QkFmOEVCQU1DQmFBd0RBWURWUjBUQVFIL0JBSXdBRENCbEFZRFZSMFJBUUgvQklHSk1JR0dnanB1ClpXSjFiR0V0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTF6WlhKMmFXTmxMbTVsWW5Wc1lTMXZjR1Z5WVhSdmNpMXoKZVhOMFpXMHVjM1pqZ2todVpXSjFiR0V0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTF6WlhKMmFXTmxMbTVsWW5WcwpZUzF2Y0dWeVlYUnZjaTF6ZVhOMFpXMHVjM1pqTG1Oc2RYTjBaWEl1Ykc5allXd3dEUVlKS29aSWh2Y05BUUVMCkJRQURnZ0VCQUFNelgzTFhVcjFXWHVHcFhvMDNhb2ovL0MzTDZpWE1jVTNiMlQxTmRFUlNZSm0vK0ZUUU9sZlUKUDZ1eSt4RkszS2lxK3pyNFdMZ3pEQ28rNysvL2Vab05FdDNrTno1OFhYNVh3TC85Rmh5TFUwMEVPUzVzTWJRVApVUXBUY3VHVHVITTVFeEJtRGZRZmdQMWw2eUJXSUF5WWlFLy9UdFBPd1dOb1AzQkRpN21HUU9TSHZBeG1HSHJjCnhHN1k4WWYzWmk5UFQxM3A2UzVQN1RCaUJZZW9ST0x5WkdyWnNLLzZSTm9vK3Q0UjNYSEtZbWFWMS9iSTYvNFQKWG1VU29vTHhqVmRJaW5XRG1sTkdzMFlETWdzaXpWblY0Q2E0TTBrZmYydHFMM0tLVE1yd3ZPUllHTmxCRFZBOQo3VnJ1eHF2dmp0TW94YjlxZzBaTE83czVDWHh4TDNNPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==",
+                "conditions": [
+                    {
+                        "lastTransitionTime": "2022-11-14T09:44:18Z",
+                        "message": "Certificate request has been approved by cert-manager.io",
+                        "reason": "cert-manager.io",
+                        "status": "True",
+                        "type": "Approved"
+                    },
+                    {
+                        "lastTransitionTime": "2022-11-14T09:44:18Z",
+                        "message": "Certificate fetched from issuer successfully",
+                        "reason": "Issued",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ]
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}
