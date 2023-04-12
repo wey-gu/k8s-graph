@@ -63,12 +63,18 @@ minikube ssh -- sudo apt update
 minikube ssh -- sudo apt install linux-headers-5.4.0-146-generic
 minikube ssh
 
-# Install bcc from source following https://github.com/iovisor/bcc/blob/master/INSTALL.md#ubuntu---source
 apt install zip
+
+# Install bcc & bcc python tools from source
+# following https://github.com/iovisor/bcc/blob/master/INSTALL.md#ubuntu---source
+# omit the step of installing bcc-tools
+
 export PATH="/usr/share/bcc/tools/:/usr/share/bcc/tools/old/:$PATH"
 # replace python to python3 for /usr/share/bcc/tools/tcptracer
 grep python3 /usr/share/bcc/tools/tcptracer || sed -i 's/python/python3/g' /usr/share/bcc/tools/tcptracer
-/usr/share/bcc/tools/tcptracer > tcptracer_output.txt
+
+# get tcptracer_output.txt
+tcptracer > tcptracer_output.txt
 exit
 
 # copy tcptracer_output.txt to local
