@@ -2,6 +2,9 @@
 
 This is a follow-up blog of [Graph Enabled Infra Ops](https://siwei.io/graph-enabled-infra-ops/), which was a demo of how to use NebulaGraph to help OpenStack Infra Ops. In this blog, we will explore how to use NebulaGraph to help Kubernetes Infra Ops.
 
+https://user-images.githubusercontent.com/1651790/231469482-08bd1f13-8ef8-4996-ab98-dd07e2151a24.mp4
+
+
 ## Prepare Environment
 
 1. Install miniKube and create a cluster
